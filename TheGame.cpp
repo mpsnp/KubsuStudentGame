@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	//hInst = hInstance;
 
-	CEngine Engine;
+	CEngine Engine("The Game");
 	Engine.MainLoop();
 	Engine.~CEngine();
 

@@ -5,19 +5,10 @@
 
 void GLFWCALL WindowResize( int width, int height );
 
-CEngine::CEngine()
-	:_Width(800), _Height(600), _WindowTitle("KubsuGE")
+CEngine::CEngine(string Title)
+	:_Width(800), _Height(600), _c_WindowTitle(Title.c_str())
 {
-	glfwInit();
-    glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-	if( !glfwOpenWindow( _Width,_Height, 0, 0, 0, 0, 0, 0, GLFW_WINDOW ) )
-    {
-        glfwTerminate();
-    }
-    glfwSetWindowTitle(_WindowTitle);
-	glfwSetWindowSizeCallback( WindowResize );
-	glfwGetWindowSize( &_Width, &_Height);
-    _Height = _Height > 0 ? _Height : 1;
+    _WindowInit();
     glViewport( 0, 0, _Width, _Height );
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
     glMatrixMode( GL_PROJECTION );
@@ -93,8 +84,8 @@ void CEngine::_Collision()
 				TVector3d v2 = _Vehicles[j].GetVelocity();
 				int		  m2 = _Vehicles[j].GetWeight();
 
-				_Vehicles[i].SetVelocity( (v1 * (m1 - m2) + v2 * m2 * 2) * (1/(m1 + m2)) );
-				_Vehicles[j].SetVelocity( (v2 * (m2 - m1) + v1 * m1 * 2) * (1/(m1 + m2)) );
+				_Vehicles[i].SetVelocity((v1 * (m1 - m2) + v2 * m2 * 2) * (1/(m1 + m2)));
+				_Vehicles[j].SetVelocity((v2 * (m2 - m1) + v1 * m1 * 2) * (1/(m1 + m2)));
 			}
 		}
 		/*
@@ -102,4 +93,18 @@ void CEngine::_Collision()
 		** TODO: Make sure you use square instead of square root everywhere where it possible
 		*/
 	}
+}
+
+void CEngine::_WindowInit()
+{
+    glfwInit();
+    glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
+	if( !glfwOpenWindow( _Width,_Height, 0, 0, 0, 0, 0, 0, GLFW_WINDOW ) )
+    {
+        glfwTerminate();
+    }
+    glfwSetWindowTitle(_c_WindowTitle);
+	glfwSetWindowSizeCallback( WindowResize );
+	glfwGetWindowSize( &_Width, &_Height);
+    _Height = _Height > 0 ? _Height : 1;
 }

@@ -18,12 +18,12 @@ private:
 	std::vector<CModel3d> _Models;
 	CModel3d _Map;
 	bool _Running;
-	char* _WindowTitle;
+	const char* _c_WindowTitle;
 
 	float _Frame;// =========== Тестовый костыль ==============
 
 public:
-	CEngine();
+	CEngine(string);
 	~CEngine();
 	void MainLoop();
 private:
@@ -31,6 +31,7 @@ private:
 	void _Collision();
 	void _Process();
 	void _Draw();
+	void _WindowInit();
 };
 
 #endif //_ENGINE_H
