@@ -32,6 +32,7 @@ private:
 	void _Process();
 	void _Draw();
 	void _WindowInit();
+	void _OpenGLInit();
 };
 
 #endif //_ENGINE_H

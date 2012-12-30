@@ -7,12 +7,7 @@ CEngine::CEngine(string Title)
 	:_Width(800), _Height(600), _c_WindowTitle(Title.c_str())
 {
     _WindowInit();
-    glViewport( 0, 0, _Width, _Height );
-    glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    gluPerspective( 65.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 100.0f );
-    glMatrixMode( GL_MODELVIEW );
+	_OpenGLInit();
 	_Map = CModel3d();
 	_Map.LoadFrom3ds("models/Flyer.3ds");
 }
@@ -22,27 +17,37 @@ CEngine::~CEngine()
 
 }
 
+void CEngine::_OpenGLInit()
+{
+	glViewport( 0, 0, _Width, _Height );
+    glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    gluPerspective( 65.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 100.0f );
+    glMatrixMode( GL_MODELVIEW );
+}
+
 void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT );
 	glLoadIdentity();
-	// =========== Тестовый костыль ==============
+	// =========== Only for testing ==============
 	glTranslatef(0,0,-3);
 	glRotatef(_Frame,0,0,1);
-	// =========== Тестовый костыль ==============
+	// =========== Only for testing ==============
 	_Map.Draw();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
-	_Frame+=0.2; // =========== Тестовый костыль ==============
+	_Frame+=0.2; // =========== Only for testing ==============
 	_Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 }
 
 void CEngine::MainLoop()
 {
-	_Frame = 0;// =========== Тестовый костыль ==============
+	_Frame = 0;// =========== Only for testing ==============
 	_Running = true;
 	while (_Running){
 		_Draw();
