@@ -1,5 +1,4 @@
 #include "Model3d.h"
-#include "glfw.h"
 #include <fstream>
 
 CModel3d::CModel3d(void)
@@ -28,6 +27,8 @@ void CModel3d::Draw(TVector3d vector)
 
 void CModel3d::Draw()
 {
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D,_Texture);
 	glColor4f(_Color.r,_Color.g,_Color.b,_Color.a);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -39,6 +40,7 @@ void CModel3d::Draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void CModel3d::_ComputeNormals()
@@ -97,6 +99,10 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	const int TRI_MAPPINGSTANDARD	=0x4170;
 	const int TRI_FACELIST			=0x4120;
 	const int TRI_SMOOTH			=0x4150;
+	const int EDIT_MATERIAL		=0xAFFF;
+	const int CHUNK_MATNAME		=0xA000;
+    const int CHUNK_TEXTURE		=0xA200;
+    const int CHUNK_TEXTURE_FILE	=0xA300;
 	const int TRI_MATERIAL			=0x4130;
 	const int TRI_LOCAL			=0x4160;
 	const int TRI_VISIBLE			=0x4165;
@@ -118,83 +124,106 @@ bool CModel3d::LoadFrom3ds(string FileName)
 		if(_Vertexes) delete[] _Vertexes;
 		if(_TexCoords) delete[] _TexCoords;
 		if(_Triangles) delete[] _Triangles;
-		
+
 		InputStream.read((char*)&usChunkID,2);
 		InputStream.read((char*)&uiChunkLength,4);
-		if(usChunkID!=MAIN3DS) return false;
+		if(usChunkID != MAIN3DS) return false;
 		InputStream.seekg((int)InputStream.tellg()-CHUNK_HEADER_LENGTH);
-		uiChunkPosition=_FindChunk(InputStream,EDIT3DS,true);
-		if(uiChunkPosition==0) return false;
-		uiChunkPosition=_FindChunk(InputStream,EDIT_OBJECT,true);
-		if(uiChunkPosition==0) return false;
-		uiChunkPosition=_FindChunk(InputStream,OBJ_TRIMESH,true);
-		if(uiChunkPosition==0) return false;
-		
+		uiChunkPosition = _FindChunk(InputStream,EDIT3DS,true);
+		if(uiChunkPosition == 0) return false;
+
 		//Remember chunk position
-		uiChunkTempPosition=uiChunkPosition;
-		
+		uiChunkTempPosition = uiChunkPosition;
+
+		//Loading texture
+		uiChunkPosition = _FindChunk(InputStream,EDIT_MATERIAL,true);
+		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE,true);
+		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE_FILE,true);
+		InputStream.ignore(2);
+		InputStream.read((char*)&uiChunkLength,4);
+		char cTextureFileName[uiChunkLength - 6];
+		InputStream.read((char*)&cTextureFileName,uiChunkLength);
+		_LoadTextureFromFile((string)"models/textures/"+(string)cTextureFileName);
+		InputStream.seekg(uiChunkTempPosition);
+
+
+		uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);
+		if(uiChunkPosition == 0) return false;
+		uiChunkPosition = _FindChunk(InputStream,OBJ_TRIMESH,true);
+		if(uiChunkPosition == 0) return false;
+
+		//Remember chunk position
+		uiChunkTempPosition = uiChunkPosition;
+
 		//Reading vertexes
-		uiChunkPosition=_FindChunk(InputStream,TRI_VERTEXLIST,true);
-		if(uiChunkPosition==0) return false;
+		uiChunkPosition = _FindChunk(InputStream,TRI_VERTEXLIST,true);
+		if(uiChunkPosition == 0) return false;
 		InputStream.ignore(6);
 		InputStream.read((char*)&_NVertexes,2);
 		_Vertexes = new TVector3d[_NVertexes];
-		InputStream.read((char*)(_Vertexes),_NVertexes*3*4);		
+		InputStream.read((char*)(_Vertexes),_NVertexes*3*4);
 		InputStream.seekg(uiChunkTempPosition);
-		
+
 		//Reading texture coords
-		uiChunkPosition=_FindChunk(InputStream,TRI_MAPPINGCOORS,true);
-		if(uiChunkPosition==0) return false;
+		uiChunkPosition = _FindChunk(InputStream,TRI_MAPPINGCOORS,true);
+		if(uiChunkPosition == 0) return false;
 		InputStream.ignore(6);
 		unsigned short nTexCoords;
 		InputStream.read((char*)&nTexCoords,2);
-		_TexCoords=new TVector2d[nTexCoords];
-		InputStream.read((char*)(_TexCoords),nTexCoords*2*4);		
+		_TexCoords = new TVector2d[nTexCoords];
+		InputStream.read((char*)(_TexCoords),nTexCoords*2*4);
 		InputStream.seekg(uiChunkTempPosition);
-		
+
 		//Reading faces
-		uiChunkPosition=_FindChunk(InputStream,TRI_FACELIST,true);
-		if(uiChunkPosition==0) return false;
+		uiChunkPosition = _FindChunk(InputStream,TRI_FACELIST,true);
+		if(uiChunkPosition == 0) return false;
 		InputStream.ignore(6);
 		InputStream.read((char*)&_NTriangles,2);
-		_Triangles=new TFace3D[_NTriangles];
-		for(int i=0;i<_NTriangles;i++)
+		_Triangles = new TFace3D[_NTriangles];
+		for(int i = 0;i < _NTriangles;i++)
 		{
 			InputStream.read((char*)&(_Triangles[i]),6);
 			InputStream.ignore(2);
 		}
 		InputStream.seekg(uiChunkTempPosition);
-		
+
 		//Reading local coordinate system
-		uiChunkPosition=_FindChunk(InputStream,TRI_LOCAL,true);
-		if(uiChunkPosition==0) return false;
+		uiChunkPosition = _FindChunk(InputStream,TRI_LOCAL,true);
+		if(uiChunkPosition == 0) return false;
 		InputStream.ignore(6);
-		float Local[12]={0.0f};
+		float Local[12] = {0.0f};
 		float x0,x1,x2;
 		InputStream.read((char*)&Local,sizeof(float)*12);
 		for(int i=0;i<_NVertexes;i++)
 		{
-			_Vertexes[i].x-=Local[9];
-			_Vertexes[i].y-=Local[10];
-			_Vertexes[i].z-=Local[11];
-			x0=_Vertexes[i].x;
-			x1=_Vertexes[i].y;
-			x2=_Vertexes[i].z;
-			_Vertexes[i].x=Local[0]*x0+Local[2]*x1+Local[1]*x2;
-			_Vertexes[i].y=Local[3]*x0+Local[5]*x1+Local[4]*x2;
-			_Vertexes[i].z=Local[6]*x0+Local[8]*x1+Local[7]*x2;
+			_Vertexes[i].x -= Local[9];
+			_Vertexes[i].y -= Local[10];
+			_Vertexes[i].z -= Local[11];
+			x0 = _Vertexes[i].x;
+			x1 = _Vertexes[i].y;
+			x2 = _Vertexes[i].z;
+			_Vertexes[i].x = Local[0]*x0+Local[2]*x1+Local[1]*x2;
+			_Vertexes[i].y = Local[3]*x0+Local[5]*x1+Local[4]*x2;
+			_Vertexes[i].z = Local[6]*x0+Local[8]*x1+Local[7]*x2;
 		}
 		InputStream.seekg(uiChunkTempPosition);
-		//TODO: Reading material info
-		/*
-		uiChunkPosition=_FindChunk(InputStream,TRI_FACELIST,true);
-		uiChunkPosition=_FindChunk(InputStream,TRI_MATERIAL,false);
-		if(uiChunkPosition==0) return false;
-		InputStream.ignore(6);
-		*/
 		_ComputeNormals();
 		return true;
 	}
+}
+
+bool CModel3d::_LoadTextureFromFile(string TextureName)
+{
+	glGenTextures(1,&_Texture);
+	glBindTexture(GL_TEXTURE_2D,_Texture);
+	if(!glfwLoadTexture2D(TextureName.c_str(), GLFW_BUILD_MIPMAPS_BIT))
+		return false;
+	else
+	{
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+	};
+	return true;
 }
 
 unsigned int CModel3d::_FindChunk(ifstream& InputStream, unsigned short id, bool isParent = true)
@@ -216,7 +245,7 @@ unsigned int CModel3d::_FindChunk(ifstream& InputStream, unsigned short id, bool
 			}while(ch!='\0' && !InputStream.eof());
 		}
 	}
-	
+
 	do
 	{
 		InputStream.read((char*)&usChunkID,2);
