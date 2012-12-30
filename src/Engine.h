@@ -19,6 +19,7 @@ private:
 	CModel3d _Map;
 	bool _Running;
 	const char* _c_WindowTitle;
+	double _ProcessPerSecond;
 
 	float _Frame;// =========== Тестовый костыль ==============
 
@@ -26,6 +27,7 @@ public:
 	CEngine(string);
 	~CEngine();
 	void MainLoop();
+	void SetProcessPerSecond(int);
 private:
 	// _Collision implements Collision detection system it should be called everytime in every loop iteration
 	void _Collision();

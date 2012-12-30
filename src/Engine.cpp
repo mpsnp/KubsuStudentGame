@@ -8,6 +8,7 @@ CEngine::CEngine(string Title)
 {
     _WindowInit();
 	_OpenGLInit();
+	SetProcessPerSecond(75);
 	_Map = CModel3d();
 	_Map.LoadFrom3ds("models/Flyer.3ds");
 }
@@ -45,14 +46,22 @@ void CEngine::_Process()
 	_Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 }
 
+void CEngine::SetProcessPerSecond(int Times)
+{
+	_ProcessPerSecond = 1.0/Times;
+}
+
 void CEngine::MainLoop()
 {
 	_Frame = 0;// =========== Only for testing ==============
 	_Running = true;
+	double dTime = glfwGetTime();
 	while (_Running){
 		_Draw();
-		_Process();
-		glfwSleep(0.0001);
+		if (glfwGetTime() - dTime >= _ProcessPerSecond){
+			_Process();
+			dTime = glfwGetTime();
+		}
 	}
 	glfwTerminate();
 }
