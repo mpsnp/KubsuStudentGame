@@ -24,13 +24,15 @@ void CEngine::_OpenGLInit()
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
     gluPerspective( 65.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 100.0f );
     glMatrixMode( GL_MODELVIEW );
 }
 
 void CEngine::_Draw()
 {
-	glClear( GL_COLOR_BUFFER_BIT );
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 	// =========== Only for testing ==============
 	glTranslatef(0,0,-3);

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "CommonStructs.h"
+#include "glfw.h"
 
 using namespace std;
 class CModel3d
@@ -14,6 +15,7 @@ class CModel3d
 	unsigned short _NTriangles;
 	TFace3D *_Triangles;
 	TColor _Color;
+	GLuint _Texture;
 public:
 	CModel3d(void);
 	~CModel3d(void);
@@ -22,6 +24,7 @@ public:
 	bool LoadFrom3ds(string);
 	void SetColor(float,float,float,float);
 private:
+	bool _LoadTextureFromFile(string);
 	unsigned int _FindChunk(ifstream&, unsigned short, bool);
 	void _ComputeNormals();
 };
