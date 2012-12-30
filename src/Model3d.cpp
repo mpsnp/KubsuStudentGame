@@ -1,6 +1,6 @@
 #include "Model3d.h"
+#include "glfw.h"
 #include <fstream>
-#include <GL/gl.h>
 
 //TODO: в LoadFrom3ds подгрузить материал
 //FIXED: сделать расчет нормалей

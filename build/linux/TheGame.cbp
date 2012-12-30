@@ -18,8 +18,7 @@
 				<Linker>
 					<Add option="-lGL" />
 					<Add option="-lGLU" />
-					<Add library="../../lib/libglfw.a" />
-					<Add library="../../lib/libglfw.so" />
+					<Add option="-lglfw" />
 				</Linker>
 			</Target>
 			<Target title="Release">

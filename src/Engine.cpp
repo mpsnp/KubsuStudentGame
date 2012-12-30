@@ -1,5 +1,3 @@
-#include <GL/gl.h>
-#include <GL/glu.h>
 #include "Engine.h"
 #include "glfw.h"
 
