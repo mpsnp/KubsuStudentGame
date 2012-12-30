@@ -2,3 +2,5 @@ obj
 bin
 *.depend
 *.layout
+
+.DS_Store

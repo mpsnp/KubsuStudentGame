@@ -7,6 +7,7 @@ using namespace std;
 #include "CommonStructs.h"
 #include "Vehicle.h"
 #include "Model3d.h"
+#include "glfw.h"
 
 #define PI = 3.1415926535;
 
