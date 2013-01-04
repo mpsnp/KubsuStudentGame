@@ -1,5 +1,6 @@
 obj
 bin
+Game_engine/
 *.depend
 *.layout
 
