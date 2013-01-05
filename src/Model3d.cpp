@@ -3,7 +3,7 @@
 #include <iostream>
 
 CModel3d::CModel3d(void)
-	:_Vertexes(NULL), _TexCoords(NULL), _Triangles(NULL), _Normals(NULL)
+	:_Vertexes(NULL), _TexCoords(NULL), _Triangles(NULL), _Normals(NULL), _LoadedSuccsessfull(false)
 {
 	SetColor(1,1,1,1);
 }
@@ -24,6 +24,11 @@ void CModel3d::Draw(TVector3d vector)
 {
 	glTranslatef(vector.x,vector.y,vector.z);
 	Draw();
+}
+
+string CModel3d::GetFileName()
+{
+	return _FileName;
 }
 
 void CModel3d::Draw()
@@ -229,6 +234,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 		_LoadedSuccsessfull = false;
 		return false;
 	}
+	_FileName = FileName;
 	_LoadedSuccsessfull = true;
 	return true;
 }

@@ -59,7 +59,7 @@ float CVehicle::GetRadius()const
 
 void CVehicle::Draw()
 {
-
+	_ModelPointer->Draw(_Position);
 }
 
 void CVehicle::ChangeLife(int value)
