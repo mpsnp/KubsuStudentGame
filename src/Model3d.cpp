@@ -1,5 +1,6 @@
 #include "Model3d.h"
 #include <fstream>
+#include <iostream>
 
 CModel3d::CModel3d(void)
 	:_Vertexes(NULL), _TexCoords(NULL), _Triangles(NULL), _Normals(NULL)
@@ -27,20 +28,30 @@ void CModel3d::Draw(TVector3d vector)
 
 void CModel3d::Draw()
 {
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D,_Texture);
-	glColor4f(_Color.r,_Color.g,_Color.b,_Color.a);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glTexCoordPointer(2, GL_FLOAT, 0, _TexCoords);
-	glVertexPointer(3, GL_FLOAT, 0, _Vertexes);
-	glNormalPointer(GL_FLOAT, 0, _Normals);
-	glDrawElements(GL_TRIANGLES, _NTriangles*3, GL_UNSIGNED_SHORT, _Triangles);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	if (!_LoadedSuccsessfull)
+	{
+		glPointSize(10);
+		glBegin(GL_POINTS);
+		glVertex3f(0.0,0.0,0.0);
+		glEnd();
+	}
+	else
+	{
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,_Texture);
+		glColor4f(_Color.r,_Color.g,_Color.b,_Color.a);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glTexCoordPointer(2, GL_FLOAT, 0, _TexCoords);
+		glVertexPointer(3, GL_FLOAT, 0, _Vertexes);
+		glNormalPointer(GL_FLOAT, 0, _Normals);
+		glDrawElements(GL_TRIANGLES, _NTriangles*3, GL_UNSIGNED_SHORT, _Triangles);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisable(GL_TEXTURE_2D);
+	}
 }
 
 void CModel3d::_ComputeNormals()
@@ -112,14 +123,12 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	unsigned int		uiChunkTempPosition;
 	unsigned int		uiChunkLength;
 
-	ifstream InputStream;
-	InputStream.open(FileName.c_str(),ios::in);
-	if(!InputStream.is_open())
+	try
 	{
-		return false;
-	}
-	else
-	{
+		ifstream InputStream;
+		InputStream.open(FileName.c_str(),ios::in);
+		if(!InputStream.is_open()) throw "Failed to open file";
+
 		//Free if it is not first loading
 		if(_Vertexes) delete[] _Vertexes;
 		if(_TexCoords) delete[] _TexCoords;
@@ -127,18 +136,24 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 		InputStream.read((char*)&usChunkID,2);
 		InputStream.read((char*)&uiChunkLength,4);
-		if(usChunkID != MAIN3DS) return false;
+		if(usChunkID != MAIN3DS) throw "File is not 3ds";
+
 		InputStream.seekg((int)InputStream.tellg()-CHUNK_HEADER_LENGTH);
 		uiChunkPosition = _FindChunk(InputStream,EDIT3DS,true);
-		if(uiChunkPosition == 0) return false;
+		if(uiChunkPosition == 0) throw "Failed to find chunk with model";
 
 		//Remember chunk position
 		uiChunkTempPosition = uiChunkPosition;
-
 		//Loading texture
 		uiChunkPosition = _FindChunk(InputStream,EDIT_MATERIAL,true);
+		if (uiChunkPosition == 0) throw "Failed to find chunk with material";
+
 		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE,true);
+		if (uiChunkPosition == 0) throw "Failed to find chunk with texture";
+
 		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE_FILE,true);
+		if (uiChunkPosition == 0) throw "Failed to find chunk with texture name";
+
 		InputStream.ignore(2);
 		InputStream.read((char*)&uiChunkLength,4);
 		char cTextureFileName[uiChunkLength - 6];
@@ -148,16 +163,16 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 
 		uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with object";
 		uiChunkPosition = _FindChunk(InputStream,OBJ_TRIMESH,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with triangle mesh info";
 
 		//Remember chunk position
 		uiChunkTempPosition = uiChunkPosition;
 
 		//Reading vertexes
 		uiChunkPosition = _FindChunk(InputStream,TRI_VERTEXLIST,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with vertexes";
 		InputStream.ignore(6);
 		InputStream.read((char*)&_NVertexes,2);
 		_Vertexes = new TVector3d[_NVertexes];
@@ -166,7 +181,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 		//Reading texture coords
 		uiChunkPosition = _FindChunk(InputStream,TRI_MAPPINGCOORS,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with texture coordinates";
 		InputStream.ignore(6);
 		unsigned short nTexCoords;
 		InputStream.read((char*)&nTexCoords,2);
@@ -176,7 +191,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 		//Reading faces
 		uiChunkPosition = _FindChunk(InputStream,TRI_FACELIST,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with triangles";
 		InputStream.ignore(6);
 		InputStream.read((char*)&_NTriangles,2);
 		_Triangles = new TFace3D[_NTriangles];
@@ -189,7 +204,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 		//Reading local coordinate system
 		uiChunkPosition = _FindChunk(InputStream,TRI_LOCAL,true);
-		if(uiChunkPosition == 0) return false;
+		if (uiChunkPosition == 0) throw "Failed to find chunk with local coordinates";
 		InputStream.ignore(6);
 		float Local[12] = {0.0f};
 		float x0,x1,x2;
@@ -206,10 +221,16 @@ bool CModel3d::LoadFrom3ds(string FileName)
 			_Vertexes[i].y = Local[3]*x0+Local[5]*x1+Local[4]*x2;
 			_Vertexes[i].z = Local[6]*x0+Local[8]*x1+Local[7]*x2;
 		}
-		InputStream.seekg(uiChunkTempPosition);
 		_ComputeNormals();
-		return true;
 	}
+	catch(char const *str)
+	{
+		cout << "Exception thrown while loading " << FileName << " : " << str <<endl;
+		_LoadedSuccsessfull = false;
+		return false;
+	}
+	_LoadedSuccsessfull = true;
+	return true;
 }
 
 bool CModel3d::_LoadTextureFromFile(string TextureName)

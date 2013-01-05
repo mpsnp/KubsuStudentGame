@@ -16,6 +16,7 @@ class CModel3d
 	TFace3D *_Triangles;
 	TColor _Color;
 	GLuint _Texture;
+	bool _LoadedSuccsessfull;
 public:
 	CModel3d(void);
 	~CModel3d(void);
