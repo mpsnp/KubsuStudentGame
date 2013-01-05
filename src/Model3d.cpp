@@ -26,7 +26,7 @@ void CModel3d::Draw(TVector3d vector)
 	Draw();
 }
 
-string CModel3d::GetFileName()
+const char *CModel3d::GetFileName()
 {
 	return _FileName;
 }
@@ -234,7 +234,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 		_LoadedSuccsessfull = false;
 		return false;
 	}
-	_FileName = FileName;
+	_FileName = FileName.c_str();
 	_LoadedSuccsessfull = true;
 	return true;
 }

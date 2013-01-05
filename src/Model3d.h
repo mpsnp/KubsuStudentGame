@@ -17,7 +17,7 @@ class CModel3d
 	TColor _Color;
 	GLuint _Texture;
 	bool _LoadedSuccsessfull;
-	string _FileName;
+	const char *_FileName;
 public:
 	CModel3d(void);
 	~CModel3d(void);
@@ -25,7 +25,7 @@ public:
 	void Draw();
 	bool LoadFrom3ds(string);
 	void SetColor(float,float,float,float);
-	string GetFileName();
+	const char *GetFileName();
 private:
 	bool _LoadTextureFromFile(string);
 	unsigned int _FindChunk(ifstream&, unsigned short, bool);
