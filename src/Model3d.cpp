@@ -56,8 +56,8 @@ void CModel3d::_ComputeNormals()
 		vPoly[0] = _Vertexes[_Triangles[i].v0];
 		vPoly[1] = _Vertexes[_Triangles[i].v1];
 		vPoly[2] = _Vertexes[_Triangles[i].v2];
-		vVector1.Vector(vPoly[0], vPoly[2]);
-		vVector2.Vector(vPoly[2], vPoly[1]);
+		vVector1 = vPoly[0] - vPoly[2];
+		vVector2 = vPoly[1] - vPoly[2];
 		vNormal  = vVector1 * vVector2;
 		pTempNormals[i] = vNormal;
 	}

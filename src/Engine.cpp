@@ -28,6 +28,26 @@ void CEngine::_OpenGLInit()
     glDepthFunc(GL_LEQUAL);
     gluPerspective( 65.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 100.0f );
     glMatrixMode( GL_MODELVIEW );
+
+	GLfloat AmbientLight[4] = {0.5, 0.5, 0.5, 1.0};
+	GLfloat DiffuseLight[4] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat SpecularLight[4] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat LightPosition[4] = {0.0, 1.0 ,0.0 ,2.0};
+	GLfloat SpecularReflection[4] = {0.4, 0.4, 0.4, 1.0};
+
+	glShadeModel(GL_SMOOTH);
+    glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0,GL_AMBIENT, (const GLfloat*)&AmbientLight);
+	glLightfv(GL_LIGHT0,GL_DIFFUSE, (const GLfloat*)&DiffuseLight);
+	glLightfv(GL_LIGHT0,GL_SPECULAR, (const GLfloat*)&SpecularLight);
+
+	glLightfv(GL_LIGHT0,GL_POSITION,(const GLfloat*)&LightPosition);
+
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, (const GLfloat*)&SpecularReflection);
+	glMateriali(GL_FRONT,GL_SHININESS,100);
 }
 
 void CEngine::_Draw()
@@ -36,7 +56,7 @@ void CEngine::_Draw()
 	glLoadIdentity();
 	// =========== Only for testing ==============
 	glTranslatef(0,0,-3);
-	glRotatef(_Frame,0,0,1);
+	glRotatef(_Frame,0,1,1);
 	// =========== Only for testing ==============
 	_Map.Draw();
 	glfwSwapBuffers();
