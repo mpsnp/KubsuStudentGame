@@ -8,6 +8,7 @@ using namespace std;
 #include "Vehicle.h"
 #include "Model3d.h"
 #include "glfw.h"
+#include "map.h"
 
 #define PI = 3.1415926535;
 
@@ -17,7 +18,7 @@ private:
 	int _Width, _Height;
 	std::vector<CVehicle> _Vehicles;
 	std::vector<CModel3d> _Models;
-	CModel3d _Map;
+	CMap _Map;
 	bool _Running;
 	const char* _c_WindowTitle;
 	double _ProcessPerSecond;
