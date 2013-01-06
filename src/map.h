@@ -9,8 +9,9 @@
 #ifndef __MAP_H__
 #define __MAP_H__
 #include <string>
+#include "Model3d.h"
 
-class CMap
+class CMap : public CModel3d
 {
     char **_Map;
     int _Width;
@@ -24,8 +25,8 @@ public:
     /*
     ** Following properties return fields with same names
     */
-    int Width()const;
-    int Height()const;
+    int Width()const { return _Width; }
+    int Height()const { return _Height; }
     /*
     ** PrintMap returns map structure in string size width x height
     ** <width> <height>
@@ -34,6 +35,9 @@ public:
     ** 0000000000001
     */
     std::string PrintMap()const;
+    /*
+    ** TODO: GetConvertedMap
+    */
 };
 
 #endif /* defined(__map_h__) */
