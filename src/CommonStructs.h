@@ -54,11 +54,6 @@ struct TVector3d
 		return res;
 	}
 
-	TVector3d Vector(TVector3d v1,TVector3d v2)
-	{
-		return v1 - v2;
-	}
-
 	float Length()const
 	{
 		return sqrt(x*x + y*y + z*z);
