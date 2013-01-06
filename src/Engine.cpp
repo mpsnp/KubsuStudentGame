@@ -59,6 +59,7 @@ void CEngine::_Draw()
 	glRotatef(_Frame,0,1,1);
 	// =========== Only for testing ==============
 	_Map.Draw();
+	for(int i = 0;i < _Vehicles.size();i++) _Vehicles[i].Draw();
 	glfwSwapBuffers();
 }
 
