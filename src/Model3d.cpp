@@ -18,6 +18,10 @@ void CModel3d::SetColor(float R,float G,float B, float A)
 
 CModel3d::~CModel3d(void)
 {
+	if(_Vertexes)	delete[] _Vertexes;
+	if(_TexCoords)	delete[] _TexCoords;
+	if(_Triangles)	delete[] _Triangles;
+	if(_Normals)	delete[] _Normals;
 }
 
 void CModel3d::Draw(TVector3d vector)
