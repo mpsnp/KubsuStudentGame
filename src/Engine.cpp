@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "glfw.h"
+#include <iostream>
 
 void GLFWCALL WindowResize( int width, int height );
 
@@ -10,12 +11,18 @@ CEngine::CEngine(string Title)
 	_OpenGLInit();
 	SetProcessPerSecond(75);
 	_Map = CModel3d();
-	_Map.LoadFrom3ds("models/Flyer.3ds");
+	try{
+	_Map.LoadFrom3ds("data/models/Flyer.3ds");
+	}
+	catch (CException *e)
+	{
+		cout << e->GetMessage() << endl;
+		e->~CException();
+	}
 }
 
 CEngine::~CEngine()
 {
-
 }
 
 void CEngine::_OpenGLInit()
