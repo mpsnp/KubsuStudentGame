@@ -18,6 +18,10 @@ void CModel3d::SetColor(float R,float G,float B, float A)
 
 CModel3d::~CModel3d(void)
 {
+	if(_Vertexes)	delete[] _Vertexes;
+	if(_TexCoords)	delete[] _TexCoords;
+	if(_Triangles)	delete[] _Triangles;
+	if(_Normals)	delete[] _Normals;
 }
 
 void CModel3d::Draw(TVector3d vector)
@@ -128,112 +132,106 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	unsigned int		uiChunkTempPosition;
 	unsigned int		uiChunkLength;
 
-	try
+
+	_LoadedSuccsessfull = false;
+
+	ifstream InputStream;
+	InputStream.open(FileName.c_str(),ios::in);
+	if(!InputStream.is_open()) throw new CFileNotFoundException(1, FileName);
+
+	//Free if it is not first loading
+	if(_Vertexes) delete[] _Vertexes;
+	if(_TexCoords) delete[] _TexCoords;
+	if(_Triangles) delete[] _Triangles;
+
+	InputStream.read((char*)&usChunkID,2);
+	InputStream.read((char*)&uiChunkLength,4);
+	if(usChunkID != MAIN3DS) throw new CChunkNotFoundException(MAIN3DS, FileName);
+
+	InputStream.seekg((int)InputStream.tellg()-CHUNK_HEADER_LENGTH);
+	uiChunkPosition = _FindChunk(InputStream,EDIT3DS,true);
+	if(uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT3DS, FileName);
+
+	//Remember chunk position
+	uiChunkTempPosition = uiChunkPosition;
+	//Loading texture
+	uiChunkPosition = _FindChunk(InputStream,EDIT_MATERIAL,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT_MATERIAL, FileName);
+
+	uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(CHUNK_TEXTURE, FileName);
+
+	uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE_FILE,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(CHUNK_TEXTURE_FILE, FileName);
+
+	InputStream.ignore(2);
+	InputStream.read((char*)&uiChunkLength,4);
+	char cTextureFileName[uiChunkLength - 6];
+	InputStream.read((char*)&cTextureFileName,uiChunkLength);
+	_LoadTextureFromFile((string)"models/textures/"+(string)cTextureFileName);
+	InputStream.seekg(uiChunkTempPosition);
+
+
+	uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT_OBJECT, FileName);
+	uiChunkPosition = _FindChunk(InputStream,OBJ_TRIMESH,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(OBJ_TRIMESH, FileName);
+
+	//Remember chunk position
+	uiChunkTempPosition = uiChunkPosition;
+
+	//Reading vertexes
+	uiChunkPosition = _FindChunk(InputStream,TRI_VERTEXLIST,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(TRI_VERTEXLIST, FileName);
+	InputStream.ignore(6);
+	InputStream.read((char*)&_NVertexes,2);
+	_Vertexes = new TVector3d[_NVertexes];
+	InputStream.read((char*)(_Vertexes),_NVertexes*3*4);
+	InputStream.seekg(uiChunkTempPosition);
+
+	//Reading texture coords
+	uiChunkPosition = _FindChunk(InputStream,TRI_MAPPINGCOORS,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(TRI_MAPPINGCOORS, FileName);
+	InputStream.ignore(6);
+	unsigned short nTexCoords;
+	InputStream.read((char*)&nTexCoords,2);
+	_TexCoords = new TVector2d[nTexCoords];
+	InputStream.read((char*)(_TexCoords),nTexCoords*2*4);
+	InputStream.seekg(uiChunkTempPosition);
+
+	//Reading faces
+	uiChunkPosition = _FindChunk(InputStream,TRI_FACELIST,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(TRI_FACELIST, FileName);
+	InputStream.ignore(6);
+	InputStream.read((char*)&_NTriangles,2);
+	_Triangles = new TFace3D[_NTriangles];
+	for(int i = 0;i < _NTriangles;i++)
 	{
-		ifstream InputStream;
-		InputStream.open(FileName.c_str(),ios::in);
-		if(!InputStream.is_open()) throw "Failed to open file";
-
-		//Free if it is not first loading
-		if(_Vertexes) delete[] _Vertexes;
-		if(_TexCoords) delete[] _TexCoords;
-		if(_Triangles) delete[] _Triangles;
-
-		InputStream.read((char*)&usChunkID,2);
-		InputStream.read((char*)&uiChunkLength,4);
-		if(usChunkID != MAIN3DS) throw "File is not 3ds";
-
-		InputStream.seekg((int)InputStream.tellg()-CHUNK_HEADER_LENGTH);
-		uiChunkPosition = _FindChunk(InputStream,EDIT3DS,true);
-		if(uiChunkPosition == 0) throw "Failed to find chunk with model";
-
-		//Remember chunk position
-		uiChunkTempPosition = uiChunkPosition;
-		//Loading texture
-		uiChunkPosition = _FindChunk(InputStream,EDIT_MATERIAL,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with material";
-
-		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with texture";
-
-		uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE_FILE,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with texture name";
-
+		InputStream.read((char*)&(_Triangles[i]),6);
 		InputStream.ignore(2);
-		InputStream.read((char*)&uiChunkLength,4);
-		char cTextureFileName[uiChunkLength - 6];
-		InputStream.read((char*)&cTextureFileName,uiChunkLength);
-		_LoadTextureFromFile((string)"models/textures/"+(string)cTextureFileName);
-		InputStream.seekg(uiChunkTempPosition);
-
-
-		uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with object";
-		uiChunkPosition = _FindChunk(InputStream,OBJ_TRIMESH,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with triangle mesh info";
-
-		//Remember chunk position
-		uiChunkTempPosition = uiChunkPosition;
-
-		//Reading vertexes
-		uiChunkPosition = _FindChunk(InputStream,TRI_VERTEXLIST,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with vertexes";
-		InputStream.ignore(6);
-		InputStream.read((char*)&_NVertexes,2);
-		_Vertexes = new TVector3d[_NVertexes];
-		InputStream.read((char*)(_Vertexes),_NVertexes*3*4);
-		InputStream.seekg(uiChunkTempPosition);
-
-		//Reading texture coords
-		uiChunkPosition = _FindChunk(InputStream,TRI_MAPPINGCOORS,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with texture coordinates";
-		InputStream.ignore(6);
-		unsigned short nTexCoords;
-		InputStream.read((char*)&nTexCoords,2);
-		_TexCoords = new TVector2d[nTexCoords];
-		InputStream.read((char*)(_TexCoords),nTexCoords*2*4);
-		InputStream.seekg(uiChunkTempPosition);
-
-		//Reading faces
-		uiChunkPosition = _FindChunk(InputStream,TRI_FACELIST,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with triangles";
-		InputStream.ignore(6);
-		InputStream.read((char*)&_NTriangles,2);
-		_Triangles = new TFace3D[_NTriangles];
-		for(int i = 0;i < _NTriangles;i++)
-		{
-			InputStream.read((char*)&(_Triangles[i]),6);
-			InputStream.ignore(2);
-		}
-		InputStream.seekg(uiChunkTempPosition);
-
-		//Reading local coordinate system
-		uiChunkPosition = _FindChunk(InputStream,TRI_LOCAL,true);
-		if (uiChunkPosition == 0) throw "Failed to find chunk with local coordinates";
-		InputStream.ignore(6);
-		float Local[12] = {0.0f};
-		float x0,x1,x2;
-		InputStream.read((char*)&Local,sizeof(float)*12);
-		for(int i=0;i<_NVertexes;i++)
-		{
-			_Vertexes[i].x -= Local[9];
-			_Vertexes[i].y -= Local[10];
-			_Vertexes[i].z -= Local[11];
-			x0 = _Vertexes[i].x;
-			x1 = _Vertexes[i].y;
-			x2 = _Vertexes[i].z;
-			_Vertexes[i].x = Local[0]*x0+Local[2]*x1+Local[1]*x2;
-			_Vertexes[i].y = Local[3]*x0+Local[5]*x1+Local[4]*x2;
-			_Vertexes[i].z = Local[6]*x0+Local[8]*x1+Local[7]*x2;
-		}
-		_ComputeNormals();
 	}
-	catch(char const *str)
+	InputStream.seekg(uiChunkTempPosition);
+
+	//Reading local coordinate system
+	uiChunkPosition = _FindChunk(InputStream,TRI_LOCAL,true);
+	if (uiChunkPosition == 0) throw new CChunkNotFoundException(TRI_LOCAL, FileName);
+	InputStream.ignore(6);
+	float Local[12] = {0.0f};
+	float x0,x1,x2;
+	InputStream.read((char*)&Local,sizeof(float)*12);
+	for(int i=0;i<_NVertexes;i++)
 	{
-		cout << "Exception thrown while loading " << FileName << " : " << str <<endl;
-		_LoadedSuccsessfull = false;
-		return false;
+		_Vertexes[i].x -= Local[9];
+		_Vertexes[i].y -= Local[10];
+		_Vertexes[i].z -= Local[11];
+		x0 = _Vertexes[i].x;
+		x1 = _Vertexes[i].y;
+		x2 = _Vertexes[i].z;
+		_Vertexes[i].x = Local[0]*x0+Local[2]*x1+Local[1]*x2;
+		_Vertexes[i].y = Local[3]*x0+Local[5]*x1+Local[4]*x2;
+		_Vertexes[i].z = Local[6]*x0+Local[8]*x1+Local[7]*x2;
 	}
+	_ComputeNormals();
 	_FileName = FileName.c_str();
 	_LoadedSuccsessfull = true;
 	return true;

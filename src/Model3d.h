@@ -3,6 +3,7 @@
 
 #include <string>
 #include "CommonStructs.h"
+#include "Exceptions.h"
 #include "glfw.h"
 
 using namespace std;
