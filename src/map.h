@@ -17,11 +17,12 @@ class CMap : public CModel3d
     int _Width;
     int _Height;
 public:
-    /*
-    ** Constructor takes width and height and immediately generates the map
-    */
-    CMap(int, int);
     ~CMap();
+    /*
+    ** Following method loads map by name
+    ** Exceptions: CFileNotFoundException
+    */
+    void LoadMap(string);
     /*
     ** Following properties return fields with same names
     */

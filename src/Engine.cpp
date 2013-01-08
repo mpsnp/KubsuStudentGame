@@ -10,14 +10,14 @@ CEngine::CEngine(string Title)
     _WindowInit();
 	_OpenGLInit();
 	SetProcessPerSecond(75);
-	_Map = CModel3d();
+    _Map.LoadMap("simple");
 	try{
 	_Map.LoadFrom3ds("data/models/Flyer.3ds");
 	}
 	catch (CException *e)
 	{
 		cout << e->GetMessage() << endl;
-		e->~CException();
+        delete e;
 	}
 }
 
