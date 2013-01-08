@@ -19,13 +19,13 @@ CMap::~CMap()
 void CMap::LoadMap(string map_name)
 {
     ifstream fs;
-    fs.open(map_name.insert(0, "maps/"), ifstream::in);
-    if (!fs.is_open()) throw CFileNotFoundException(1, map_name.append(" doesn't exists"));
-    
+    fs.open(map_name.insert(0, "data/maps/").c_str(), ifstream::in);
+    if (!fs.is_open()) throw new CFileNotFoundException(1, map_name);
+
     fs >> _Width >> _Height;
 
     _Map = new char*[_Height];
-    
+
     for (int i = 0; i < _Height; i++)
     {
         _Map[i] = new char[_Width];

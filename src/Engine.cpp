@@ -10,8 +10,8 @@ CEngine::CEngine(string Title)
     _WindowInit();
 	_OpenGLInit();
 	SetProcessPerSecond(75);
-    _Map.LoadMap("simple");
 	try{
+    _Map.LoadMap("simple");
 	_Map.LoadFrom3ds("data/models/Flyer.3ds");
 	}
 	catch (CException *e)
