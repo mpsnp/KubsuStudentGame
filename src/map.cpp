@@ -23,6 +23,7 @@ void CMap::LoadMap(string map_name)
     if (!fs.is_open()) throw new CFileNotFoundException(1, map_name);
 
     fs >> _Width >> _Height;
+	fs.ignore(1);
 
     _Map = new char*[_Height];
 
