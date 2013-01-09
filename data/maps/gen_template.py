@@ -11,16 +11,16 @@ height = input(">>")
 with open(name, "wt") as fd :
 	fd.write(str(width)+" "+str(height)+"\n")
 	
-	for i in range(0, height) :
+	for i in range(0, width) :
 		fd.write('1')
 	fd.write('\n')
 	
-	for i in range(2, width) :
+	for i in range(2, height) :
 		fd.write('1')
-		for j in range(2, height) :
+		for j in range(2, width) :
 			fd.write("0")
 		fd.write('1\n')
 	
-	for i in range(0, height) :
+	for i in range(0, width) :
 		fd.write('1')
 	fd.write('\n')	
