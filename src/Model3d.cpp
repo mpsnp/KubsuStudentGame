@@ -166,10 +166,11 @@ bool CModel3d::LoadFrom3ds(string FileName)
 
 	InputStream.ignore(2);
 	InputStream.read((char*)&uiChunkLength,4);
-	char cTextureFileName[uiChunkLength - 6];
-	InputStream.read((char*)&cTextureFileName,uiChunkLength);
+	char *cTextureFileName = new char[uiChunkLength - 6];
+	InputStream.read((char*)cTextureFileName,uiChunkLength);
 	_LoadTextureFromFile((string)"models/textures/"+(string)cTextureFileName);
 	InputStream.seekg(uiChunkTempPosition);
+	delete cTextureFileName;
 
 
 	uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);

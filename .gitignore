@@ -5,3 +5,10 @@ Game_engine/
 *.layout
 
 .DS_Store
+
+*.sdf
+*.opensdf
+*.filters
+*.user
+*.suo
+[Dd]ebug

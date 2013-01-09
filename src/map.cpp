@@ -29,10 +29,10 @@ void CMap::LoadMap(string map_name)
     for (int i = 0; i < _Height; i++)
     {
         _Map[i] = new char[_Width];
-        string str;
-        fs >> str;
+        fs.read((char*)_Map[i],_Width);
         for (int j = 0; j < _Width; j++)
-            _Map[i][j] = str[j] - 48;
+            _Map[i][j] -= 48;
+		fs.ignore(1);
     }
     fs.close();
 }
