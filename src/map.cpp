@@ -12,12 +12,13 @@
 CMap::~CMap()
 {
     for (int i = 0; i < _Height; i++)
-        delete[] _Map[i];
-    delete[] _Map;
+        if(_Map[i]) delete[] _Map[i];
+    if(_Map) delete[] _Map;
 }
 
 void CMap::LoadMap(string map_name)
 {
+	_Map = NULL;
     ifstream fs;
     fs.open(map_name.insert(0, "data/maps/").c_str(), ifstream::in);
     if (!fs.is_open()) throw new CFileNotFoundException(1, map_name);
