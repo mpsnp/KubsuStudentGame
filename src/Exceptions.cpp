@@ -45,7 +45,7 @@ CChunkNotFoundException::CChunkNotFoundException(int ID, string FileName)
 string CChunkNotFoundException::GetMessage() const
 {
 	stringstream stri;
-	stri << _ID;
-	return (string)"Chunk "+ stri.str() +" not found in file: " + _FileName;
+	stri << hex << _ID;
+	return (string)"Chunk 0x"+ stri.str() +" not found in file: " + _FileName;
 }
 

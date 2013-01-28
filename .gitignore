@@ -1,11 +1,20 @@
+#Linux
 obj
 bin
 Game_engine/
 *.depend
 *.layout
 
+#OS X
 .DS_Store
+*.swp
+*~.nib
+*.pbxuser
+*.perspective
+*.perspectivev3
+xcuserdata
 
+#Windows
 *.sdf
 *.opensdf
 *.filters

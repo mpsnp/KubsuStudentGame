@@ -1,8 +1,6 @@
 #ifndef _ENGINE_H
 #define _ENGINE_H
 
-using namespace std;
-
 #include <vector>
 #include "CommonStructs.h"
 #include "Vehicle.h"

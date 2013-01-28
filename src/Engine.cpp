@@ -141,7 +141,7 @@ void CEngine::_WindowInit()
 {
     glfwInit();
     glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-	if( !glfwOpenWindow( _Width,_Height, 0, 0, 0, 0, 0, 0, GLFW_WINDOW ) )
+	if( !glfwOpenWindow( _Width,_Height, 0, 0, 0, 0, 24, 0, GLFW_WINDOW ) )
     {
         glfwTerminate();
     }

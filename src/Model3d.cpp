@@ -136,7 +136,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	_LoadedSuccsessfull = false;
 
 	ifstream InputStream;
-	InputStream.open(FileName.c_str(),ios::in);
+	InputStream.open(FileName.c_str(),ios::in | ios::binary | ios::beg);
 	if(!InputStream.is_open()) throw new CFileNotFoundException(1, FileName);
 
 	//Free if it is not first loading
@@ -168,7 +168,8 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	InputStream.read((char*)&uiChunkLength,4);
 	char *cTextureFileName = new char[uiChunkLength - 6];
 	InputStream.read((char*)cTextureFileName,uiChunkLength);
-	_LoadTextureFromFile((string)"models/textures/"+(string)cTextureFileName);
+	if(!_LoadTextureFromFile((string)"data/textures/"+(string)cTextureFileName))
+        throw new CFileNotFoundException(1,cTextureFileName);
 	InputStream.seekg(uiChunkTempPosition);
 	delete cTextureFileName;
 
@@ -276,7 +277,8 @@ unsigned int CModel3d::_FindChunk(ifstream& InputStream, unsigned short id, bool
 	{
 		InputStream.read((char*)&usChunkID,2);
 		InputStream.read((char*)&uiChunkLength,4);
-		if(usChunkID!=id) InputStream.ignore(uiChunkLength-6);
+		if(usChunkID!=id)
+            InputStream.seekg((int)InputStream.tellg()+uiChunkLength-6);
 		else
 		{
 			InputStream.seekg((int)InputStream.tellg()-6);
