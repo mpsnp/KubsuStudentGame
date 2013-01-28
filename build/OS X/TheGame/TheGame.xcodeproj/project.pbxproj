@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5E7BD72F16B684BC0061F347 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD72E16B684BC0061F347 /* Cocoa.framework */; };
-		5E7BD73916B684BC0061F347 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BD73716B684BC0061F347 /* InfoPlist.strings */; };
 		5E7BD74C16B684EF0061F347 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74B16B684EF0061F347 /* IOKit.framework */; };
 		5E7BD74E16B685040061F347 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74D16B685040061F347 /* OpenGL.framework */; };
 		5E7BD75016B685120061F347 /* libglfw.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74F16B685120061F347 /* libglfw.a */; };
@@ -28,7 +27,6 @@
 		5E7BD73216B684BC0061F347 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5E7BD73316B684BC0061F347 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5E7BD73616B684BC0061F347 /* TheGame-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TheGame-Info.plist"; sourceTree = "<group>"; };
-		5E7BD73816B684BC0061F347 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E7BD73C16B684BC0061F347 /* TheGame-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheGame-Prefix.pch"; sourceTree = "<group>"; };
 		5E7BD74B16B684EF0061F347 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		5E7BD74D16B685040061F347 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -120,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				5E7BD73616B684BC0061F347 /* TheGame-Info.plist */,
-				5E7BD73716B684BC0061F347 /* InfoPlist.strings */,
 				5E7BD73C16B684BC0061F347 /* TheGame-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -198,7 +195,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E7BD73916B684BC0061F347 /* InfoPlist.strings in Resources */,
 				5E7BD76C16B687020061F347 /* data in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,17 +216,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5E7BD73716B684BC0061F347 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5E7BD73816B684BC0061F347 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5E7BD74616B684BD0061F347 /* Debug */ = {
@@ -337,6 +322,7 @@
 				5E7BD74A16B684BD0061F347 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
