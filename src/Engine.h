@@ -10,6 +10,9 @@
 
 #define PI = 3.1415926535;
 
+/*
+ * Класс движка. 
+ */
 class CEngine
 {
 private:
@@ -26,14 +29,44 @@ private:
 public:
 	CEngine(string);
 	~CEngine();
+    
+    /*
+     * Основной цикл программы. Запускает
+     * _Process() & _Draw();
+     */
 	void MainLoop();
+    
+    /*
+     * Устанавливает кол-во исполнений _Process() в секунду
+     */
 	void SetProcessPerSecond(int);
 private:
-	// _Collision implements Collision detection system it should be called everytime in every loop iteration
+    
+    /*
+     * Реализует систему просчета столкновений. Вызывается после каждого _Process()
+     */
 	void _Collision();
+    
+    /*
+     * Реализует логику игры. (Как-то передвижение объектов, камеры и т.п.)
+     */
 	void _Process();
+    
+    /*
+     * Реализует рендер.
+     */
 	void _Draw();
+    
+    /*
+     * Реализует весь код инициализации окна.
+     * Вызывается 1 раз в конструкторе движка.
+     */
 	void _WindowInit();
+    
+    /*
+     * Реализует весь код инициализации OpenGL.
+     * Вызывается 1 раз в конструкторе движка.
+     */
 	void _OpenGLInit();
 };
 

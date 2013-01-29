@@ -17,24 +17,49 @@ class CVehicle
 	int _Life;
 public:
 	CVehicle(int);
+    
 	/*
-	** Force - приведение машины в движение
-	** Параметры: сила, угол
-	*/
+     * Приложение силы машине.
+     * param[in] Сила.
+     * param[in] Угол.
+	 */
 	void Force(float, float);
+    
 	/*
-	** Draw - отрисовка машинки, хз для чего он тут
-	*/
+	 * Отрисовка машинки.
+	 */
 	void Draw();
+    
 	/*
-	** ChangeLife - изменение количества очков жизни
-	** Параметры: количество очков (положительное - прибавление, отрицательное - снимание)
-	*/
-	void ChangeLife(int value);
+	 * Изменение очков жизни.
+	 * param[in] Кол-во очков жизни. Положительное - прибавить. Отрицательное - отнять.
+	 */
+	void ChangeLife(int);
+    
+    /*
+     * Возвращает позицию машинки.
+     */
 	TVector3d GetPosition()const;
+    
+    /*
+     * Возвращает радиус машинки.
+     */
 	float GetRadius()const;
+    
+    /*
+     * Возвращает вектор скорости.
+     */
 	TVector3d GetVelocity()const;
-	void SetVelocity(TVector3d new_velocity);
+    
+    /*
+     * Устанавливает вектор скорости.
+     * param[in] Новый вектор скорости.
+     */
+	void SetVelocity(TVector3d);
+    
+    /*
+     * Возвращает вес.
+     */
 	int GetWeight()const;
 };
 

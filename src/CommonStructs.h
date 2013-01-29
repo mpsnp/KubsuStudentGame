@@ -2,6 +2,9 @@
 #define _COMMON_STRUCTS_H
 
 #include <cmath>
+/*
+ Структура для хранения трехмерного вектора/точки
+ */
 struct TVector3d
 {
 	float x,y,z;
@@ -73,16 +76,25 @@ struct TVector3d
 	}
 };
 
+/*
+ Структура для хранения двумерного вектора/точки
+ */
 struct TVector2d
 {
 	float x,y;
 };
 
+/*
+ Структура для хранения индексов вершин полигона(треугольника)
+ */
 struct TFace3D
 {
 	unsigned short v0,v1,v2;
 };
 
+/*
+ Структура для хранения цвета
+ */
 struct TColor
 {
 	float r,g,b,a;

@@ -22,14 +22,56 @@ class CModel3d
 public:
 	CModel3d(void);
 	~CModel3d(void);
+    
+    /*
+     * Рендер модели в точке.
+     * param[in] Центр объекта
+     */
 	void Draw(TVector3d);
+    
+    /*
+     * Рендер модели в начале координат.
+     */
 	void Draw();
+    
+    /*
+     * Загрузка модели из файла .3ds
+     * param[in] Имя файла.
+     */
 	bool LoadFrom3ds(string);
+    
+    /*
+     * Задает цвет модели. Цвета указываются в диапазоне от 0.0 до 1.0
+     * param[in] Red color.
+     * param[in] Green color.
+     * param[in] Blue color.
+     * param[in] Alpha.
+     */
 	void SetColor(float,float,float,float);
-	const char *GetFileName();
+    
+    /*
+     * Возвращает имя файла.
+     */
+	const char* GetFileName();
 private:
+    
+    /*
+     * Загружает текстуру из файла.
+     * param[in] Имя файла.
+     */
 	bool _LoadTextureFromFile(string);
+    
+    /*
+     * Возвращает позицию чанка в потоке. Если чанк не найден, то возвращает 0.
+     * param[in] Поток.
+     * param[in] ID чанка.
+     * param[in] Является ли текущий чанк родительским.
+     */
 	unsigned int _FindChunk(ifstream&, unsigned short, bool);
+    
+    /*
+     * Вычисляет нормали модели.
+     */
 	void _ComputeNormals();
 };
 

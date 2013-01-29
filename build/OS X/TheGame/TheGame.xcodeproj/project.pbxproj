@@ -36,7 +36,7 @@
 		5E7BD75916B6864D0061F347 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		5E7BD75A16B6864D0061F347 /* Exceptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
 		5E7BD75B16B6864D0061F347 /* Exceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
-		5E7BD75C16B6864D0061F347 /* glfw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glfw.h; sourceTree = "<group>"; };
+		5E7BD75C16B6864D0061F347 /* glfw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glfw.h; path = ../../../../src/glfw.h; sourceTree = "<group>"; };
 		5E7BD75D16B6864D0061F347 /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
 		5E7BD75E16B6864D0061F347 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
 		5E7BD75F16B6864D0061F347 /* Model3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model3d.cpp; sourceTree = "<group>"; };
@@ -117,6 +117,7 @@
 		5E7BD73516B684BC0061F347 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5E7BD75C16B6864D0061F347 /* glfw.h */,
 				5E7BD73616B684BC0061F347 /* TheGame-Info.plist */,
 				5E7BD73C16B684BC0061F347 /* TheGame-Prefix.pch */,
 			);
@@ -131,7 +132,6 @@
 				5E7BD75916B6864D0061F347 /* Engine.h */,
 				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
 				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
-				5E7BD75C16B6864D0061F347 /* glfw.h */,
 				5E7BD75D16B6864D0061F347 /* map.cpp */,
 				5E7BD75E16B6864D0061F347 /* map.h */,
 				5E7BD75F16B6864D0061F347 /* Model3d.cpp */,
