@@ -136,7 +136,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	_LoadedSuccsessfull = false;
 
 	ifstream InputStream;
-	InputStream.open(FileName.c_str(),ios::in | ios::binary | ios::beg);
+	InputStream.open(FileName.c_str(),ios::in | ios::binary);
 	if(!InputStream.is_open()) throw new CFileNotFoundException(1, FileName);
 
 	//Free if it is not first loading

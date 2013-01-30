@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TheGame" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/TheGame" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../../../Repository" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="..\..\..\..\lib\libglfw_MinGW_Win32.a" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/TheGame" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../../../Repository" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="..\..\..\..\lib\libglfw_MinGW_Win32.a" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../../../../TheGame.cpp" />
+		<Unit filename="../../../../TheGame.h" />
+		<Unit filename="../../../../src/CommonStructs.h" />
+		<Unit filename="../../../../src/Engine.cpp" />
+		<Unit filename="../../../../src/Engine.h" />
+		<Unit filename="../../../../src/Exceptions.cpp" />
+		<Unit filename="../../../../src/Exceptions.h" />
+		<Unit filename="../../../../src/Model3d.cpp" />
+		<Unit filename="../../../../src/Model3d.h" />
+		<Unit filename="../../../../src/Vehicle.cpp" />
+		<Unit filename="../../../../src/Vehicle.h" />
+		<Unit filename="../../../../src/glfw.h" />
+		<Unit filename="../../../../src/map.cpp" />
+		<Unit filename="../../../../src/map.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
