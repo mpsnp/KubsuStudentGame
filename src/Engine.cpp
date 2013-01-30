@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "glfw.h"
 #include <iostream>
+#include <thread>
 
 void GLFWCALL WindowResize( int width, int height );
 
@@ -72,8 +73,15 @@ void CEngine::_Draw()
 
 void CEngine::_Process()
 {
-	_Frame+=0.2; // =========== Only for testing ==============
-	_Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
+    double dTime = glfwGetTime();
+    while (_Running) {
+        if (glfwGetTime() - dTime >= _ProcessPerSecond){
+            _Frame+=0.2; // =========== Only for testing ==============
+            _Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
+            dTime = glfwGetTime();
+        }
+        glfwSleep(0.001);
+    }
 }
 
 void CEngine::SetProcessPerSecond(int Times)
@@ -85,14 +93,13 @@ void CEngine::MainLoop()
 {
 	_Frame = 0;// =========== Only for testing ==============
 	_Running = true;
-	double dTime = glfwGetTime();
+    std::thread ProcessThread = thread(&CEngine::_Process,this);
+    
 	while (_Running){
 		_Draw();
-		if (glfwGetTime() - dTime >= _ProcessPerSecond){
-			_Process();
-			dTime = glfwGetTime();
-		}
 	}
+
+    ProcessThread.join();
 	glfwTerminate();
 }
 
@@ -148,5 +155,6 @@ void CEngine::_WindowInit()
     glfwSetWindowTitle(_c_WindowTitle);
 	glfwSetWindowSizeCallback( WindowResize );
 	glfwGetWindowSize( &_Width, &_Height);
+    glfwSwapInterval(1);
     _Height = _Height > 0 ? _Height : 1;
 }
