@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A649016B6E21A00B86C4E /* Camera.cpp */; };
 		5E7BD72F16B684BC0061F347 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD72E16B684BC0061F347 /* Cocoa.framework */; };
 		5E7BD74C16B684EF0061F347 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74B16B684EF0061F347 /* IOKit.framework */; };
 		5E7BD74E16B685040061F347 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74D16B685040061F347 /* OpenGL.framework */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E3A649016B6E21A00B86C4E /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		5E3A649116B6E21A00B86C4E /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		5E7BD72A16B684BC0061F347 /* TheGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E7BD72E16B684BC0061F347 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		5E7BD73116B684BC0061F347 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -138,6 +141,8 @@
 				5E7BD76016B6864D0061F347 /* Model3d.h */,
 				5E7BD76116B6864D0061F347 /* Vehicle.cpp */,
 				5E7BD76216B6864D0061F347 /* Vehicle.h */,
+				5E3A649016B6E21A00B86C4E /* Camera.cpp */,
+				5E3A649116B6E21A00B86C4E /* Camera.h */,
 			);
 			name = src;
 			path = ../../../src;
@@ -212,6 +217,7 @@
 				5E7BD76616B6864D0061F347 /* Model3d.cpp in Sources */,
 				5E7BD76716B6864D0061F347 /* Vehicle.cpp in Sources */,
 				5E7BD76A16B686610061F347 /* TheGame.cpp in Sources */,
+				5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

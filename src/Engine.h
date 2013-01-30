@@ -7,8 +7,7 @@
 #include "Model3d.h"
 #include "glfw.h"
 #include "map.h"
-
-#define PI = 3.1415926535;
+#include "Camera.h"
 
 class CEngine
 {
@@ -16,6 +15,7 @@ private:
 	int _Width, _Height;
 	std::vector<CVehicle> _Vehicles;
 	std::vector<CModel3d> _Models;
+    CCamera _Camera;
 	CMap _Map;
 	bool _Running;
 	const char* _c_WindowTitle;

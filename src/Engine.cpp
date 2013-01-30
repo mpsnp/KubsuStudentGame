@@ -5,7 +5,7 @@
 void GLFWCALL WindowResize( int width, int height );
 
 CEngine::CEngine(string Title)
-	:_Width(800), _Height(600), _c_WindowTitle(Title.c_str())
+	:_Width(800), _Height(600), _c_WindowTitle(Title.c_str()), _Camera()
 {
     _WindowInit();
 	_OpenGLInit();
@@ -62,9 +62,10 @@ void CEngine::_Draw()
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
 	// =========== Only for testing ==============
-	glTranslatef(0,0,-3);
-	glRotatef(_Frame,0,1,1);
+//	glTranslatef(0,0,-3);
+//	glRotatef(_Frame,0,1,1);
 	// =========== Only for testing ==============
+    _Camera.Draw();
 	_Map.Draw();
 	for(int i = 0;i < _Vehicles.size();i++) _Vehicles[i].Draw();
 	glfwSwapBuffers();
@@ -73,7 +74,8 @@ void CEngine::_Draw()
 void CEngine::_Process()
 {
 	_Frame+=0.2; // =========== Only for testing ==============
-	_Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
+    _Camera.AutomaticProcessingInput();
+    _Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 }
 
 void CEngine::SetProcessPerSecond(int Times)
@@ -141,7 +143,15 @@ void CEngine::_WindowInit()
 {
     glfwInit();
     glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
-	if( !glfwOpenWindow( _Width,_Height, 0, 0, 0, 0, 24, 0, GLFW_WINDOW ) )
+    GLFWvidmode DesktopMode;
+    glfwGetDesktopMode(&DesktopMode);
+    _Width = DesktopMode.Width;
+    _Height = DesktopMode.Height;
+	if(!glfwOpenWindow(_Width, _Height,
+                       DesktopMode.RedBits,
+                       DesktopMode.GreenBits,
+                       DesktopMode.BlueBits,
+                       8, 8, 0, GLFW_FULLSCREEN))
     {
         glfwTerminate();
     }

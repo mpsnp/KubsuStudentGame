@@ -2,6 +2,9 @@
 #define _COMMON_STRUCTS_H
 
 #include <cmath>
+
+const float PI = 3.1415926535;
+
 struct TVector3d
 {
 	float x,y,z;
