@@ -10,20 +10,27 @@ CEngine::CEngine(string Title)
 {
     _WindowInit();
 	_OpenGLInit();
+	_LoadResource();
 	SetProcessPerSecond(75);
-	try{
-    _Map.LoadMap("simple");
-	_Map.LoadFrom3ds("data/models/Flyer.3ds");
+	
+}
+
+CEngine::~CEngine()
+{
+}
+
+void CEngine::_LoadResource()
+{
+	try
+	{
+		_Map.LoadMap("simple");
+		_Map.LoadFrom3ds("data/models/Flyer.3ds");
 	}
 	catch (CException *e)
 	{
 		cout << e->GetMessage() << endl;
         delete e;
 	}
-}
-
-CEngine::~CEngine()
-{
 }
 
 void CEngine::_OpenGLInit()
