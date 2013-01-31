@@ -26,8 +26,10 @@ CModel3d::~CModel3d(void)
 
 void CModel3d::Draw(TVector3d vector)
 {
+    glPushMatrix();
 	glTranslatef(vector.x,vector.y,vector.z);
 	Draw();
+    glPopMatrix();
 }
 
 const char *CModel3d::GetFileName()
