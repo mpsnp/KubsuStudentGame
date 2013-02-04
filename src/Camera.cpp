@@ -4,7 +4,7 @@
 
 CCamera::CCamera()
 {
-    _Position = {0,0,0};
+    _Position = {0,0,1};
     _LookingForVector = {0,1,0};
     _TopVector = {0,0,1};
     _AngleHorizontal = 0.0;
@@ -13,6 +13,8 @@ CCamera::CCamera()
     _MovingForwardOffset = 0.1;
     _MovingBackOffset = -0.1;
     _MouseSensivity = 0.2;
+    UpdateWindowWidthAndHeight();
+    SetControlKeys(GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 }
 
 void CCamera::SetTrackingPoint(const TVector3d TrackingPoint)
@@ -41,6 +43,10 @@ void CCamera::RotateHorizontal(const float Angle)
 void CCamera::RotateVertical(const float Angle)
 {
     _AngleVertical += Angle;
+    if (_AngleVertical >= PI / 2)
+        _AngleVertical = PI / 2 * 0.9999;
+    if (_AngleVertical <= -PI / 2)
+        _AngleVertical = -PI / 2 * 0.9999;
     _UpdateLookingForVector();
 }
 
@@ -50,6 +56,17 @@ void CCamera::_UpdateLookingForVector()
     _LookingForVector.y = sinf(_AngleHorizontal);
     _LookingForVector = _LookingForVector * cosf(_AngleVertical);
     _LookingForVector.z = sinf(_AngleVertical);
+}
+
+void CCamera::SetControlKeys(const int KeyForward,
+                             const int KeyBackward,
+                             const int KeyLeft,
+                             const int KeyRight)
+{
+    _KeyForward     = KeyForward;
+    _KeyBackward    = KeyBackward;
+    _KeyLeft        = KeyLeft;
+    _KeyRight       = KeyRight;
 }
 
 void CCamera::_UpdateTopVector()
@@ -72,6 +89,46 @@ void CCamera::MoveForwardBack(const float Offset)
     _Position = _Position + _LookingForVector * Offset;
 }
 
+void CCamera::SetMouseSensivity(float MouseSensivity)
+{
+    _MouseSensivity = MouseSensivity;
+}
+
+float CCamera::GetMouseSensivity() const
+{
+    return _MouseSensivity;
+}
+
+void CCamera::SetMovingForwardOffset(float MovingForwardOffset)
+{
+    _MovingForwardOffset = MovingForwardOffset;
+}
+
+float CCamera::GetMovingForwardOffset() const
+{
+    return _MovingForwardOffset;
+}
+
+void CCamera::SetMovingBackOffset(float MovingBackOffset)
+{
+    _MovingBackOffset = MovingBackOffset;
+}
+
+float CCamera::GetMovingBackOffset() const
+{
+    return _MovingBackOffset;
+}
+
+void CCamera::SetMovingLeftRightOffset(float MovingLeftRightOffset)
+{
+    _MovingLeftRightOffset = MovingLeftRightOffset;
+}
+
+float CCamera::GetMovingLeftRightOffset() const
+{
+    return _MovingLeftRightOffset;
+}
+
 void CCamera::MoveLeftRight(const float Offset)
 {
     TVector3d OffsetVector = (_TopVector * _LookingForVector);
@@ -86,18 +143,16 @@ void CCamera::UpdateWindowWidthAndHeight()
 
 void CCamera::AutomaticProcessingInput()
 {
-    //TODO: Убрать магические GLFW_KEY_UP итд.
-    //TODO: Сделать ограничители вертикального угла, чтобы изображение не переворачивалось.
-    if (glfwGetKey(GLFW_KEY_UP)) {
+    if (glfwGetKey(_KeyForward)) {
         MoveForwardBack(_MovingForwardOffset);
     }
-    if (glfwGetKey(GLFW_KEY_DOWN)) {
+    if (glfwGetKey(_KeyBackward)) {
         MoveForwardBack(_MovingBackOffset);
     }
-    if (glfwGetKey(GLFW_KEY_LEFT)) {
+    if (glfwGetKey(_KeyLeft)) {
         MoveLeftRight(_MovingLeftRightOffset);
     }
-    if (glfwGetKey(GLFW_KEY_RIGHT)) {
+    if (glfwGetKey(_KeyRight)) {
         MoveLeftRight(-_MovingLeftRightOffset);
     }
     int MousePositionX,MousePositionY;

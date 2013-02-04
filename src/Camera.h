@@ -20,6 +20,11 @@ class CCamera
     
     int _Width;
     int _Height;
+    
+    int _KeyForward;
+    int _KeyBackward;
+    int _KeyLeft;
+    int _KeyRight;
 public:
     /*
      * Конструктор. 
@@ -83,6 +88,40 @@ public:
      * Обновляет размеры окна для корректной работы AutomaticProcessingInput().
      */
     void UpdateWindowWidthAndHeight();
+    
+    /*
+     * Чувствительность мыши
+     */
+    void SetMouseSensivity(const float);
+    float GetMouseSensivity() const;
+    
+    /*
+     * Смещение вперед
+     */
+    void SetMovingForwardOffset(const float);
+    float GetMovingForwardOffset() const;
+    
+    /*
+     * Смещение назад
+     */
+    void SetMovingBackOffset(const float);
+    float GetMovingBackOffset() const;
+    
+    /*
+     * Смещение в стороны
+     */
+    void SetMovingLeftRightOffset(const float);
+    float GetMovingLeftRightOffset() const;
+    
+    /*
+     * Устанавливает управление свободной камерой
+     * param[in] Код клавиши, перемещающей камеру вперед
+     * param[in] Код клавиши, перемещающей камеру назад
+     * param[in] Код клавиши, перемещающей камеру влево
+     * param[in] Код клавиши, перемещающей камеру вправо
+     */
+    void SetControlKeys(const int, const int, const int, const int);
+
 private:
     
     /*
@@ -94,9 +133,6 @@ private:
      * Обновляет _TopVector в соответствии с _LookingForVector и старым _TopVector
      */
     void _UpdateTopVector();
-    
-    //TODO: MouseSensivity Setter and Getter
-    //TODO: MovingOffsets Setters and Getters
 };
 
 #endif //_CAMERA_H_
