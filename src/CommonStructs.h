@@ -2,6 +2,9 @@
 #define _COMMON_STRUCTS_H
 
 #include <cmath>
+
+const float PI = 3.1415926535;
+
 /*
  Структура для хранения трехмерного вектора/точки
  */
