@@ -1,58 +1,45 @@
 #ifndef _ENGINE_H
 #define _ENGINE_H
 
-#include <vector>
-#include "CommonStructs.h"
-#include "Vehicle.h"
-#include "Model3d.h"
-#include "glfw.h"
-#include "map.h"
-#include "Camera.h"
+#include "CommonIncludes.h"
+#include "FuncDelegate.h"
 
 /*
  * Класс движка. 
  */
-class CEngine
+class CEngine: public KSU::IEngine
 {
 private:
 	int _Width, _Height;
-	std::vector<CVehicle> _Vehicles;
-	std::vector<CModel3d> _Models;
-    CCamera _Camera;
-	CMap _Map;
 	bool _Running;
-	const char* _c_WindowTitle;
-	double _ProcessPerSecond;
-
-	float _Frame;// =========== Тестовый костыль ==============
+	double _ProcessInterval;
+    
+    TUserFunction   _UserProcess;
+    TUserFunction   _UserRender;
+    TUserFunction   _UserInit;
+    TUserFunction   _UserFree;
+    
+	fstream         _LogFile;
 
 public:
-	CEngine(string);
+	CEngine();
 	~CEngine();
+    
+    HRESULT KSUCALL InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
+    HRESULT KSUCALL SetProcessInterval(uint uiProcessPerSecond);
+    HRESULT KSUCALL AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (KSUCALL *pProc)(void *pParametr), void *pParametr = NULL);
+    HRESULT KSUCALL RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType);
+    HRESULT KSUCALL StopEngine();
+    HRESULT KSUCALL AddToLog(const char *pcTxt, bool bError = false);
+    
+private:
     
     /*
      * Основной цикл программы. Запускает
      * _Process() & _Draw();
      */
-	void MainLoop();
-    
-    /*
-     * Устанавливает кол-во исполнений _Process() в секунду
-     */
-	void SetProcessPerSecond(int);
-private:
-    
-
-	/*
-	 *функция загрузки ресурсов
-	 *запускаеться 1 раз в конструкторе
-	 */
-	void _LoadResource();
-    /*
-     * Реализует систему просчета столкновений. Вызывается после каждого _Process()
-     */
-	void _Collision();
-    
+	void _MainLoop();
+        
     /*
      * Реализует логику игры. (Как-то передвижение объектов, камеры и т.п.)
      */
@@ -67,7 +54,7 @@ private:
      * Реализует весь код инициализации окна.
      * Вызывается 1 раз в конструкторе движка.
      */
-	void _WindowInit();
+	void _WindowInit(char *WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags);
     
     /*
      * Реализует весь код инициализации OpenGL.

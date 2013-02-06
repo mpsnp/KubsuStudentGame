@@ -47,8 +47,10 @@
 		5E7BD76116B6864D0061F347 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
 		5E7BD76216B6864D0061F347 /* Vehicle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vehicle.h; sourceTree = "<group>"; };
 		5E7BD76816B686610061F347 /* TheGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TheGame.cpp; path = ../../../../TheGame.cpp; sourceTree = "<group>"; };
-		5E7BD76916B686610061F347 /* TheGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TheGame.h; path = ../../../../TheGame.h; sourceTree = "<group>"; };
 		5E7BD76B16B687020061F347 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../../../data; sourceTree = "<group>"; };
+		5EBA555216C1079B002D3418 /* KSUEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUEngine.h; sourceTree = "<group>"; };
+		5EBA555316C119F2002D3418 /* FuncDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuncDelegate.h; sourceTree = "<group>"; };
+		5ED0896A16C137F500DD4A01 /* CommonIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonIncludes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				5E7BD76816B686610061F347 /* TheGame.cpp */,
-				5E7BD76916B686610061F347 /* TheGame.h */,
 				5E7BD73516B684BC0061F347 /* Supporting Files */,
 			);
 			path = TheGame;
@@ -131,8 +132,11 @@
 			isa = PBXGroup;
 			children = (
 				5E7BD75716B6864D0061F347 /* CommonStructs.h */,
+				5ED0896A16C137F500DD4A01 /* CommonIncludes.h */,
 				5E7BD75816B6864D0061F347 /* Engine.cpp */,
 				5E7BD75916B6864D0061F347 /* Engine.h */,
+				5EBA555216C1079B002D3418 /* KSUEngine.h */,
+				5EBA555316C119F2002D3418 /* FuncDelegate.h */,
 				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
 				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
 				5E7BD75D16B6864D0061F347 /* map.cpp */,

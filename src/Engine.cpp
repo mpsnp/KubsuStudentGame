@@ -1,36 +1,126 @@
 #include "Engine.h"
 #include "glfw.h"
-#include <iostream>
-#include <thread>
+#include <cmath>
+
+CEngine *TheEngine = NULL;
+
+HRESULT KSU::GetEngine(IEngine *&EngineInterface)
+{
+    if (!TheEngine) TheEngine = new CEngine();
+    EngineInterface = (IEngine *&)TheEngine;
+    return H_OK;
+}
+
+HRESULT KSU::FreeEngine()
+{
+    delete TheEngine;
+    return H_OK;
+}
 
 void GLFWCALL WindowResize( int width, int height );
 
-CEngine::CEngine(string Title)
-	:_Width(800), _Height(600), _c_WindowTitle(Title.c_str()), _Camera()
+HRESULT KSUCALL CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags)
 {
-    _WindowInit();
-	_OpenGLInit();
-	_LoadResource();
-	SetProcessPerSecond(75);
-	
+    if (!(InitFlags & EIF_NO_LOGGING))
+	{
+		_LogFile.open("EngineLog.txt", ios::out | ios::trunc);
+		_LogFile << "KSU Engine Log File" << endl;
+	}
+    
+    _WindowInit((char *)WindowTitle, InitFlags);
+    _OpenGLInit();
+    AddToLog("Engine initialized!");
+    _MainLoop();
+    
+    if (_LogFile.is_open())
+        _LogFile.close();
+    
+    return H_OK;
+}
+
+HRESULT KSUCALL CEngine::SetProcessInterval(uint uiProcessPerSecond)
+{
+    _ProcessInterval = 1.0 / uiProcessPerSecond;
+    return H_OK;
+}
+
+HRESULT KSUCALL CEngine::AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (KSUCALL *pProc)(void *pParametr), void *pParametr)
+{
+    switch (eProcType) {
+        case KSU::EPT_INIT:
+            _UserInit.AssignFunction(pProc, pParametr);
+            break;
+        case KSU::EPT_FREE:
+            _UserFree.AssignFunction(pProc, pParametr);
+            break;
+        case KSU::EPT_PROCESS:
+            _UserProcess.AssignFunction(pProc, pParametr);
+            break;
+        case KSU::EPT_RENDER:
+            _UserRender.AssignFunction(pProc, pParametr);
+            break;
+        default:
+            AddToLog("Invalid eProcType",true);
+            return H_ERROR;
+            break;
+    }
+    return H_OK;
+}
+
+HRESULT KSUCALL CEngine::RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType)
+{
+    // TODO: Рашид, проверь.
+    switch (eProcType) {
+        case KSU::EPT_RENDER:
+            _UserRender.DeleteFunction();
+            break;
+        case KSU::EPT_INIT:
+            _UserInit.DeleteFunction();
+            break;
+        case KSU::EPT_PROCESS:
+            _UserProcess.DeleteFunction();
+            break;
+        case KSU::EPT_FREE:
+            _UserFree.DeleteFunction();
+            break;
+        default:
+            AddToLog("Invalid eProcType!",true);
+            return H_ERROR;
+            break;
+    }
+    return H_OK;
+}
+
+HRESULT KSUCALL CEngine::StopEngine()
+{
+    _Running = false;
+    return H_OK;
+}
+
+HRESULT KSUCALL CEngine::AddToLog(const char *pcTxt, bool bError)
+{
+    if (_LogFile.is_open())
+    {
+        double Time = glfwGetTime();
+        
+        _LogFile << "Time passed:" << Time << " : ";
+        if (bError)
+            _LogFile << "ERROR : ";
+        _LogFile << pcTxt << endl;
+    
+        if (bError)
+            StopEngine();
+    }
+    return H_OK;
+}
+
+CEngine::CEngine()
+{
+    _ProcessInterval = 0;
 }
 
 CEngine::~CEngine()
 {
-}
-
-void CEngine::_LoadResource()
-{
-	try
-	{
-		_Map.LoadMap("simple");
-		_Map.LoadFrom3ds("data/models/Flyer.3ds");
-	}
-	catch (CException *e)
-	{
-		cout << e->GetMessage() << endl;
-        delete e;
-	}
 }
 
 void CEngine::_OpenGLInit()
@@ -69,46 +159,44 @@ void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-	// =========== Only for testing ==============
-//	glTranslatef(0,0,-3);
-//	glRotatef(_Frame,0,1,1);
-	// =========== Only for testing ==============
-    _Camera.Draw();
-	_Map.Draw();
-	for(int i = 0;i < _Vehicles.size();i++) _Vehicles[i].Draw();
+    _UserRender.PerformFunction();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
+    _UserProcess.PerformFunction();
+}
+
+void CEngine::_MainLoop()
+{    
+	_Running = true;
+    
+    if (!(_UserRender.FunctionExists() && _UserProcess.FunctionExists()))
+        AddToLog("User didn't provided Process or Render function. Exiting.",true);
+    
+    if (_UserInit.FunctionExists())
+        _UserInit.PerformFunction();
+    
+    if (_ProcessInterval == 0) {
+        SetProcessInterval(75);
+    }
+    
     double dTime = glfwGetTime();
-    while (_Running) {
-        if (glfwGetTime() - dTime >= _ProcessPerSecond){
-            _Frame+=0.2; // =========== Only for testing ==============
-    		_Camera.AutomaticProcessingInput();
-            _Running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
+    
+	while (_Running)
+    {
+        uint ProcessCyclesCount = round((glfwGetTime() - dTime) / _ProcessInterval);
+        for (int i = 0; i < ProcessCyclesCount; i++)
+        {
+            _Process();
             dTime = glfwGetTime();
         }
-        glfwSleep(0.001);
-    }
-}
-
-void CEngine::SetProcessPerSecond(int Times)
-{
-	_ProcessPerSecond = 1.0/Times;
-}
-
-void CEngine::MainLoop()
-{
-	_Frame = 0;// =========== Only for testing ==============
-	_Running = true;
-    std::thread ProcessThread = thread(&CEngine::_Process,this);
-    
-	while (_Running){
 		_Draw();
 	}
-
-    ProcessThread.join();
+    if (_UserFree.FunctionExists())
+        _UserFree.PerformFunction();
+    
 	glfwTerminate();
 }
 
@@ -121,6 +209,7 @@ void GLFWCALL WindowResize( int width, int height )
     glMatrixMode( GL_MODELVIEW );
 }
 
+/*
 void CEngine::_Collision()
 {
 	for (int i = 0; i < _Vehicles.size(); i++)
@@ -132,10 +221,10 @@ void CEngine::_Collision()
 			float min_distance = _Vehicles[i].GetRadius() + _Vehicles[j].GetRadius();
 			if (distance.LengthSquared() <= min_distance * min_distance)
 			{
-				/* Collision detected!
+				 Collision detected!
 				** TODO: reduce vehicles life
 				** FIXED: compute new velocity vector
-				*/
+				
 				// p = mv;  Ek = mv^2/2
 				TVector3d v1 = _Vehicles[i].GetVelocity();
 				int		  m1 = _Vehicles[i].GetWeight();
@@ -146,14 +235,15 @@ void CEngine::_Collision()
 				_Vehicles[j].SetVelocity((v2 * (m2 - m1) + v1 * m1 * 2) * (1/(m1 + m2)));
 			}
 		}
-		/*
+		
 		** TODO: Collision detection beween vehicle and other static objects e.g. walls
 		** TODO: Make sure you use square instead of square root everywhere where it possible
-		*/
+		
 	}
 }
+*/
 
-void CEngine::_WindowInit()
+void CEngine::_WindowInit(char *WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags)
 {
     glfwInit();
     glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
@@ -165,11 +255,11 @@ void CEngine::_WindowInit()
                        DesktopMode.RedBits,
                        DesktopMode.GreenBits,
                        DesktopMode.BlueBits,
-                       8, 8, 0, GLFW_FULLSCREEN))
+                       8, 8, 0, (InitFlags & EIF_FULLSCREEN)? GLFW_FULLSCREEN : GLFW_WINDOW))
     {
         glfwTerminate();
     }
-    glfwSetWindowTitle(_c_WindowTitle);
+    glfwSetWindowTitle(WindowTitle);
 	glfwSetWindowSizeCallback( WindowResize );
 	glfwGetWindowSize( &_Width, &_Height);
     glfwSwapInterval(1);

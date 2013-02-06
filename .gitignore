@@ -13,7 +13,6 @@ Game_engine/
 *.perspective
 *.perspectivev3
 xcuserdata
-
 #Windows
 *.sdf
 *.opensdf
@@ -21,3 +20,4 @@ xcuserdata
 *.user
 *.suo
 [Dd]ebug
+/EngineLog.txt
