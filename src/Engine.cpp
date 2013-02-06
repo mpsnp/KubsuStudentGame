@@ -159,35 +159,33 @@ void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-    _UserRender.PerformFunction();
+    if (_UserRender.FunctionExists())
+        _UserRender.PerformFunction();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
-    _UserProcess.PerformFunction();
+    if (_UserProcess.FunctionExists())
+        _UserProcess.PerformFunction();
 }
 
 void CEngine::_MainLoop()
 {    
 	_Running = true;
-    
-    if (!(_UserRender.FunctionExists() && _UserProcess.FunctionExists()))
-        AddToLog("User didn't provided Process or Render function. Exiting.",true);
-    
+        
     if (_UserInit.FunctionExists())
         _UserInit.PerformFunction();
     
     if (_ProcessInterval == 0) {
-        SetProcessInterval(75);
+        SetProcessInterval(30);
     }
     
     double dTime = glfwGetTime();
     
 	while (_Running)
     {
-        uint ProcessCyclesCount = round((glfwGetTime() - dTime) / _ProcessInterval);
-        for (int i = 0; i < ProcessCyclesCount; i++)
+        if ((glfwGetTime() - dTime) > _ProcessInterval)
         {
             _Process();
             dTime = glfwGetTime();

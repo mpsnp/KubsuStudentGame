@@ -12,6 +12,8 @@ void Init(void* pParam)
 
 void Process(void *pParam)
 {
+    if (counter % 10 == 0)
+        Engine->AddToLog("a");
     counter++;
     if (counter == 100)
         Engine->StopEngine();

@@ -131,25 +131,33 @@
 		5E7BD75616B6864D0061F347 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5ED11E1E16C2A66B00EE5FBD /* Engine */,
+				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
+				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
+				5E7BD75D16B6864D0061F347 /* map.cpp */,
+				5E7BD75E16B6864D0061F347 /* map.h */,
+				5E7BD76116B6864D0061F347 /* Vehicle.cpp */,
+				5E7BD76216B6864D0061F347 /* Vehicle.h */,
+			);
+			name = src;
+			path = ../../../src;
+			sourceTree = "<group>";
+		};
+		5ED11E1E16C2A66B00EE5FBD /* Engine */ = {
+			isa = PBXGroup;
+			children = (
 				5E7BD75716B6864D0061F347 /* CommonStructs.h */,
 				5ED0896A16C137F500DD4A01 /* CommonIncludes.h */,
 				5E7BD75816B6864D0061F347 /* Engine.cpp */,
 				5E7BD75916B6864D0061F347 /* Engine.h */,
 				5EBA555216C1079B002D3418 /* KSUEngine.h */,
 				5EBA555316C119F2002D3418 /* FuncDelegate.h */,
-				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
-				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
-				5E7BD75D16B6864D0061F347 /* map.cpp */,
-				5E7BD75E16B6864D0061F347 /* map.h */,
 				5E7BD75F16B6864D0061F347 /* Model3d.cpp */,
 				5E7BD76016B6864D0061F347 /* Model3d.h */,
-				5E7BD76116B6864D0061F347 /* Vehicle.cpp */,
-				5E7BD76216B6864D0061F347 /* Vehicle.h */,
 				5E3A649016B6E21A00B86C4E /* Camera.cpp */,
 				5E3A649116B6E21A00B86C4E /* Camera.h */,
 			);
-			name = src;
-			path = ../../../src;
+			name = Engine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
