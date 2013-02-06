@@ -174,7 +174,8 @@ namespace KSU {
         ES_INPUT = 0,
         ES_PHYSICS,
         ES_RENDER,
-        ES_RESOURSE_MANAGER
+        ES_RESOURSE_MANAGER,
+        ES_SOUND
     };
     
     /*
@@ -227,6 +228,16 @@ namespace KSU {
     };
     
     class IRender: public IEngineSubsystem
+    {
+    public:
+    };
+    
+    class IRender2d: public IRender
+    {
+    public:
+    };
+    
+    class IRender3d: public IRender
     {
     public:
     };
