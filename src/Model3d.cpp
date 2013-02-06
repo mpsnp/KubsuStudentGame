@@ -2,13 +2,13 @@
 #include <fstream>
 #include <iostream>
 
-CModel3d::CModel3d(void)
+CModel::CModel(void)
 	:_Vertexes(NULL), _TexCoords(NULL), _Triangles(NULL), _Normals(NULL), _LoadedSuccsessfull(false)
 {
 	SetColor(1,1,1,1);
 }
 
-void CModel3d::SetColor(float R,float G,float B, float A)
+void CModel::SetColor(float R,float G,float B, float A)
 {
 	_Color.r=R;
 	_Color.g=G;
@@ -16,7 +16,7 @@ void CModel3d::SetColor(float R,float G,float B, float A)
 	_Color.a=A;
 }
 
-CModel3d::~CModel3d(void)
+CModel::~CModel(void)
 {
 	if(_Vertexes)	delete[] _Vertexes;
 	if(_TexCoords)	delete[] _TexCoords;
@@ -24,7 +24,7 @@ CModel3d::~CModel3d(void)
 	if(_Normals)	delete[] _Normals;
 }
 
-void CModel3d::Draw(TVector3d vector)
+void CModel::Draw(TVector3d vector)
 {
     glPushMatrix();
 	glTranslatef(vector.x,vector.y,vector.z);
@@ -32,12 +32,12 @@ void CModel3d::Draw(TVector3d vector)
     glPopMatrix();
 }
 
-const char *CModel3d::GetFileName()
+const char *CModel::GetFileName()
 {
 	return _FileName;
 }
 
-void CModel3d::Draw()
+void CModel::Draw()
 {
 	if (!_LoadedSuccsessfull)
 	{
@@ -65,7 +65,7 @@ void CModel3d::Draw()
 	}
 }
 
-void CModel3d::_ComputeNormals()
+void CModel::_ComputeNormals()
 {
 	TVector3d vVector1, vVector2, vNormal, vPoly[3];
 
@@ -107,7 +107,7 @@ void CModel3d::_ComputeNormals()
 	delete [] pTempNormals;
 }
 
-bool CModel3d::LoadFrom3ds(string FileName)
+bool CModel::LoadFrom3ds(string FileName)
 {
 	const int CHUNK_HEADER_LENGTH = 6;
 
@@ -241,7 +241,7 @@ bool CModel3d::LoadFrom3ds(string FileName)
 	return true;
 }
 
-bool CModel3d::_LoadTextureFromFile(string TextureName)
+bool CModel::_LoadTextureFromFile(string TextureName)
 {
 	glGenTextures(1,&_Texture);
 	glBindTexture(GL_TEXTURE_2D,_Texture);
@@ -255,7 +255,7 @@ bool CModel3d::_LoadTextureFromFile(string TextureName)
 	return true;
 }
 
-unsigned int CModel3d::_FindChunk(ifstream& InputStream, unsigned short id, bool isParent = true)
+unsigned int CModel::_FindChunk(ifstream& InputStream, unsigned short id, bool isParent = true)
 {
 	const int EDIT_OBJECT =0x4000;
 	unsigned short usChunkID;

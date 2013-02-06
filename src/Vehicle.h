@@ -12,7 +12,7 @@ class CVehicle
 	const float _c_Radius;
 	TVector3d _Position;
 	TVector3d _VelocityVector;
-	CModel3d *_ModelPointer;
+	CModel *_ModelPointer;
 	int _Weight;
 	int _Life;
 public:

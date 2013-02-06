@@ -19,7 +19,7 @@ HRESULT KSU::FreeEngine()
 
 void GLFWCALL WindowResize( int width, int height );
 
-HRESULT KSUCALL CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags)
+HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags)
 {
     if (!(InitFlags & EIF_NO_LOGGING))
 	{
@@ -38,13 +38,13 @@ HRESULT KSUCALL CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGI
     return H_OK;
 }
 
-HRESULT KSUCALL CEngine::SetProcessInterval(uint uiProcessPerSecond)
+HRESULT CEngine::SetProcessInterval(uint uiProcessPerSecond)
 {
     _ProcessInterval = 1.0 / uiProcessPerSecond;
     return H_OK;
 }
 
-HRESULT KSUCALL CEngine::AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (KSUCALL *pProc)(void *pParametr), void *pParametr)
+HRESULT CEngine::AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (*pProc)(void *pParametr), void *pParametr)
 {
     switch (eProcType) {
         case KSU::EPT_INIT:
@@ -67,7 +67,7 @@ HRESULT KSUCALL CEngine::AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (KS
     return H_OK;
 }
 
-HRESULT KSUCALL CEngine::RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType)
+HRESULT CEngine::RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType)
 {
     // TODO: Рашид, проверь.
     switch (eProcType) {
@@ -91,13 +91,13 @@ HRESULT KSUCALL CEngine::RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType)
     return H_OK;
 }
 
-HRESULT KSUCALL CEngine::StopEngine()
+HRESULT CEngine::StopEngine()
 {
     _Running = false;
     return H_OK;
 }
 
-HRESULT KSUCALL CEngine::AddToLog(const char *pcTxt, bool bError)
+HRESULT CEngine::AddToLog(const char *pcTxt, bool bError)
 {
     if (_LogFile.is_open())
     {

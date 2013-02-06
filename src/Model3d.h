@@ -5,9 +5,10 @@
 #include "CommonStructs.h"
 #include "Exceptions.h"
 #include "glfw.h"
+#include "CommonIncludes.h"
 
 using namespace std;
-class CModel3d
+class CModel: public IModel
 {
 	unsigned short _NVertexes;
 	TVector3d *_Vertexes;
@@ -20,8 +21,8 @@ class CModel3d
 	bool _LoadedSuccsessfull;
 	const char *_FileName;
 public:
-	CModel3d(void);
-	~CModel3d(void);
+	CModel(void);
+	~CModel(void);
     
     /*
      * Рендер модели в точке.

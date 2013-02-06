@@ -11,7 +11,7 @@
 #include <string>
 #include "Model3d.h"
 
-class CMap : public CModel3d
+class CMap : public CModel
 {
     char **_Map;
     int _Width;

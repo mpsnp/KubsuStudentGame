@@ -4,7 +4,7 @@
 #include "KSUEngine.h"
 #include <vector>
 
-typedef void (KSUCALL *TUFunction)(void *pParametr);
+typedef void (*TUFunction)(void *pParametr);
 
 template <class T1>
 class TempFunc {

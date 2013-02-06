@@ -25,12 +25,12 @@ public:
 	CEngine();
 	~CEngine();
     
-    HRESULT KSUCALL InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
-    HRESULT KSUCALL SetProcessInterval(uint uiProcessPerSecond);
-    HRESULT KSUCALL AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (KSUCALL *pProc)(void *pParametr), void *pParametr = NULL);
-    HRESULT KSUCALL RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType);
-    HRESULT KSUCALL StopEngine();
-    HRESULT KSUCALL AddToLog(const char *pcTxt, bool bError = false);
+    HRESULT InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
+    HRESULT SetProcessInterval(uint uiProcessPerSecond);
+    HRESULT AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (*pProc)(void *pParametr), void *pParametr = NULL);
+    HRESULT RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType);
+    HRESULT StopEngine();
+    HRESULT AddToLog(const char *pcTxt, bool bError = false);
     
 private:
     

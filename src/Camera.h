@@ -1,9 +1,9 @@
 #ifndef _CAMERA_H_
 #define _CAMERA_H_
 
-#include "CommonStructs.h"
+#include "CommonIncludes.h"
 
-class CCamera
+class CCamera: public ICamera
 {
     TVector3d _Position;
     TVector3d _LookingForVector;

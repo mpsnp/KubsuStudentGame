@@ -2,6 +2,7 @@
 #define _COMMON_INCLUDES_H
 
 #include "KSUEngine.h"
+#include "CommonStructs.h"
 
 using namespace KSU;
 

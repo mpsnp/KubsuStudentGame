@@ -13,7 +13,7 @@ void Init(void* pParam)
 void Process(void *pParam)
 {
     counter++;
-    if (counter == 500)
+    if (counter == 100)
         Engine->StopEngine();
 }
 
