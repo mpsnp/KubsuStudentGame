@@ -3,12 +3,11 @@
 
 #include <string>
 #include "CommonStructs.h"
-#include "Exceptions.h"
 #include "glfw.h"
 #include "CommonIncludes.h"
 
 using namespace std;
-class CModel: public IModel
+class CMesh: public IMesh
 {
 	unsigned short _NVertexes;
 	TVector3d *_Vertexes;
@@ -21,8 +20,8 @@ class CModel: public IModel
 	bool _LoadedSuccsessfull;
 	const char *_FileName;
 public:
-	CModel(void);
-	~CModel(void);
+	CMesh(void);
+	~CMesh(void);
     
     /*
      * Рендер модели в точке.

@@ -69,53 +69,6 @@ HRESULT CEngine::SetProcessInterval(uint uiProcessPerSecond)
     return H_OK;
 }
 
-HRESULT CEngine::AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (*pProc)(void *pParametr), void *pParametr)
-{
-    switch (eProcType) {
-        case KSU::EPT_INIT:
-            _UserInit.AssignFunction(pProc, pParametr);
-            break;
-        case KSU::EPT_FREE:
-            _UserFree.AssignFunction(pProc, pParametr);
-            break;
-        case KSU::EPT_PROCESS:
-            _UserProcess.AssignFunction(pProc, pParametr);
-            break;
-        case KSU::EPT_RENDER:
-            _UserRender.AssignFunction(pProc, pParametr);
-            break;
-        default:
-            AddToLog("Invalid eProcType",true);
-            return H_ERROR;
-            break;
-    }
-    return H_OK;
-}
-
-HRESULT CEngine::RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType)
-{
-    // TODO: Рашид, проверь.
-    switch (eProcType) {
-        case KSU::EPT_RENDER:
-            _UserRender.DeleteFunction();
-            break;
-        case KSU::EPT_INIT:
-            _UserInit.DeleteFunction();
-            break;
-        case KSU::EPT_PROCESS:
-            _UserProcess.DeleteFunction();
-            break;
-        case KSU::EPT_FREE:
-            _UserFree.DeleteFunction();
-            break;
-        default:
-            AddToLog("Invalid eProcType!",true);
-            return H_ERROR;
-            break;
-    }
-    return H_OK;
-}
-
 HRESULT CEngine::StopEngine()
 {
     _Running = false;
@@ -136,6 +89,12 @@ HRESULT CEngine::AddToLog(const char *pcTxt, bool bError)
         if (bError)
             StopEngine();
     }
+    return H_OK;
+}
+
+HRESULT CEngine::SetGame(IGame *pGame)
+{
+    pGameInterface = pGame;
     return H_OK;
 }
 
@@ -184,23 +143,20 @@ void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-    if (_UserRender.FunctionExists())
-        _UserRender.PerformFunction();
+    pGameInterface->Render();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
-    if (_UserProcess.FunctionExists())
-        _UserProcess.PerformFunction();
+    pGameInterface->Process();
 }
 
 void CEngine::_MainLoop()
 {    
 	_Running = true;
         
-    if (_UserInit.FunctionExists())
-        _UserInit.PerformFunction();
+    pGameInterface->Init();
     
     if (_ProcessInterval == 0) {
         SetProcessInterval(30);
@@ -217,8 +173,7 @@ void CEngine::_MainLoop()
         }
 		_Draw();
 	}
-    if (_UserFree.FunctionExists())
-        _UserFree.PerformFunction();
+    pGameInterface->Free();
     
 	glfwTerminate();
 }

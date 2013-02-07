@@ -5,9 +5,11 @@
 
 using namespace KSU;
 
-class CGameModel
+class CGameModel: public IGame
 {
     IEngine     *EngineCore;
+    
+    int count;
     
 public:
     CGameModel(void *pEngineCore);

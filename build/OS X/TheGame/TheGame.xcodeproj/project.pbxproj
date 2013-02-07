@@ -13,8 +13,6 @@
 		5E7BD74E16B685040061F347 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74D16B685040061F347 /* OpenGL.framework */; };
 		5E7BD75016B685120061F347 /* libglfw.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74F16B685120061F347 /* libglfw.a */; };
 		5E7BD76316B6864D0061F347 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD75816B6864D0061F347 /* Engine.cpp */; };
-		5E7BD76416B6864D0061F347 /* Exceptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD75A16B6864D0061F347 /* Exceptions.cpp */; };
-		5E7BD76516B6864D0061F347 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD75D16B6864D0061F347 /* map.cpp */; };
 		5E7BD76616B6864D0061F347 /* Model3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD75F16B6864D0061F347 /* Model3d.cpp */; };
 		5E7BD76716B6864D0061F347 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD76116B6864D0061F347 /* Vehicle.cpp */; };
 		5E7BD76A16B686610061F347 /* TheGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD76816B686610061F347 /* TheGame.cpp */; };
@@ -39,11 +37,7 @@
 		5E7BD75716B6864D0061F347 /* CommonStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonStructs.h; sourceTree = "<group>"; };
 		5E7BD75816B6864D0061F347 /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		5E7BD75916B6864D0061F347 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
-		5E7BD75A16B6864D0061F347 /* Exceptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exceptions.cpp; sourceTree = "<group>"; };
-		5E7BD75B16B6864D0061F347 /* Exceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exceptions.h; sourceTree = "<group>"; };
 		5E7BD75C16B6864D0061F347 /* glfw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glfw.h; path = ../../../../src/glfw.h; sourceTree = "<group>"; };
-		5E7BD75D16B6864D0061F347 /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
-		5E7BD75E16B6864D0061F347 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
 		5E7BD75F16B6864D0061F347 /* Model3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model3d.cpp; sourceTree = "<group>"; };
 		5E7BD76016B6864D0061F347 /* Model3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model3d.h; sourceTree = "<group>"; };
 		5E7BD76116B6864D0061F347 /* Vehicle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vehicle.cpp; sourceTree = "<group>"; };
@@ -51,7 +45,6 @@
 		5E7BD76816B686610061F347 /* TheGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TheGame.cpp; path = ../../../../TheGame.cpp; sourceTree = "<group>"; };
 		5E7BD76B16B687020061F347 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../../../data; sourceTree = "<group>"; };
 		5EBA555216C1079B002D3418 /* KSUEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUEngine.h; sourceTree = "<group>"; };
-		5EBA555316C119F2002D3418 /* FuncDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuncDelegate.h; sourceTree = "<group>"; };
 		5ED0896A16C137F500DD4A01 /* CommonIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonIncludes.h; sourceTree = "<group>"; };
 		5EF7390F16C3E1C000FFD39D /* GameModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameModel.cpp; path = Game/GameModel.cpp; sourceTree = "<group>"; };
 		5EF7391016C3E1C000FFD39D /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameModel.h; path = Game/GameModel.h; sourceTree = "<group>"; };
@@ -139,10 +132,6 @@
 			children = (
 				5EF7391216C3E1CC00FFD39D /* Game */,
 				5ED11E1E16C2A66B00EE5FBD /* Engine */,
-				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
-				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
-				5E7BD75D16B6864D0061F347 /* map.cpp */,
-				5E7BD75E16B6864D0061F347 /* map.h */,
 				5E7BD76116B6864D0061F347 /* Vehicle.cpp */,
 				5E7BD76216B6864D0061F347 /* Vehicle.h */,
 			);
@@ -159,7 +148,6 @@
 				5ED0896A16C137F500DD4A01 /* CommonIncludes.h */,
 				5E7BD75816B6864D0061F347 /* Engine.cpp */,
 				5E7BD75916B6864D0061F347 /* Engine.h */,
-				5EBA555316C119F2002D3418 /* FuncDelegate.h */,
 				5E7BD75F16B6864D0061F347 /* Model3d.cpp */,
 				5E7BD76016B6864D0061F347 /* Model3d.h */,
 				5E3A649016B6E21A00B86C4E /* Camera.cpp */,
@@ -250,8 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E7BD76316B6864D0061F347 /* Engine.cpp in Sources */,
-				5E7BD76416B6864D0061F347 /* Exceptions.cpp in Sources */,
-				5E7BD76516B6864D0061F347 /* map.cpp in Sources */,
 				5E7BD76616B6864D0061F347 /* Model3d.cpp in Sources */,
 				5E7BD76716B6864D0061F347 /* Vehicle.cpp in Sources */,
 				5E7BD76A16B686610061F347 /* TheGame.cpp in Sources */,

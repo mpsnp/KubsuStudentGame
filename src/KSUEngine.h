@@ -202,6 +202,15 @@ namespace KSU {
         bool RightButtonPressed;
     };
     
+    class IGame
+    {
+    public:
+        virtual void Init() = 0;
+        virtual void Process() = 0;
+        virtual void Render() = 0;
+        virtual void Free() = 0;
+    };
+    
     class IEngineBase
     {
     public:
@@ -219,7 +228,7 @@ namespace KSU {
         virtual HRESULT GetType(E_RESOURCE_TYPE &Type) = 0;
     };
     
-    class IModel: public IResource
+    class IMesh: public IResource
     {
     public:
         virtual HRESULT Draw() = 0;
@@ -273,8 +282,7 @@ namespace KSU {
     public:
         virtual HRESULT InitWindowAndSubsystems(const char* pWindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT) = 0;
         virtual HRESULT SetProcessInterval(uint ProcessPerSecond) = 0;
-        virtual HRESULT AddFunction(const E_ENGINE_PROCEDURE_TYPE ProcType, void (*pProc)(void *pParametr), void *pParametr = NULL) = 0;
-		virtual HRESULT RemoveFunction(const E_ENGINE_PROCEDURE_TYPE ProcType) = 0;
+        virtual HRESULT SetGame(IGame *pGame) = 0;
 		virtual HRESULT StopEngine() = 0;
 		virtual	HRESULT AddToLog(const char *pText, bool Error = false) = 0;
         virtual HRESULT GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngineSubsystem *&SubSystem) = 0;
@@ -289,19 +297,22 @@ namespace KSU {
         virtual HRESULT EndTextInput() = 0;
     };
     
+    class IRender2d: public IEngineBase
+    {
+    public:
+        virtual HRESULT DrawRectangle() = 0;
+    };
+    
+    class IRender3d: public IEngineBase
+    {
+    public:
+    };
+    
     class IRender: public IEngineSubsystem
     {
     public:
-    };
-    
-    class IRender2d: public IRender
-    {
-    public:
-    };
-    
-    class IRender3d: public IRender
-    {
-    public:
+        virtual HRESULT GetRender2d() = 0;
+        virtual HRESULT GetRender3d() = 0;
     };
     
     class IResourceManager: public IEngineSubsystem
