@@ -38,6 +38,31 @@ HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITI
     return H_OK;
 }
 
+HRESULT CEngine::GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngineSubsystem *&SubSystem)
+{
+    switch (SubSystemType) {
+        case KSU::ES_INPUT:
+            SubSystem = (IEngineSubsystem *&)pInput;
+            break;
+        case KSU::ES_PHYSICS:
+            SubSystem = (IEngineSubsystem *&)pPhysics;
+            break;
+        case KSU::ES_RENDER:
+            SubSystem = (IEngineSubsystem *&)pRender;
+            break;
+        case KSU::ES_RESOURSE_MANAGER:
+            SubSystem = (IEngineSubsystem *&)pResorceManager;
+            break;
+        case KSU::ES_SOUND:
+            SubSystem = (IEngineSubsystem *&)pSound;
+            break;
+        default:
+            AddToLog("No such subsystem!",true);
+            break;
+    }
+    return H_OK;
+}
+
 HRESULT CEngine::SetProcessInterval(uint uiProcessPerSecond)
 {
     _ProcessInterval = 1.0 / uiProcessPerSecond;

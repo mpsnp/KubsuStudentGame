@@ -19,6 +19,8 @@
 		5E7BD76716B6864D0061F347 /* Vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD76116B6864D0061F347 /* Vehicle.cpp */; };
 		5E7BD76A16B686610061F347 /* TheGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7BD76816B686610061F347 /* TheGame.cpp */; };
 		5E7BD76C16B687020061F347 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 5E7BD76B16B687020061F347 /* data */; };
+		5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EF7390F16C3E1C000FFD39D /* GameModel.cpp */; };
+		5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCD22116C2D76E004A8813 /* Input.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,10 @@
 		5EBA555216C1079B002D3418 /* KSUEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUEngine.h; sourceTree = "<group>"; };
 		5EBA555316C119F2002D3418 /* FuncDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuncDelegate.h; sourceTree = "<group>"; };
 		5ED0896A16C137F500DD4A01 /* CommonIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonIncludes.h; sourceTree = "<group>"; };
+		5EF7390F16C3E1C000FFD39D /* GameModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameModel.cpp; path = Game/GameModel.cpp; sourceTree = "<group>"; };
+		5EF7391016C3E1C000FFD39D /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameModel.h; path = Game/GameModel.h; sourceTree = "<group>"; };
+		5EFCD22116C2D76E004A8813 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Input.cpp; path = SubSystems/Input.cpp; sourceTree = "<group>"; };
+		5EFCD22216C2D76E004A8813 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Input.h; path = SubSystems/Input.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,7 @@
 		5E7BD75616B6864D0061F347 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				5EF7391216C3E1CC00FFD39D /* Game */,
 				5ED11E1E16C2A66B00EE5FBD /* Engine */,
 				5E7BD75A16B6864D0061F347 /* Exceptions.cpp */,
 				5E7BD75B16B6864D0061F347 /* Exceptions.h */,
@@ -146,11 +153,12 @@
 		5ED11E1E16C2A66B00EE5FBD /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				5EBA555216C1079B002D3418 /* KSUEngine.h */,
+				5EFCD22416C2D775004A8813 /* SubSystems */,
 				5E7BD75716B6864D0061F347 /* CommonStructs.h */,
 				5ED0896A16C137F500DD4A01 /* CommonIncludes.h */,
 				5E7BD75816B6864D0061F347 /* Engine.cpp */,
 				5E7BD75916B6864D0061F347 /* Engine.h */,
-				5EBA555216C1079B002D3418 /* KSUEngine.h */,
 				5EBA555316C119F2002D3418 /* FuncDelegate.h */,
 				5E7BD75F16B6864D0061F347 /* Model3d.cpp */,
 				5E7BD76016B6864D0061F347 /* Model3d.h */,
@@ -158,6 +166,24 @@
 				5E3A649116B6E21A00B86C4E /* Camera.h */,
 			);
 			name = Engine;
+			sourceTree = "<group>";
+		};
+		5EF7391216C3E1CC00FFD39D /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				5EF7390F16C3E1C000FFD39D /* GameModel.cpp */,
+				5EF7391016C3E1C000FFD39D /* GameModel.h */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		5EFCD22416C2D775004A8813 /* SubSystems */ = {
+			isa = PBXGroup;
+			children = (
+				5EFCD22116C2D76E004A8813 /* Input.cpp */,
+				5EFCD22216C2D76E004A8813 /* Input.h */,
+			);
+			name = SubSystems;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,6 +256,8 @@
 				5E7BD76716B6864D0061F347 /* Vehicle.cpp in Sources */,
 				5E7BD76A16B686610061F347 /* TheGame.cpp in Sources */,
 				5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */,
+				5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */,
+				5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

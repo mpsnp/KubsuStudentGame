@@ -4,6 +4,12 @@
 #include "CommonIncludes.h"
 #include "FuncDelegate.h"
 
+class CInput;
+class CPhysics;
+class CRender;
+class CResourceManager;
+class CSound;
+
 /*
  * Класс движка. 
  */
@@ -20,17 +26,24 @@ private:
     TUserFunction   _UserFree;
     
 	fstream         _LogFile;
+    
+    CInput          *pInput;
+    CPhysics        *pPhysics;
+    CRender         *pRender;
+    CResourceManager*pResorceManager;
+    CSound          *pSound;
 
 public:
 	CEngine();
 	~CEngine();
     
-    HRESULT InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
-    HRESULT SetProcessInterval(uint uiProcessPerSecond);
-    HRESULT AddFunction(E_ENGINE_PROCEDURE_TYPE eProcType, void (*pProc)(void *pParametr), void *pParametr = NULL);
-    HRESULT RemoveFunction(E_ENGINE_PROCEDURE_TYPE eProcType);
+    HRESULT InitWindowAndSubsystems(const char* pWindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
+    HRESULT SetProcessInterval(uint ProcessPerSecond);
+    HRESULT AddFunction(const E_ENGINE_PROCEDURE_TYPE ProcType, void (*pProc)(void *pParametr), void *pParametr = NULL);
+    HRESULT RemoveFunction(const E_ENGINE_PROCEDURE_TYPE ProcType);
     HRESULT StopEngine();
-    HRESULT AddToLog(const char *pcTxt, bool bError = false);
+    HRESULT AddToLog(const char *pText, bool Error = false);
+    HRESULT GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngineSubsystem *&SubSystem);
     
 private:
     

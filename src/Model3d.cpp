@@ -37,7 +37,7 @@ const char *CModel::GetFileName()
 	return _FileName;
 }
 
-void CModel::Draw()
+HRESULT CModel::Draw()
 {
 	if (!_LoadedSuccsessfull)
 	{
@@ -63,6 +63,7 @@ void CModel::Draw()
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisable(GL_TEXTURE_2D);
 	}
+    return H_OK;
 }
 
 void CModel::_ComputeNormals()

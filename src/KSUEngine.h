@@ -36,6 +36,16 @@ namespace KSU {
      * Enums
      */
     
+    enum E_RESOURCE_TYPE
+    {
+        RT_CAMERA = 0,
+        RT_MODEL,
+        RT_COLLIDABLE,
+        RT_SHAPE,
+        RT_SOUND_SAMPLE,
+        RT_TEXTURE
+    };
+    
     enum E_ENGINE_INITIALISATION_FLAGS
     {
         EIF_DEFAULT     = 0x00000000,
@@ -169,7 +179,7 @@ namespace KSU {
 		KEY_NUMLOCK			= 0x45,
     };
     
-    enum E_ENGINE_SUBSYSTEM
+    enum E_ENGINE_SUBSYSTEM_TYPE
     {
         ES_INPUT = 0,
         ES_PHYSICS,
@@ -192,19 +202,70 @@ namespace KSU {
         bool RightButtonPressed;
     };
     
-    /*
-     * Main engine systems
-     */
-    
     class IEngineBase
     {
     public:
     };
     
+    /*
+     * Интерфейсы ресурсов
+     */
+    
+    class IResource: public IEngineBase
+    {
+    public:
+        virtual HRESULT GetData(char *&pData)const = 0;
+        virtual HRESULT SetData(const char *pData) = 0;
+        virtual HRESULT GetType(E_RESOURCE_TYPE &Type) = 0;
+    };
+    
+    class IModel: public IResource
+    {
+    public:
+        virtual HRESULT Draw() = 0;
+    };
+    
+    class ICamera: public IResource
+    {
+    public:
+        virtual HRESULT Draw() = 0;
+    };
+    
+    class ITexture: public IResource
+    {
+    public:
+        virtual HRESULT BindTexture() = 0;
+    };
+    
+    class ISoundSample: public IResource
+    {
+    public:
+    };
+    
+    class IPhysicsObject: public IResource
+    {
+    public:
+    };
+    
+    class ICollidable: public IPhysicsObject
+    {
+    public:
+        
+    };
+    
+    class IShape: public IPhysicsObject
+    {
+    public:
+    };
+    
+    /*
+     * Main engine systems
+     */
+    
     class IEngineSubsystem: public IEngineBase
     {
     public:
-        virtual HRESULT GetType(E_ENGINE_SUBSYSTEM &EngineSubSystem);
+        virtual HRESULT GetType(E_ENGINE_SUBSYSTEM_TYPE &EngineSubSystem) = 0;
     };
     
     class IEngine: public IEngineBase
@@ -212,16 +273,17 @@ namespace KSU {
     public:
         virtual HRESULT InitWindowAndSubsystems(const char* pWindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT) = 0;
         virtual HRESULT SetProcessInterval(uint ProcessPerSecond) = 0;
-        virtual HRESULT AddFunction(E_ENGINE_PROCEDURE_TYPE ProcType, void (*pProc)(void *pParametr), void *pParametr = NULL) = 0;
-		virtual HRESULT RemoveFunction(E_ENGINE_PROCEDURE_TYPE ProcType) = 0;
+        virtual HRESULT AddFunction(const E_ENGINE_PROCEDURE_TYPE ProcType, void (*pProc)(void *pParametr), void *pParametr = NULL) = 0;
+		virtual HRESULT RemoveFunction(const E_ENGINE_PROCEDURE_TYPE ProcType) = 0;
 		virtual HRESULT StopEngine() = 0;
 		virtual	HRESULT AddToLog(const char *pText, bool Error = false) = 0;
+        virtual HRESULT GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngineSubsystem *&SubSystem) = 0;
     };
     
     class IInput: public IEngineSubsystem
     {
     public:
-        virtual HRESULT KeyPressed(E_KEYBOARD_KEY_CODES KeyKode)const = 0;
+        virtual HRESULT KeyPressed(const E_KEYBOARD_KEY_CODES KeyKode)const = 0;
         virtual HRESULT GetMouseState(TMouseState &MouseState)const = 0;
         virtual HRESULT BeginTextInput(char *pBuffer, uint BufferSize) = 0;
         virtual HRESULT EndTextInput() = 0;
@@ -245,7 +307,10 @@ namespace KSU {
     class IResourceManager: public IEngineSubsystem
     {
     public:
+        virtual HRESULT GenerateResource(const E_RESOURCE_TYPE ResourceType, IResource *&pResource) = 0;
         virtual HRESULT LoadResource(char *pFileName) = 0;
+        virtual HRESULT FreeResource(IResource *&pResource) = 0;
+        virtual HRESULT GenerateTexture(ITexture *&pTexture) = 0;
     };
     
     class IPhysics: public IEngineSubsystem
@@ -254,51 +319,6 @@ namespace KSU {
     };
     
     class ISound: public IEngineSubsystem
-    {
-    public:
-    };
-    
-    /*
-     * Интерфейсы ресурсов
-     */
-    
-    class IResource: public IEngineBase
-    {
-    public:
-    };
-    
-    class IModel: public IResource
-    {
-    public:
-    };
-    
-    class ICamera: public IResource
-    {
-    public:
-    };
-    
-    class ITexture: public IResource
-    {
-    public:
-    };
-    
-    class ISoundSample: public IResource
-    {
-    public:
-    };
-    
-    class IPhysicsObject: public IResource
-    {
-    public:
-    };
-    
-    class ICollidable: public IPhysicsObject
-    {
-    public:
-        
-    };
-    
-    class IShape: public IPhysicsObject
     {
     public:
     };
