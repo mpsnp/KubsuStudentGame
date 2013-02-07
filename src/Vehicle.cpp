@@ -7,6 +7,7 @@ CVehicle::CVehicle(int identifier)
 	_VelocityVector.y = 0;
 	_VelocityVector.z = 0;
 	_Life = _c_MaxLife;
+    _Weight = 10;
 }
 
 TVector3d CVehicle::GetPosition()const
@@ -31,20 +32,24 @@ int CVehicle::GetWeight()const
 
 void CVehicle::Force(float Force,float Angle)
 {
+	float t = 1;//CEngine::ProcessInterval;
 	// check angle
-	if (Angle > _c_MaxAngle)
-		Angle = _c_MaxAngle;
+	if (Angle > _c_MaxAngle);
+    //Angle = _c_MaxAngle;
 	// F = ma;
 	float a = Force / _Weight;
-	// V = V0 + at^2/2
-	float v0 = _VelocityVector.Length();
-	float v = v0 + a / 2;
+	// V = V0 + at
+	float v0y = _VelocityVector.y;
+    float v0x = _VelocityVector.x;
+	float vx = v0x + a * t;
+    float vy = v0y + a * t;
+    float v_squared = vx*vx + vy*vy;
 	// check velocity
-	if (v > _c_MaxVelocity)
-		v = _c_MaxVelocity;
+	if (v_squared > _c_MaxVelocity*_c_MaxVelocity);
+    //TODO: wrong
 	// changing speed
-	_VelocityVector.x *= v/v0;
-	_VelocityVector.y *= v/v0;
+	_VelocityVector.x = vx;
+	_VelocityVector.y = vy;
 	// changing direction
 	float x = _VelocityVector.x;
 	float y = _VelocityVector.y;
