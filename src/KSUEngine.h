@@ -46,6 +46,18 @@ namespace KSU {
         RT_TEXTURE
     };
     
+    enum E_SHAPE_TYPE
+    {
+		ST_CIRCLE = 0,
+		ST_LINE
+	}
+	
+	enum E_PHYSICS_OBJECT_TYPE
+	{
+		POT_COLLIDABLE = 0,
+		POT_SHAPE
+	}
+    
     enum E_ENGINE_INITIALISATION_FLAGS
     {
         EIF_DEFAULT     = 0x00000000,
@@ -232,12 +244,101 @@ namespace KSU {
     {
     public:
         virtual HRESULT Draw() = 0;
+        virtual HRESULT Draw(TVector3d) = 0;
     };
     
     class ICamera: public IResource
     {
     public:
-        virtual HRESULT Draw() = 0;
+		/*
+		 * Устанавливает позицию камеры
+		 * param[in] Позиция камеры
+		 */
+		virtual void SetPosition(const TVector3d) = 0;
+		
+		/*
+		 * Устанавливает точку взгляда.
+		 * param[in] Точка взгляда.
+		 */
+		virtual void SetTrackingPoint(const TVector3d) = 0;
+		
+		/*
+		 * Устанавливает вектор верха камеры.
+		 * param[in] Вектор верха.
+		 */
+		virtual void SetTopVector(const TVector3d) = 0;
+		
+		/*
+		 * Поворачивает камеру в плоскости oXY
+		 * param[in] Угол поворота.
+		 */
+		virtual void RotateHorizontal(const float) = 0;
+		
+		/*
+		 * Поворачивает камеру вверх и вниз
+		 * param[in] Угол поворота
+		 */
+		virtual void RotateVertical(const float) = 0;
+		
+		/*
+		 * Передвигает вперед
+		 * param[in] Величина сдвига
+		 */
+		virtual void MoveForwardBack(const float) = 0;
+			
+		/*
+		 * Передвигает влево
+		 * param[in] Величина сдвига
+		 */
+		virtual void MoveLeftRight(const float) = 0;
+
+		/*
+		 * Выводит камеру
+		 */
+		virtual void Draw() const = 0;
+		
+		/*
+		 * Обрабатывает клавиатуру и мышь. Автоматически поворачивает и перемещает камеру. Свободный полет.
+		 */
+		virtual void AutomaticProcessingInput() = 0;
+		
+		/*
+		 * Обновляет размеры окна для корректной работы AutomaticProcessingInput().
+		 */
+		virtual void UpdateWindowWidthAndHeight() = 0;
+		
+		/*
+		 * Чувствительность мыши
+		 */
+		virtual void SetMouseSensivity(const float) = 0;
+		virtual float GetMouseSensivity() const = 0;
+		
+		/*
+		 * Смещение вперед
+		 */
+		virtual void SetMovingForwardOffset(const float) = 0;
+		virtual float GetMovingForwardOffset() const = 0;
+		
+		/*
+		 * Смещение назад
+		 */
+		virtual void SetMovingBackOffset(const float) = 0;
+		virtual float GetMovingBackOffset() const = 0;
+		
+		/*
+		 * Смещение в стороны
+		 */
+		virtual void SetMovingLeftRightOffset(const float) = 0;
+		virtual float GetMovingLeftRightOffset() const = 0;
+		
+		/*
+		 * Устанавливает управление свободной камерой
+		 * param[in] Код клавиши, перемещающей камеру вперед
+		 * param[in] Код клавиши, перемещающей камеру назад
+		 * param[in] Код клавиши, перемещающей камеру влево
+		 * param[in] Код клавиши, перемещающей камеру вправо
+		 */
+		virtual void SetControlKeys(const int, const int, const int, const int) = 0;
     };
     
     class ITexture: public IResource
@@ -254,6 +355,7 @@ namespace KSU {
     class IPhysicsObject: public IResource
     {
     public:
+		virtual HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
     };
     
     class ICollidable: public IPhysicsObject
@@ -265,6 +367,10 @@ namespace KSU {
     class IShape: public IPhysicsObject
     {
     public:
+		virtual HRESULT GetShape(TVector3d *&pShape) = 0;
+		virtual HRESULT SetShape(TVector3d *pShape) = 0;
+		virtual HRESULT SetShapeType(E_SHAPE_TYPE ShapeType) = 0;
+		virtual HRESULT GetShapeType(E_SHAPE_TYPE &ShapeType) = 0;
     };
     
     /*
