@@ -1,7 +1,7 @@
 #ifndef _GAME_MODEL_H
 #define _GAME_MODEL_H
 
-#include "KSUEngine.h"
+#include "../KSUEngine.h"
 
 using namespace KSU;
 

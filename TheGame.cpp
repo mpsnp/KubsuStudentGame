@@ -1,5 +1,5 @@
-#include "KSUEngine.h"
-#include "GameModel.h"
+#include "src/KSUEngine.h"
+#include "src/Game/GameModel.h"
 
 using namespace KSU;
 

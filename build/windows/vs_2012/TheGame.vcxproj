@@ -11,22 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\Camera.cpp" />
     <ClCompile Include="..\..\..\src\Engine.cpp" />
-    <ClCompile Include="..\..\..\src\Exceptions.cpp" />
-    <ClCompile Include="..\..\..\src\map.cpp" />
+    <ClCompile Include="..\..\..\src\Game\GameModel.cpp" />
     <ClCompile Include="..\..\..\src\Model3d.cpp" />
+    <ClCompile Include="..\..\..\src\SubSystems\Input.cpp" />
     <ClCompile Include="..\..\..\src\Vehicle.cpp" />
     <ClCompile Include="..\..\..\TheGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\Camera.h" />
+    <ClInclude Include="..\..\..\src\CommonIncludes.h" />
     <ClInclude Include="..\..\..\src\CommonStructs.h" />
     <ClInclude Include="..\..\..\src\Engine.h" />
-    <ClInclude Include="..\..\..\src\Exceptions.h" />
+    <ClInclude Include="..\..\..\src\Game\GameModel.h" />
     <ClInclude Include="..\..\..\src\glfw.h" />
-    <ClInclude Include="..\..\..\src\map.h" />
+    <ClInclude Include="..\..\..\src\KSUEngine.h" />
     <ClInclude Include="..\..\..\src\Model3d.h" />
+    <ClInclude Include="..\..\..\src\SubSystems\Input.h" />
     <ClInclude Include="..\..\..\src\Vehicle.h" />
-    <ClInclude Include="..\..\..\TheGame.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\lib\GLFW.lib" />

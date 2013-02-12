@@ -1,7 +1,7 @@
 #ifndef _INPUT_H
 #define _INPUT_H
 
-#include "CommonIncludes.h"
+#include "../CommonIncludes.h"
 
 class CInput: public IInput
 {

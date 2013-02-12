@@ -4,9 +4,9 @@
 
 CCamera::CCamera()
 {
-    _Position = {0,0,1};
-    _LookingForVector = {0,1,0};
-    _TopVector = {0,0,1};
+    _Position.InitVector(0,0,1);
+    _LookingForVector.InitVector(0,1,0);
+    _TopVector.InitVector(0,0,1);
     _AngleHorizontal = 0.0;
     _AngleVertical = 0.0;
     _MovingLeftRightOffset = 0.1;

@@ -12,6 +12,13 @@ struct TVector3d
 {
 	float x,y,z;
 
+	void InitVector(float X,float Y,float Z)
+	{
+		x = X;
+		y = Y;
+		z = Z;
+	}
+
 	TVector3d operator *(TVector3d &vector)const
 	{
 		TVector3d res;
