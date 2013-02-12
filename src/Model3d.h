@@ -27,7 +27,7 @@ public:
      * Рендер модели в точке.
      * param[in] Центр объекта
      */
-	void Draw(TVector3d);
+	HRESULT Draw(TVector3d);
     
     /*
      * Рендер модели в начале координат.

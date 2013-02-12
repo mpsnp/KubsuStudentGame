@@ -2,6 +2,7 @@
 #define _KSU_ENGINE_H
 
 #include <stddef.h>
+#include "CommonStructs.h"
 
 typedef long int HRESULT;
 
@@ -50,13 +51,13 @@ namespace KSU {
     {
 		ST_CIRCLE = 0,
 		ST_LINE
-	}
+	};
 	
 	enum E_PHYSICS_OBJECT_TYPE
 	{
 		POT_COLLIDABLE = 0,
 		POT_SHAPE
-	}
+	};
     
     enum E_ENGINE_INITIALISATION_FLAGS
     {
@@ -200,6 +201,12 @@ namespace KSU {
         ES_SOUND
     };
     
+    enum E_PROJECTION_TYPE
+    {
+        PT_2D = 0,
+        PT_3D
+    };
+    
     /*
      * Structs
      */
@@ -244,7 +251,9 @@ namespace KSU {
     {
     public:
         virtual HRESULT Draw() = 0;
-        virtual HRESULT Draw(TVector3d) = 0;
+        virtual HRESULT Draw(TVector3d Position) = 0;
+        virtual HRESULT Draw(TVector3d Position, float ZAngle) = 0;
+        virtual HRESULT LoadFromFile(char *FileName) = 0;
     };
     
     class ICamera: public IResource
@@ -345,6 +354,8 @@ namespace KSU {
     {
     public:
         virtual HRESULT BindTexture() = 0;
+        virtual HRESULT LoadFromFile(char *FileName) = 0;
+        virtual HRESULT LoadToGPU() = 0;
     };
     
     class ISoundSample: public IResource
@@ -417,8 +428,11 @@ namespace KSU {
     class IRender: public IEngineSubsystem
     {
     public:
-        virtual HRESULT GetRender2d() = 0;
-        virtual HRESULT GetRender3d() = 0;
+        virtual HRESULT GetRender2d(IRender2d *Render2d) = 0;
+        virtual HRESULT GetRender3d(IRender3d *Render3d) = 0;
+        virtual HRESULT AllowAutomaticSwappingProjectionType(bool Allow = true) = 0;
+        virtual HRESULT SetProjectionType(E_PROJECTION_TYPE ProjectionType) = 0;
+        
     };
     
     class IResourceManager: public IEngineSubsystem
@@ -447,31 +461,57 @@ namespace KSU {
     class IGraphicalUserInterface: public IEngineBase
     {
     public:
+        virtual HRESULT SetCoordinates(TVector2d Coordinates) = 0;
+        virtual HRESULT GetCoordinates(TVector2d &Coordinates) = 0;
+        virtual HRESULT SetSize(TVector2d Size) = 0;
+        virtual HRESULT GetSize(TVector2d &Size) = 0;
+        virtual HRESULT SetColor(TColor Color) = 0;
+        virtual HRESULT GetColor(TColor &Color) = 0;
+        virtual HRESULT SetTexture(ITexture *pTexture) = 0;
     };
     
     class IPanel: public IGraphicalUserInterface
     {
     public:
+        virtual HRESULT AddItem(IGraphicalUserInterface *pItem) = 0;
+        virtual HRESULT RemoveItem(IGraphicalUserInterface *pItem) = 0;
     };
     
     class IButton: public IGraphicalUserInterface
     {
     public:
+        // TODO: Разобраться с типом Action!!!
+        virtual HRESULT InitWithCaptionAndAction(char *Caption, void *pAction) = 0;
+        virtual HRESULT SetAction(void *pAction) = 0;
+        virtual HRESULT SetCaption(char *Caption) = 0;
+        virtual HRESULT GetCaption(char *&Caption)const = 0;
     };
     
     class ILabel: public IGraphicalUserInterface
     {
     public:
+        virtual HRESULT SetCaption(char *Caption) = 0;
+        virtual HRESULT GetCaption(char *&Caption)const = 0;
     };
     
     class ICheckBox: public IGraphicalUserInterface
     {
     public:
+        virtual HRESULT SetCaption(char *Caption) = 0;
+        virtual HRESULT GetCaption(char *&Caption)const = 0;
+        virtual HRESULT GetCheckState(bool isChecked)const = 0;
+        
     };
     
     class IComboBox: public IGraphicalUserInterface
     {
     public:
+        virtual HRESULT AddItem(char *Caption) = 0;
+        virtual HRESULT SetCaptionAtIndex(char *Caption, uint Index) = 0;
+        virtual HRESULT RemoveItem(char *Caption) = 0;
+        virtual HRESULT GetIndexOfSelectedItem(uint &Index)const = 0;
+        virtual HRESULT SelectItemAtIndex(uint Index) = 0;
+        virtual HRESULT SelectItemWithCaption(char *Caption) = 0;
     };
 
     extern HRESULT GetEngine(IEngine *&EngineInterface);

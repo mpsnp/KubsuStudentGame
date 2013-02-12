@@ -24,7 +24,7 @@ CMesh::~CMesh(void)
 	if(_Normals)	delete[] _Normals;
 }
 
-void CMesh::Draw(TVector3d vector)
+HRESULT CMesh::Draw(TVector3d vector)
 {
     glPushMatrix();
 	glTranslatef(vector.x,vector.y,vector.z);
