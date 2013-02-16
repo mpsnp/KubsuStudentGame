@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "glfw.h"
 #include <cmath>
+#include "SubSystems/ResourceManager.h"
 
 CEngine *TheEngine = NULL;
 
@@ -29,6 +30,14 @@ HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITI
     
     _WindowInit((char *)WindowTitle, InitFlags);
     _OpenGLInit();
+    
+    //TODO: При реализации наследников, откомментировать.
+    //_pInput = new CInput();
+    _pResourceManager = new CResourceManager();
+    //_pPhysics = new CPhysics();
+    //_pRender = new CRender();
+    //_pSound = new CSound();
+    
     AddToLog("Engine initialized!");
     _MainLoop();
     
@@ -42,19 +51,19 @@ HRESULT CEngine::GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngi
 {
     switch (SubSystemType) {
         case KSU::ES_INPUT:
-            SubSystem = (IEngineSubsystem *&)pInput;
+            SubSystem = (IEngineSubsystem *&)_pInput;
             break;
         case KSU::ES_PHYSICS:
-            SubSystem = (IEngineSubsystem *&)pPhysics;
+            SubSystem = (IEngineSubsystem *&)_pPhysics;
             break;
         case KSU::ES_RENDER:
-            SubSystem = (IEngineSubsystem *&)pRender;
+            SubSystem = (IEngineSubsystem *&)_pRender;
             break;
         case KSU::ES_RESOURSE_MANAGER:
-            SubSystem = (IEngineSubsystem *&)pResorceManager;
+            SubSystem = (IEngineSubsystem *&)_pResourceManager;
             break;
         case KSU::ES_SOUND:
-            SubSystem = (IEngineSubsystem *&)pSound;
+            SubSystem = (IEngineSubsystem *&)_pSound;
             break;
         default:
             AddToLog("No such subsystem!",true);
@@ -94,17 +103,33 @@ HRESULT CEngine::AddToLog(const char *pcTxt, bool bError)
 
 HRESULT CEngine::SetGame(IGame *pGame)
 {
-    pGameInterface = pGame;
+    _pGameInterface = pGame;
     return H_OK;
 }
 
 CEngine::CEngine()
 {
+    _pInput = NULL;
+    _pPhysics = NULL;
+    _pRender = NULL;
+    _pResourceManager = NULL;
+    _pSound = NULL;
+    _pGameInterface = NULL;
     _ProcessInterval = 0;
 }
 
 CEngine::~CEngine()
 {
+    if (_pInput)
+        delete _pInput;
+    if (_pPhysics)
+        delete _pPhysics;
+    if (_pRender)
+        delete _pRender;
+    if (_pResourceManager)
+        delete _pResourceManager;
+    if (_pSound)
+        delete _pSound;
 }
 
 void CEngine::_OpenGLInit()
@@ -143,20 +168,20 @@ void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-    pGameInterface->Render();
+    _pGameInterface->Render();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
-    pGameInterface->Process();
+    _pGameInterface->Process();
 }
 
 void CEngine::_MainLoop()
 {    
 	_Running = true;
         
-    pGameInterface->Init();
+    _pGameInterface->Init();
     
     if (_ProcessInterval == 0) {
         SetProcessInterval(30);
@@ -173,7 +198,7 @@ void CEngine::_MainLoop()
         }
 		_Draw();
 	}
-    pGameInterface->Free();
+    _pGameInterface->Free();
     
 	glfwTerminate();
 }

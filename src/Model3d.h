@@ -27,13 +27,18 @@ public:
      * Рендер модели в точке.
      * param[in] Центр объекта
      */
-	HRESULT Draw(TVector3d);
+    HRESULT Draw(TVector3d Position);
     
     /*
      * Рендер модели в начале координат.
-     */
-	HRESULT Draw();
+     */    
+    HRESULT Draw();
     
+    HRESULT Draw(TVector3d Position, float ZAngle);
+    
+    HRESULT LoadFromFile(char *FileName);
+    
+    HRESULT GetType(E_RESOURCE_TYPE &Type);
     /*
      * Загрузка модели из файла .3ds
      * param[in] Имя файла.

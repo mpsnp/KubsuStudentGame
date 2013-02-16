@@ -40,7 +40,7 @@ namespace KSU {
     enum E_RESOURCE_TYPE
     {
         RT_CAMERA = 0,
-        RT_MODEL,
+        RT_MESH,
         RT_COLLIDABLE,
         RT_SHAPE,
         RT_SOUND_SAMPLE,
@@ -242,9 +242,8 @@ namespace KSU {
     class IResource: public IEngineBase
     {
     public:
-        virtual HRESULT GetData(char *&pData)const = 0;
-        virtual HRESULT SetData(const char *pData) = 0;
         virtual HRESULT GetType(E_RESOURCE_TYPE &Type) = 0;
+        virtual HRESULT LoadFromFile(char *FileName) = 0;
     };
     
     class IMesh: public IResource
@@ -253,7 +252,6 @@ namespace KSU {
         virtual HRESULT Draw() = 0;
         virtual HRESULT Draw(TVector3d Position) = 0;
         virtual HRESULT Draw(TVector3d Position, float ZAngle) = 0;
-        virtual HRESULT LoadFromFile(char *FileName) = 0;
     };
     
     class ICamera: public IResource
@@ -354,7 +352,6 @@ namespace KSU {
     {
     public:
         virtual HRESULT BindTexture() = 0;
-        virtual HRESULT LoadFromFile(char *FileName) = 0;
         virtual HRESULT LoadToGPU() = 0;
     };
     
@@ -441,7 +438,6 @@ namespace KSU {
         virtual HRESULT GenerateResource(const E_RESOURCE_TYPE ResourceType, IResource *&pResource) = 0;
         virtual HRESULT LoadResource(char *pFileName, IResource *pResource) = 0;
         virtual HRESULT FreeResource(IResource *&pResource) = 0;
-        virtual HRESULT GenerateTexture(ITexture *&pTexture) = 0;
     };
     
     class IPhysics: public IEngineSubsystem

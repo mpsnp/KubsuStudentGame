@@ -8,6 +8,7 @@ using namespace KSU;
 class CGameModel: public IGame
 {
     IEngine     *EngineCore;
+    IResourceManager *ResourceManager;
     
     int count;
     

@@ -1,4 +1,5 @@
 #include "Model3d.h"
+#include "Utils.h"
 #include <fstream>
 #include <iostream>
 
@@ -6,6 +7,31 @@ CMesh::CMesh(void)
 	:_Vertexes(NULL), _TexCoords(NULL), _Triangles(NULL), _Normals(NULL), _LoadedSuccsessfull(false)
 {
 	SetColor(1,1,1,1);
+}
+
+HRESULT CMesh::Draw(TVector3d Position, float ZAngle)
+{
+    //TODO: Проверить правильность работы.
+    glPushMatrix();
+	glTranslatef(Position.x, Position.y, Position.z);
+    glRotatef(ZAngle, 0, 0, 1);
+	Draw();
+    glPopMatrix();
+    return H_OK;
+}
+
+HRESULT CMesh::LoadFromFile(char *FileName)
+{
+    if (strcmp("3ds", GetExtencion(FileName)))
+        LoadFrom3ds(FileName);
+    return H_OK;
+}
+
+
+HRESULT CMesh::GetType(E_RESOURCE_TYPE &Type)
+{
+    Type = RT_MESH;
+    return H_OK;
 }
 
 void CMesh::SetColor(float R,float G,float B, float A)

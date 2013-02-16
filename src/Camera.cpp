@@ -17,6 +17,31 @@ CCamera::CCamera()
     SetControlKeys(GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 }
 
+HRESULT CCamera::LoadFromFile(char *FileName)
+{
+    ifstream InputStream;
+    InputStream.open(FileName, ios::in | ios::binary);
+    
+    InputStream.read((char *)&_Position, sizeof(_Position));
+    InputStream.read((char *)&_LookingForVector, sizeof(_LookingForVector));
+    InputStream.read((char *)&_TopVector, sizeof(_TopVector));
+    InputStream.read((char *)&_AngleHorizontal, sizeof(_AngleHorizontal));
+    InputStream.read((char *)&_AngleVertical, sizeof(_AngleVertical));
+    InputStream.read((char *)&_MovingLeftRightOffset, sizeof(_MovingLeftRightOffset));
+    InputStream.read((char *)&_MovingForwardOffset, sizeof(_MovingForwardOffset));
+    InputStream.read((char *)&_MovingBackOffset, sizeof(_MovingBackOffset));
+    InputStream.read((char *)&_MouseSensivity, sizeof(_MouseSensivity));
+    
+    InputStream.close();
+    return H_OK;
+}
+
+HRESULT CCamera::GetType(E_RESOURCE_TYPE &Type)
+{
+    Type = RT_CAMERA;
+    return H_OK;
+}
+
 void CCamera::SetTrackingPoint(const TVector3d TrackingPoint)
 {
     _LookingForVector = TrackingPoint - _Position;

@@ -21,13 +21,13 @@ private:
     
 	fstream         _LogFile;
     
-    CInput          *pInput;
-    CPhysics        *pPhysics;
-    CRender         *pRender;
-    CResourceManager*pResorceManager;
-    CSound          *pSound;
+    CInput          *_pInput;
+    CPhysics        *_pPhysics;
+    CRender         *_pRender;
+    CResourceManager*_pResourceManager;
+    CSound          *_pSound;
     
-    IGame           *pGameInterface;
+    IGame           *_pGameInterface;
 
 public:
 	CEngine();

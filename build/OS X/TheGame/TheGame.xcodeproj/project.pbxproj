@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E2708C516CFB6E7007DD463 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E2708C316CFB6E7007DD463 /* ResourceManager.cpp */; };
+		5E2708C816CFD387007DD463 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E2708C716CFD387007DD463 /* Utils.cpp */; };
 		5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A649016B6E21A00B86C4E /* Camera.cpp */; };
 		5E7BD72F16B684BC0061F347 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD72E16B684BC0061F347 /* Cocoa.framework */; };
 		5E7BD74C16B684EF0061F347 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74B16B684EF0061F347 /* IOKit.framework */; };
@@ -22,6 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E2708C316CFB6E7007DD463 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceManager.cpp; path = SubSystems/ResourceManager.cpp; sourceTree = "<group>"; };
+		5E2708C416CFB6E7007DD463 /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourceManager.h; path = SubSystems/ResourceManager.h; sourceTree = "<group>"; };
+		5E2708C616CFD36D007DD463 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		5E2708C716CFD387007DD463 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		5E3A649016B6E21A00B86C4E /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		5E3A649116B6E21A00B86C4E /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		5E7BD72A16B684BC0061F347 /* TheGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +154,8 @@
 				5ED0896A16C137F500DD4A01 /* CommonIncludes.h */,
 				5E7BD75816B6864D0061F347 /* Engine.cpp */,
 				5E7BD75916B6864D0061F347 /* Engine.h */,
+				5E2708C616CFD36D007DD463 /* Utils.h */,
+				5E2708C716CFD387007DD463 /* Utils.cpp */,
 				5E7BD75F16B6864D0061F347 /* Model3d.cpp */,
 				5E7BD76016B6864D0061F347 /* Model3d.h */,
 				5E3A649016B6E21A00B86C4E /* Camera.cpp */,
@@ -168,6 +176,8 @@
 		5EFCD22416C2D775004A8813 /* SubSystems */ = {
 			isa = PBXGroup;
 			children = (
+				5E2708C316CFB6E7007DD463 /* ResourceManager.cpp */,
+				5E2708C416CFB6E7007DD463 /* ResourceManager.h */,
 				5EFCD22116C2D76E004A8813 /* Input.cpp */,
 				5EFCD22216C2D76E004A8813 /* Input.h */,
 			);
@@ -244,6 +254,8 @@
 				5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */,
 				5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */,
 				5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */,
+				5E2708C516CFB6E7007DD463 /* ResourceManager.cpp in Sources */,
+				5E2708C816CFD387007DD463 /* Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

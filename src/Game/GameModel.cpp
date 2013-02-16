@@ -13,6 +13,7 @@ CGameModel::~CGameModel()
 void CGameModel::Init()
 {
     EngineCore->AddToLog("init");
+    EngineCore->GetSubSystem(ES_RESOURSE_MANAGER, (IEngineSubsystem *&)ResourceManager);
     count = 0;
 }
 
@@ -32,6 +33,5 @@ void CGameModel::Render()
 
 void CGameModel::Free()
 {
-    
     EngineCore->AddToLog("free");
 }
