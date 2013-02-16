@@ -8,7 +8,7 @@ typedef long int HRESULT;
 
 #define H_OK    0x00000000
 #define H_FALSE 0x00000001
-#define H_ERROR 0x80000001
+#define H_ERROR 0x80000001	
 
 //TODO: Документировать
 
@@ -439,7 +439,7 @@ namespace KSU {
     {
     public:
         virtual HRESULT GenerateResource(const E_RESOURCE_TYPE ResourceType, IResource *&pResource) = 0;
-        virtual HRESULT LoadResource(char *pFileName) = 0;
+        virtual HRESULT LoadResource(char *pFileName, IResource *pResource) = 0;
         virtual HRESULT FreeResource(IResource *&pResource) = 0;
         virtual HRESULT GenerateTexture(ITexture *&pTexture) = 0;
     };

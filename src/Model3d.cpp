@@ -30,6 +30,7 @@ HRESULT CMesh::Draw(TVector3d vector)
 	glTranslatef(vector.x,vector.y,vector.z);
 	Draw();
     glPopMatrix();
+	return H_OK;
 }
 
 const char *CMesh::GetFileName()
