@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\..\src\Game\GameModel.cpp" />
     <ClCompile Include="..\..\..\src\Model3d.cpp" />
     <ClCompile Include="..\..\..\src\SubSystems\Input.cpp" />
+    <ClCompile Include="..\..\..\src\SubSystems\ResourceManager.cpp" />
     <ClCompile Include="..\..\..\src\Vehicle.cpp" />
     <ClCompile Include="..\..\..\TheGame.cpp" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <ClInclude Include="..\..\..\src\KSUEngine.h" />
     <ClInclude Include="..\..\..\src\Model3d.h" />
     <ClInclude Include="..\..\..\src\SubSystems\Input.h" />
+    <ClInclude Include="..\..\..\src\SubSystems\ResourceManager.h" />
     <ClInclude Include="..\..\..\src\Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
