@@ -54,7 +54,7 @@ int CCollidable::GetWeight()
     return _Weight;
 }
 
-void CCollidable::Force(float Force,float Angle)
+HRESULT CCollidable::Force(float Force)
 {
 	double t = _pEngineCore->GetProcessInterval();
 	// F = ma;
@@ -70,8 +70,10 @@ void CCollidable::Force(float Force,float Angle)
 	// changing direction
 	float x = _Velocity.x;
 	float y = _Velocity.y;
-	_Velocity.x = x * cos(Angle) - y * sin(Angle);
-	_Velocity.y = y * cos(Angle) + x * sin(Angle);
+	_Velocity.x = x * cos(_Angle - _PrevAngle) - y * sin(_Angle - _PrevAngle);
+	_Velocity.y = y * cos(_Angle - _PrevAngle) + x * sin(_Angle - _PrevAngle);
+    
+    return H_OK;
 }
 
 HRESULT CCollidable::SetWeight(int newWeight)
@@ -84,6 +86,19 @@ HRESULT CCollidable::SetWeight(int newWeight)
 HRESULT CCollidable::GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)
 {
     PhysicsObjectType = POT_COLLIDABLE;
+    
+    return H_OK;
+}
+
+double CCollidable::GetAngle()
+{
+    return _Angle;
+}
+
+HRESULT CCollidable::SetAngle(double newAngle)
+{
+    _PrevAngle = _Angle;
+    _Angle = newAngle;
     
     return H_OK;
 }

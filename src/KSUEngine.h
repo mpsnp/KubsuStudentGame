@@ -382,6 +382,9 @@ namespace KSU {
         virtual HRESULT SetShape(IShape *pShape) = 0;
         virtual int GetWeight() = 0;
         virtual HRESULT SetWeight(int) = 0;
+        virtual HRESULT Force(float) = 0;
+        virtual HRESULT SetAngle(double) = 0;
+        virtual double GetAngle() = 0;
     };
     
     class IShape: public IPhysicsObject

@@ -24,8 +24,8 @@ HRESULT CPhysics::ComputeCollisions()
             float min_distance = _objects[i]->GetShape()->GetRadius() + _objects[j]->GetShape()->GetRadius();
             if (distance.LengthSquared() <= min_distance * min_distance)
             {
-                /*Collision detected!
-                ** TODO: reduce vehicles life
+                /* Collision detected!
+                ** TODO: reduce life of vehicles
                 ** FIXED: compute new velocity vector
                 */
                 // p = mv;  Ek = mv^2/2
@@ -43,6 +43,13 @@ HRESULT CPhysics::ComputeCollisions()
             }
         }
     }
+    
+    return H_OK;
+}
+
+HRESULT CPhysics::GetType(E_ENGINE_SUBSYSTEM_TYPE &ess)
+{
+    ess =  ES_PHYSICS;
     
     return H_OK;
 }

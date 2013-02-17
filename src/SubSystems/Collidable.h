@@ -18,6 +18,8 @@ class CCollidable : public ICollidable
     TVector3d _Position;
     int _Weight;
     IEngine *_pEngineCore;
+    double _Angle;
+    double _PrevAngle;
     
 public:
     HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
@@ -30,7 +32,9 @@ public:
     HRESULT SetShape(IShape *pShape);
     int GetWeight();
     HRESULT SetWeight(int);
-    void Force(float, float);
+    HRESULT Force(float);
+    double GetAngle();
+    HRESULT SetAngle(double);
 };
 
 #endif /* defined(__TheGame__Collidable__) */

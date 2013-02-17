@@ -18,10 +18,11 @@ class CPhysics : public IPhysics
     std::vector<CollisionObserver> _observers;
 public:
     CPhysics(IEngine *);
-    virtual HRESULT AddCollisionObserver(CollisionObserver);
-    virtual HRESULT AddObject(ICollidable *);
-    virtual HRESULT RemoveObject(ICollidable *);
+    HRESULT AddCollisionObserver(CollisionObserver);
+    HRESULT AddObject(ICollidable *);
+    HRESULT RemoveObject(ICollidable *);
     HRESULT ComputeCollisions();
+    HRESULT GetType(E_ENGINE_SUBSYSTEM_TYPE &EngineSubSystem);
 };
 
 
