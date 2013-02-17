@@ -17,11 +17,43 @@ HRESULT CPhysics::ComputeCollisions()
 {
     for (int i = 0; i < _objects.size(); i++)
     {
+        E_SHAPE_TYPE type_i, type_j;
+        _objects[i]->GetShape()->GetShapeType(type_i);
+        
         // Collision detection between vehicles
         for (int j = i+1; j < _objects.size(); j++)
         {
-            TVector3d distance = _objects[i]->GetPosition() - _objects[j]->GetPosition();
-            float min_distance = _objects[i]->GetShape()->GetRadius() + _objects[j]->GetShape()->GetRadius();
+            TVector3d distance;
+            float min_distance;
+            
+            _objects[j]->GetShape()->GetShapeType(type_j);
+            
+            if (type_i == ST_CIRCLE && type_j == ST_CIRCLE)
+            {
+                min_distance = _objects[i]->GetShape()->GetRadius() + _objects[j]->GetShape()->GetRadius();
+                distance = _objects[i]->GetPosition() - _objects[j]->GetPosition();
+            }
+            else if (type_i == ST_LINE)
+            {
+                min_distance = _objects[j]->GetShape()->GetRadius();
+                TVector3d a, b;
+                a.InitVector(_objects[i]->GetPosition().x - _objects[j]->GetPosition().x,
+                             _objects[i]->GetPosition().y - _objects[j]->GetPosition().y, 0);
+                b.InitVector(_objects[i]->GetPosition().x - _objects[i]->GetShape()->GetPoint().x,
+                             _objects[i]->GetPosition().y - _objects[i]->GetShape()->GetPoint().y, 0);
+                distance = a * b / b.Length();
+            }
+            else
+            {
+                min_distance = _objects[i]->GetShape()->GetRadius();
+                TVector3d a, b;
+                a.InitVector(_objects[j]->GetPosition().x - _objects[i]->GetPosition().x,
+                             _objects[j]->GetPosition().y - _objects[i]->GetPosition().y, 0);
+                b.InitVector(_objects[j]->GetPosition().x - _objects[j]->GetShape()->GetPoint().x,
+                             _objects[j]->GetPosition().y - _objects[j]->GetShape()->GetPoint().y, 0);
+                distance = a * b / b.Length();
+            }
+            
             if (distance.LengthSquared() <= min_distance * min_distance)
             {
                 /* Collision detected!
