@@ -33,7 +33,7 @@ HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITI
     
     //TODO: При реализации наследников, откомментировать.
     //_pInput = new CInput();
-    _pResourceManager = new CResourceManager();
+    _pResourceManager = new CResourceManager(this);
     //_pPhysics = new CPhysics();
     //_pRender = new CRender();
     //_pSound = new CSound();

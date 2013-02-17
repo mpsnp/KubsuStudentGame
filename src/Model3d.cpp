@@ -20,10 +20,16 @@ HRESULT CMesh::Draw(TVector3d Position, float ZAngle)
     return H_OK;
 }
 
+HRESULT CMesh::SetTexture(ITexture *Texture)
+{
+    _Texture = Texture;
+    return H_OK;
+}
+
 HRESULT CMesh::LoadFromFile(char *FileName)
 {
     if (strcmp("3ds", GetExtencion(FileName)))
-        LoadFrom3ds(FileName);
+        _LoadFrom3ds(FileName);
     return H_OK;
 }
 
@@ -76,7 +82,7 @@ HRESULT CMesh::Draw()
 	else
 	{
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D,_Texture);
+		_Texture->BindTexture();
 		glColor4f(_Color.r,_Color.g,_Color.b,_Color.a);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -135,7 +141,7 @@ void CMesh::_ComputeNormals()
 	delete [] pTempNormals;
 }
 
-bool CMesh::LoadFrom3ds(string FileName)
+bool CMesh::_LoadFrom3ds(string FileName)
 {
 	const int CHUNK_HEADER_LENGTH = 6;
 
@@ -181,28 +187,6 @@ bool CMesh::LoadFrom3ds(string FileName)
 	InputStream.seekg((int)InputStream.tellg()-CHUNK_HEADER_LENGTH);
 	uiChunkPosition = _FindChunk(InputStream,EDIT3DS,true);
 	//if(uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT3DS, FileName);
-
-	//Remember chunk position
-	uiChunkTempPosition = uiChunkPosition;
-	//Loading texture
-	uiChunkPosition = _FindChunk(InputStream,EDIT_MATERIAL,true);
-	//if (uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT_MATERIAL, FileName);
-
-	uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE,true);
-	//if (uiChunkPosition == 0) throw new CChunkNotFoundException(CHUNK_TEXTURE, FileName);
-
-	uiChunkPosition = _FindChunk(InputStream,CHUNK_TEXTURE_FILE,true);
-	//if (uiChunkPosition == 0) throw new CChunkNotFoundException(CHUNK_TEXTURE_FILE, FileName);
-
-	InputStream.ignore(2);
-	InputStream.read((char*)&uiChunkLength,4);
-	char *cTextureFileName = new char[uiChunkLength - 6];
-	InputStream.read((char*)cTextureFileName,uiChunkLength-6);
-	if(!_LoadTextureFromFile((string)"data/textures/"+(string)cTextureFileName))
-    //    throw new CFileNotFoundException(1,cTextureFileName);
-	InputStream.seekg(uiChunkTempPosition);
-	delete[] cTextureFileName;
-
 
 	uiChunkPosition = _FindChunk(InputStream,EDIT_OBJECT,true);
 	//if (uiChunkPosition == 0) throw new CChunkNotFoundException(EDIT_OBJECT, FileName);
@@ -266,20 +250,6 @@ bool CMesh::LoadFrom3ds(string FileName)
 	_ComputeNormals();
 	_FileName = FileName.c_str();
 	_LoadedSuccsessfull = true;
-	return true;
-}
-
-bool CMesh::_LoadTextureFromFile(string TextureName)
-{
-	glGenTextures(1,&_Texture);
-	glBindTexture(GL_TEXTURE_2D,_Texture);
-	if(!glfwLoadTexture2D(TextureName.c_str(), GLFW_BUILD_MIPMAPS_BIT))
-		return false;
-	else
-	{
-        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-	};
 	return true;
 }
 

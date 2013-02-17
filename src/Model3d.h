@@ -9,14 +9,14 @@
 using namespace std;
 class CMesh: public IMesh
 {
-	unsigned short _NVertexes;
+    unsigned short _NVertexes;
 	TVector3d *_Vertexes;
 	TVector2d *_TexCoords;
 	TVector3d *_Normals;
 	unsigned short _NTriangles;
 	TFace3D *_Triangles;
 	TColor _Color;
-	GLuint _Texture;
+	ITexture *_Texture;
 	bool _LoadedSuccsessfull;
 	const char *_FileName;
 public:
@@ -39,11 +39,8 @@ public:
     HRESULT LoadFromFile(char *FileName);
     
     HRESULT GetType(E_RESOURCE_TYPE &Type);
-    /*
-     * Загрузка модели из файла .3ds
-     * param[in] Имя файла.
-     */
-	bool LoadFrom3ds(string);
+    
+    HRESULT SetTexture(ITexture *Texture);
     
     /*
      * Задает цвет модели. Цвета указываются в диапазоне от 0.0 до 1.0
@@ -61,10 +58,10 @@ public:
 private:
     
     /*
-     * Загружает текстуру из файла.
+     * Загрузка модели из файла .3ds
      * param[in] Имя файла.
      */
-	bool _LoadTextureFromFile(string);
+	bool _LoadFrom3ds(string);
     
     /*
      * Возвращает позицию чанка в потоке. Если чанк не найден, то возвращает 0.

@@ -1,6 +1,21 @@
 #include "ResourceManager.h"
 #include "../Model3d.h"
 #include "../Camera.h"
+#include "../Texture.h"
+
+CResourceManager::CResourceManager(CEngine *pEngine)
+{
+    _EngineCore = pEngine;
+}
+
+CResourceManager::~CResourceManager()
+{
+    IResource *pTempResource;
+    while (_pResources.size() > 0) {
+        pTempResource = _pResources.front();
+        FreeResource(pTempResource);
+    }
+}
 
 HRESULT CResourceManager::GenerateResource(const E_RESOURCE_TYPE ResourceType, IResource *&pResource)
 {
@@ -25,6 +40,7 @@ HRESULT CResourceManager::GenerateResource(const E_RESOURCE_TYPE ResourceType, I
             break;
             
         case KSU::RT_TEXTURE:
+            NewResource = new CTexture();
             break;
     }    
     _pResources.push_back(NewResource);

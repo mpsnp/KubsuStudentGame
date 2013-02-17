@@ -215,6 +215,7 @@ namespace KSU {
     {
         int x,y;
         int dx,dy;
+        float WorldX,WorldY,WorldZ;
         int dWheeel;
         bool LeftButtonPressed;
         bool MiddleButtonPressed;
@@ -239,6 +240,14 @@ namespace KSU {
      * Интерфейсы ресурсов
      */
     
+    class IMesh;
+    class ICamera;
+    class ITexture;
+    class ISoundSample;
+    class IPhysicsObject;
+    class ICollidable;
+    class IShape;
+    
     class IResource: public IEngineBase
     {
     public:
@@ -252,6 +261,7 @@ namespace KSU {
         virtual HRESULT Draw() = 0;
         virtual HRESULT Draw(TVector3d Position) = 0;
         virtual HRESULT Draw(TVector3d Position, float ZAngle) = 0;
+        virtual HRESULT SetTexture(ITexture *Texture) = 0;
     };
     
     class ICamera: public IResource
