@@ -34,7 +34,7 @@ HRESULT CPhysics::ComputeCollisions()
                 
                 std::vector<CollisionObserver>::iterator it;
                 for (it = _observers.begin(); it != _observers.end(); it++)
-                    *it(_objects[i], _objects[j]); // may be **it ? I'm not sure.
+                    ((CollisionObserver)*it)(_objects[i], _objects[j]);
             }
         }
         /*
@@ -73,7 +73,7 @@ HRESULT CPhysics::RemoveObject(ICollidable *object)
     std::vector<ICollidable*>::iterator it;
     it = find(_objects.begin(), _objects.end(), object);
     
-    if (it != _objects.end() || (it == _objects.end() && *it == object))
+    if (*it == object)
         _objects.erase(it);
     
     return H_OK;

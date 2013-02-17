@@ -20,9 +20,6 @@ namespace KSU {
      * Common typedefs
      */
     
-    //Physics collision observer function typedef
-    typedef void (*CollisionObserver)(ICollidable*,ICollidable*);
-    
     //signed//
 	typedef short int			int16;
 	typedef long int			int32;
@@ -527,4 +524,9 @@ namespace KSU {
     extern HRESULT GetEngine(IEngine *&EngineInterface);
     extern HRESULT FreeEngine();
 }
+
+//Physics collision observer function typedef
+typedef void (*CollisionObserver)(KSU::ICollidable*,KSU::ICollidable*);
+
+
 #endif //_KSU_ENGINE_H
