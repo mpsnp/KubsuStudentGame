@@ -4,6 +4,11 @@
 
 CEngine *TheEngine = NULL;
 
+double CEngine::GetProcessInterval()
+{
+    return _ProcessInterval;
+}
+
 HRESULT KSU::GetEngine(IEngine *&EngineInterface)
 {
     if (!TheEngine) TheEngine = new CEngine();

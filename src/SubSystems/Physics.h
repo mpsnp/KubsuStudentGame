@@ -13,9 +13,11 @@
 
 class CPhysics : public IPhysics
 {
+    IEngine *_EngineCore;
     std::vector<ICollidable *> _objects;
     std::vector<CollisionObserver> _observers;
 public:
+    CPhysics(IEngine *);
     virtual HRESULT AddCollisionObserver(CollisionObserver);
     virtual HRESULT AddObject(ICollidable *);
     virtual HRESULT RemoveObject(ICollidable *);

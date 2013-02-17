@@ -17,14 +17,20 @@ class CCollidable : public ICollidable
     TVector3d _Velocity;
     TVector3d _Position;
     int _Weight;
+    IEngine *_pEngineCore;
     
 public:
+    HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
+    HRESULT SetPosition(TVector3d);
+    CCollidable(IEngine*);
     TVector3d GetPosition();
     TVector3d GetVelocity();
     HRESULT SetVelocity(TVector3d);
     IShape*& GetShape();
     HRESULT SetShape(IShape *pShape);
     int GetWeight();
+    HRESULT SetWeight(int);
+    void Force(float, float);
 };
 
 #endif /* defined(__TheGame__Collidable__) */

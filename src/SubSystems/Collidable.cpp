@@ -8,6 +8,18 @@
 
 #include "Collidable.h"
 
+HRESULT CCollidable::SetPosition(TVector3d pos)
+{
+    _Position = pos;
+    
+    return H_OK;
+}
+
+CCollidable::CCollidable(IEngine *engine)
+{
+    _pEngineCore = engine;
+}
+
 TVector3d CCollidable::GetPosition()
 {
     return _Position;
@@ -40,4 +52,38 @@ HRESULT CCollidable::SetShape(IShape *pShape)
 int CCollidable::GetWeight()
 {
     return _Weight;
+}
+
+void CCollidable::Force(float Force,float Angle)
+{
+	double t = _pEngineCore->GetProcessInterval();
+	// F = ma;
+	float a = Force / _Weight;
+	// V = V0 + at
+	float v0y = _Velocity.y;
+    float v0x = _Velocity.x;
+	float vx = v0x + a * t;
+    float vy = v0y + a * t;
+	// changing speed
+	_Velocity.x = vx;
+	_Velocity.y = vy;
+	// changing direction
+	float x = _Velocity.x;
+	float y = _Velocity.y;
+	_Velocity.x = x * cos(Angle) - y * sin(Angle);
+	_Velocity.y = y * cos(Angle) + x * sin(Angle);
+}
+
+HRESULT CCollidable::SetWeight(int newWeight)
+{
+    _Weight = newWeight;
+    
+    return H_OK;
+}
+
+HRESULT CCollidable::GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)
+{
+    PhysicsObjectType = POT_COLLIDABLE;
+    
+    return H_OK;
 }

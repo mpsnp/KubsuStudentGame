@@ -35,6 +35,7 @@ public:
     
     HRESULT InitWindowAndSubsystems(const char* pWindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT);
     HRESULT SetProcessInterval(uint ProcessPerSecond);
+    double GetProcessInterval();
     HRESULT SetGame(IGame *pGame);
     HRESULT StopEngine();
     HRESULT AddToLog(const char *pText, bool Error = false);

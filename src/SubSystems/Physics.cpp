@@ -8,6 +8,11 @@
 
 #include "Physics.h"
 
+CPhysics::CPhysics(IEngine *engine)
+{
+    _EngineCore = engine;
+}
+
 HRESULT CPhysics::ComputeCollisions()
 {
     for (int i = 0; i < _objects.size(); i++)

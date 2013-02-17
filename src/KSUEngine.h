@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include "CommonStructs.h"
+#include <vector>
 
 typedef long int HRESULT;
 
@@ -366,7 +367,7 @@ namespace KSU {
     class IPhysicsObject: public IResource
     {
     public:
-		virtual HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
+		virtual HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType) = 0;
     };
     
     class IShape;
@@ -374,19 +375,22 @@ namespace KSU {
     {
     public:
         virtual TVector3d GetPosition() = 0;
+        virtual HRESULT SetPosition(TVector3d) = 0;
         virtual TVector3d GetVelocity() = 0;
         virtual HRESULT SetVelocity(TVector3d) = 0;
         virtual IShape*& GetShape() = 0;
         virtual HRESULT SetShape(IShape *pShape) = 0;
         virtual int GetWeight() = 0;
+        virtual HRESULT SetWeight(int) = 0;
     };
     
     class IShape: public IPhysicsObject
     {
     public:
-        virtual int GetRadius() = 0;
-		virtual HRESULT GetShape(TVector3d *&pShape) = 0;
-		virtual HRESULT SetShape(TVector3d *pShape) = 0;
+        virtual double GetRadius() = 0;
+        virtual TVector3d GetPoint() = 0;
+		virtual std::vector<TVector3d>* GetShape() = 0;
+		virtual HRESULT SetShape(std::vector<TVector3d>*) = 0;
 		virtual HRESULT SetShapeType(E_SHAPE_TYPE ShapeType) = 0;
 		virtual HRESULT GetShapeType(E_SHAPE_TYPE &ShapeType) = 0;
     };
@@ -406,6 +410,7 @@ namespace KSU {
     public:
         virtual HRESULT InitWindowAndSubsystems(const char* pWindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags = EIF_DEFAULT) = 0;
         virtual HRESULT SetProcessInterval(uint ProcessPerSecond) = 0;
+        virtual double GetProcessInterval() = 0;
         virtual HRESULT SetGame(IGame *pGame) = 0;
 		virtual HRESULT StopEngine() = 0;
 		virtual	HRESULT AddToLog(const char *pText, bool Error = false) = 0;
