@@ -213,37 +213,7 @@ void GLFWCALL WindowResize( int width, int height )
 }
 
 /*
-void CEngine::_Collision()
-{
-	for (int i = 0; i < _Vehicles.size(); i++)
-	{
-		// Collision detection between vehicles
-		for (int j = 0; j < _Vehicles.size(); j++)
-		{
-			TVector3d distance = _Vehicles[i].GetPosition() - _Vehicles[j].GetPosition();
-			float min_distance = _Vehicles[i].GetRadius() + _Vehicles[j].GetRadius();
-			if (distance.LengthSquared() <= min_distance * min_distance)
-			{
-				 Collision detected!
-				** TODO: reduce vehicles life
-				** FIXED: compute new velocity vector
-				
-				// p = mv;  Ek = mv^2/2
-				TVector3d v1 = _Vehicles[i].GetVelocity();
-				int		  m1 = _Vehicles[i].GetWeight();
-				TVector3d v2 = _Vehicles[j].GetVelocity();
-				int		  m2 = _Vehicles[j].GetWeight();
-
-				_Vehicles[i].SetVelocity((v1 * (m1 - m2) + v2 * m2 * 2) * (1/(m1 + m2)));
-				_Vehicles[j].SetVelocity((v2 * (m2 - m1) + v1 * m1 * 2) * (1/(m1 + m2)));
-			}
-		}
-		
-		** TODO: Collision detection beween vehicle and other static objects e.g. walls
-		** TODO: Make sure you use square instead of square root everywhere where it possible
-		
-	}
-}
+for Collision look at CPhysics class
 */
 
 void CEngine::_WindowInit(char *WindowTitle, E_ENGINE_INITIALISATION_FLAGS InitFlags)

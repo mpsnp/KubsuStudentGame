@@ -10,6 +10,7 @@
 		5E2708C516CFB6E7007DD463 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E2708C316CFB6E7007DD463 /* ResourceManager.cpp */; };
 		5E2708C816CFD387007DD463 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E2708C716CFD387007DD463 /* Utils.cpp */; };
 		5E2708CB16CFDA06007DD463 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E2708C916CFDA06007DD463 /* Texture.cpp */; };
+		5CA1B6FD16CF71E600E605FA /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1B6FB16CF71E600E605FA /* Physics.cpp */; };
 		5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A649016B6E21A00B86C4E /* Camera.cpp */; };
 		5E7BD72F16B684BC0061F347 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD72E16B684BC0061F347 /* Cocoa.framework */; };
 		5E7BD74C16B684EF0061F347 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD74B16B684EF0061F347 /* IOKit.framework */; };
@@ -31,6 +32,8 @@
 		5E2708C716CFD387007DD463 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		5E2708C916CFDA06007DD463 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
 		5E2708CA16CFDA06007DD463 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		5CA1B6FB16CF71E600E605FA /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Physics.cpp; path = SubSystems/Physics.cpp; sourceTree = "<group>"; };
+		5CA1B6FC16CF71E600E605FA /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Physics.h; path = SubSystems/Physics.h; sourceTree = "<group>"; };
 		5E3A649016B6E21A00B86C4E /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		5E3A649116B6E21A00B86C4E /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		5E7BD72A16B684BC0061F347 /* TheGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +188,8 @@
 				5E2708C416CFB6E7007DD463 /* ResourceManager.h */,
 				5EFCD22116C2D76E004A8813 /* Input.cpp */,
 				5EFCD22216C2D76E004A8813 /* Input.h */,
+				5CA1B6FB16CF71E600E605FA /* Physics.cpp */,
+				5CA1B6FC16CF71E600E605FA /* Physics.h */,
 			);
 			name = SubSystems;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */,
 				5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */,
 				5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */,
+				5CA1B6FD16CF71E600E605FA /* Physics.cpp in Sources */,
 				5E2708C516CFB6E7007DD463 /* ResourceManager.cpp in Sources */,
 				5E2708C816CFD387007DD463 /* Utils.cpp in Sources */,
 				5E2708CB16CFDA06007DD463 /* Texture.cpp in Sources */,

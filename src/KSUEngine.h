@@ -379,7 +379,11 @@ namespace KSU {
     class ICollidable: public IPhysicsObject
     {
     public:
-        
+        virtual TVector3d GetPosition() = 0;
+        virtual TVector3d GetVelocity() = 0;
+        virtual HRESULT SetVelocity(TVector3d) = 0;
+        virtual float GetRadius() = 0;
+        virtual int GetWeight() = 0;
     };
     
     class IShape: public IPhysicsObject
@@ -453,6 +457,9 @@ namespace KSU {
     class IPhysics: public IEngineSubsystem
     {
     public:
+        virtual HRESULT AddCollisionObserver() = 0;
+        virtual HRESULT AddObject(ICollidable *) = 0;
+        virtual HRESULT RemoveObject(ICollidable *) = 0;
     };
     
     class ISound: public IEngineSubsystem
@@ -523,4 +530,9 @@ namespace KSU {
     extern HRESULT GetEngine(IEngine *&EngineInterface);
     extern HRESULT FreeEngine();
 }
+
+//Physics collision observer function typedef
+typedef void (*CollisionObserver)(KSU::ICollidable*,KSU::ICollidable*);
+
+
 #endif //_KSU_ENGINE_H
