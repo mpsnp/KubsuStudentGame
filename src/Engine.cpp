@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "glfw.h"
 #include <cmath>
-#include "SubSystems\Input.h"
+#include "SubSystems/Input.h"
 
 CEngine *TheEngine = NULL;
 
