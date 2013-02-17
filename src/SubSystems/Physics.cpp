@@ -8,19 +8,24 @@
 
 #include "Physics.h"
 
+CPhysics::CPhysics(IEngine *engine)
+{
+    _EngineCore = engine;
+}
+
 HRESULT CPhysics::ComputeCollisions()
 {
     for (int i = 0; i < _objects.size(); i++)
     {
         // Collision detection between vehicles
-        for (int j = 0; j < _objects.size(); j++)
+        for (int j = i+1; j < _objects.size(); j++)
         {
             TVector3d distance = _objects[i]->GetPosition() - _objects[j]->GetPosition();
-            float min_distance = _objects[i]->GetRadius() + _objects[j]->GetRadius();
+            float min_distance = _objects[i]->GetShape()->GetRadius() + _objects[j]->GetShape()->GetRadius();
             if (distance.LengthSquared() <= min_distance * min_distance)
             {
-                /*Collision detected!
-                ** TODO: reduce vehicles life
+                /* Collision detected!
+                ** TODO: reduce life of vehicles
                 ** FIXED: compute new velocity vector
                 */
                 // p = mv;  Ek = mv^2/2
@@ -37,11 +42,14 @@ HRESULT CPhysics::ComputeCollisions()
                     ((CollisionObserver)*it)(_objects[i], _objects[j]);
             }
         }
-        /*
-        ** TODO: Collision detection beween vehicle and other static objects e.g. walls
-        ** TODO: Make sure you use square instead of square root everywhere where it possible
-        */
     }
+    
+    return H_OK;
+}
+
+HRESULT CPhysics::GetType(E_ENGINE_SUBSYSTEM_TYPE &ess)
+{
+    ess =  ES_PHYSICS;
     
     return H_OK;
 }

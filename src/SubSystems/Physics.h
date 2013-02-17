@@ -11,15 +11,18 @@
 
 #include "../CommonIncludes.h"
 
-class CPhysics : IPhysics
+class CPhysics : public IPhysics
 {
+    IEngine *_EngineCore;
     std::vector<ICollidable *> _objects;
     std::vector<CollisionObserver> _observers;
 public:
-    virtual HRESULT AddCollisionObserver(CollisionObserver);
-    virtual HRESULT AddObject(ICollidable *);
-    virtual HRESULT RemoveObject(ICollidable *);
+    CPhysics(IEngine *);
+    HRESULT AddCollisionObserver(CollisionObserver);
+    HRESULT AddObject(ICollidable *);
+    HRESULT RemoveObject(ICollidable *);
     HRESULT ComputeCollisions();
+    HRESULT GetType(E_ENGINE_SUBSYSTEM_TYPE &EngineSubSystem);
 };
 
 
