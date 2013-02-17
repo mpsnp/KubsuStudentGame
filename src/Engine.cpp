@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "glfw.h"
 #include <cmath>
+#include "SubSystems\Input.h"
 
 CEngine *TheEngine = NULL;
 
@@ -29,6 +30,9 @@ HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITI
     
     _WindowInit((char *)WindowTitle, InitFlags);
     _OpenGLInit();
+
+	_pInput = new CInput;
+
     AddToLog("Engine initialized!");
     _MainLoop();
     
@@ -42,19 +46,19 @@ HRESULT CEngine::GetSubSystem(const E_ENGINE_SUBSYSTEM_TYPE SubSystemType, IEngi
 {
     switch (SubSystemType) {
         case KSU::ES_INPUT:
-            SubSystem = (IEngineSubsystem *&)pInput;
+            SubSystem = (IEngineSubsystem *&)_pInput;
             break;
         case KSU::ES_PHYSICS:
-            SubSystem = (IEngineSubsystem *&)pPhysics;
+            SubSystem = (IEngineSubsystem *&)_pPhysics;
             break;
         case KSU::ES_RENDER:
-            SubSystem = (IEngineSubsystem *&)pRender;
+            SubSystem = (IEngineSubsystem *&)_pRender;
             break;
         case KSU::ES_RESOURSE_MANAGER:
-            SubSystem = (IEngineSubsystem *&)pResorceManager;
+            SubSystem = (IEngineSubsystem *&)_pResorceManager;
             break;
         case KSU::ES_SOUND:
-            SubSystem = (IEngineSubsystem *&)pSound;
+            SubSystem = (IEngineSubsystem *&)_pSound;
             break;
         default:
             AddToLog("No such subsystem!",true);
@@ -94,7 +98,7 @@ HRESULT CEngine::AddToLog(const char *pcTxt, bool bError)
 
 HRESULT CEngine::SetGame(IGame *pGame)
 {
-    pGameInterface = pGame;
+    _pGameInterface = pGame;
     return H_OK;
 }
 
@@ -143,20 +147,20 @@ void CEngine::_Draw()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
-    pGameInterface->Render();
+    _pGameInterface->Render();
 	glfwSwapBuffers();
 }
 
 void CEngine::_Process()
 {
-    pGameInterface->Process();
+    _pGameInterface->Process();
 }
 
 void CEngine::_MainLoop()
 {    
 	_Running = true;
         
-    pGameInterface->Init();
+    _pGameInterface->Init();
     
     if (_ProcessInterval == 0) {
         SetProcessInterval(30);
@@ -173,7 +177,7 @@ void CEngine::_MainLoop()
         }
 		_Draw();
 	}
-    pGameInterface->Free();
+    _pGameInterface->Free();
     
 	glfwTerminate();
 }
