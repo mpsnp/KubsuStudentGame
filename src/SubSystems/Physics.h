@@ -10,7 +10,6 @@
 #define __CPhysics__File__
 
 #include "../CommonIncludes.h"
-#include <vector>
 
 class CPhysics : IPhysics
 {

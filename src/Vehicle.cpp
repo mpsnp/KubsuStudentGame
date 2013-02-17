@@ -34,8 +34,8 @@ void CVehicle::Force(float Force,float Angle)
 {
 	float t = 1;//CEngine::ProcessInterval;
 	// check angle
-	if (Angle > _c_MaxAngle);
-    //Angle = _c_MaxAngle;
+	if (Angle > _c_MaxAngle)
+        Angle = _c_MaxAngle;
 	// F = ma;
 	float a = Force / _Weight;
 	// V = V0 + at
