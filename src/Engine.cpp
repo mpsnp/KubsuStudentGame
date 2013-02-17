@@ -191,12 +191,12 @@ void CEngine::_MainLoop()
     
 	while (_Running)
     {
+		_Draw();
         if ((glfwGetTime() - dTime) > _ProcessInterval)
         {
             _Process();
             dTime = glfwGetTime();
         }
-		_Draw();
 	}
     _pGameInterface->Free();
     
