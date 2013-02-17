@@ -11,7 +11,7 @@
 
 #include "../CommonIncludes.h"
 
-class CPhysics : IPhysics
+class CPhysics : public IPhysics
 {
     std::vector<ICollidable *> _objects;
     std::vector<CollisionObserver> _observers;

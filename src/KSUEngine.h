@@ -369,19 +369,22 @@ namespace KSU {
 		virtual HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
     };
     
+    class IShape;
     class ICollidable: public IPhysicsObject
     {
     public:
         virtual TVector3d GetPosition() = 0;
         virtual TVector3d GetVelocity() = 0;
         virtual HRESULT SetVelocity(TVector3d) = 0;
-        virtual float GetRadius() = 0;
+        virtual IShape*& GetShape() = 0;
+        virtual HRESULT SetShape(IShape *pShape) = 0;
         virtual int GetWeight() = 0;
     };
     
     class IShape: public IPhysicsObject
     {
     public:
+        virtual int GetRadius() = 0;
 		virtual HRESULT GetShape(TVector3d *&pShape) = 0;
 		virtual HRESULT SetShape(TVector3d *pShape) = 0;
 		virtual HRESULT SetShapeType(E_SHAPE_TYPE ShapeType) = 0;

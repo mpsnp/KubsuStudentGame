@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C51BF5916D0D34700F9CCC4 /* Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C51BF5716D0D34700F9CCC4 /* Shape.cpp */; };
+		5C51BF5C16D0D5B000F9CCC4 /* Collidable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C51BF5A16D0D5B000F9CCC4 /* Collidable.cpp */; };
 		5CA1B6FD16CF71E600E605FA /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1B6FB16CF71E600E605FA /* Physics.cpp */; };
 		5E3A649216B6E21A00B86C4E /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3A649016B6E21A00B86C4E /* Camera.cpp */; };
 		5E7BD72F16B684BC0061F347 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7BD72E16B684BC0061F347 /* Cocoa.framework */; };
@@ -23,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C51BF5716D0D34700F9CCC4 /* Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shape.cpp; path = SubSystems/Shape.cpp; sourceTree = "<group>"; };
+		5C51BF5816D0D34700F9CCC4 /* Shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shape.h; path = SubSystems/Shape.h; sourceTree = "<group>"; };
+		5C51BF5A16D0D5B000F9CCC4 /* Collidable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collidable.cpp; path = SubSystems/Collidable.cpp; sourceTree = "<group>"; };
+		5C51BF5B16D0D5B000F9CCC4 /* Collidable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Collidable.h; path = SubSystems/Collidable.h; sourceTree = "<group>"; };
 		5CA1B6FB16CF71E600E605FA /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Physics.cpp; path = SubSystems/Physics.cpp; sourceTree = "<group>"; };
 		5CA1B6FC16CF71E600E605FA /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Physics.h; path = SubSystems/Physics.h; sourceTree = "<group>"; };
 		5E3A649016B6E21A00B86C4E /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
@@ -171,10 +177,14 @@
 		5EFCD22416C2D775004A8813 /* SubSystems */ = {
 			isa = PBXGroup;
 			children = (
+				5C51BF5A16D0D5B000F9CCC4 /* Collidable.cpp */,
+				5C51BF5B16D0D5B000F9CCC4 /* Collidable.h */,
 				5EFCD22116C2D76E004A8813 /* Input.cpp */,
 				5EFCD22216C2D76E004A8813 /* Input.h */,
 				5CA1B6FB16CF71E600E605FA /* Physics.cpp */,
 				5CA1B6FC16CF71E600E605FA /* Physics.h */,
+				5C51BF5716D0D34700F9CCC4 /* Shape.cpp */,
+				5C51BF5816D0D34700F9CCC4 /* Shape.h */,
 			);
 			name = SubSystems;
 			sourceTree = "<group>";
@@ -250,6 +260,8 @@
 				5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */,
 				5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */,
 				5CA1B6FD16CF71E600E605FA /* Physics.cpp in Sources */,
+				5C51BF5916D0D34700F9CCC4 /* Shape.cpp in Sources */,
+				5C51BF5C16D0D5B000F9CCC4 /* Collidable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
