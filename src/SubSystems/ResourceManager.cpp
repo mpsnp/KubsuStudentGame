@@ -56,12 +56,12 @@ HRESULT CResourceManager::LoadResource(char *pFileName,  IResource *pResource)
 
 HRESULT CResourceManager::FreeResource(IResource *&pResource)
 {
-    for (int i = 0; i<_pResources.size(); i++) {
-        if (pResource == _pResources[i]) {
-            _pResources.erase(_pResources.begin() + i);
-            break;
-        }
-    }
+    std::vector<IResource*>::iterator it;
+    it = find(_pResources.begin(), _pResources.end(), pResource);
+    
+    if (*it == pResource)
+        _pResources.erase(it);
+
     delete pResource;
     pResource = NULL;
 	return H_OK;
