@@ -12,8 +12,6 @@ typedef long int HRESULT;
 
 //TODO: Документировать
 
-typedef HRESULT (* KSUUserFunc)(void);
-
 namespace KSU {
     
     /*
@@ -65,14 +63,6 @@ namespace KSU {
         EIF_FULLSCREEN  = 0x00000001,
         EIF_NO_LOGGING  = 0x00000002
     };
-    
-    enum E_ENGINE_PROCEDURE_TYPE
-	{
-		EPT_PROCESS = 0,
-		EPT_RENDER,
-		EPT_INIT,
-		EPT_FREE
-	};
     
     enum E_KEYBOARD_KEY_CODES
 	{
@@ -439,6 +429,7 @@ namespace KSU {
         virtual HRESULT GetRender3d(IRender3d *Render3d) = 0;
         virtual HRESULT AllowAutomaticSwappingProjectionType(bool Allow = true) = 0;
         virtual HRESULT SetProjectionType(E_PROJECTION_TYPE ProjectionType) = 0;
+        virtual HRESULT GetMainUIPanel(IPanel *&Panel) = 0;
         
     };
     
