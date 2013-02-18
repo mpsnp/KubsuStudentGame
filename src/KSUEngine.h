@@ -213,9 +213,10 @@ namespace KSU {
     
     struct TMouseState
     {
-        int x,y;
-        int dx,dy;
-        int dWheeel;
+        int x,y;//сейчас
+        int dx,dy;//отношение между прошлый и следующим
+		double WorldX,WorldY,WorldZ;//мировые значения
+        int dWheeel;//колесо
         bool LeftButtonPressed;
         bool MiddleButtonPressed;
         bool RightButtonPressed;

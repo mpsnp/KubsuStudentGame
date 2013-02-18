@@ -1,4 +1,6 @@
 #include "GameModel.h"
+#include <cstring>
+#include "stdlib.h"
 
 CGameModel::CGameModel(void *pEngineCore)
 {
@@ -19,11 +21,27 @@ void CGameModel::Init()
 
 void CGameModel::Process()
 {
-    count++;
-    if (count == 100)
-        EngineCore->StopEngine();
-	if (Input->KeyPressed(KEY_LCONTROL) == H_OK)
-		EngineCore->AddToLog("KEY_LCONTROL pressed!");
+	TMouseState t;
+	if (Input->KeyPressed(KEY_ESCAPE) == H_OK)
+		EngineCore->StopEngine();
+
+	Input->GetMouseState(t);
+
+	if (t.LeftButtonPressed)
+		EngineCore->AddToLog("LeftButtonPressed pressed!");
+	if (t.RightButtonPressed)
+		EngineCore->AddToLog("RightButtonPressed pressed!");
+	if (t.MiddleButtonPressed)
+		EngineCore->AddToLog("MiddleButtonPressed pressed!");
+	
+	char xc[100];
+	char yc[100];
+	itoa(t.x,xc,10);
+	itoa(t.y,yc,10);
+
+	EngineCore->AddToLog(strcat(xc,"-x"));
+	EngineCore->AddToLog(strcat(yc,"-y"));
+
 }
 
 void CGameModel::Render()
