@@ -35,6 +35,8 @@ public:
     HRESULT Force(float);
     double GetAngle();
     HRESULT SetAngle(double);
+    HRESULT GetType(E_RESOURCE_TYPE &Type);
+    HRESULT LoadFromFile(char *FileName);
 };
 
 #endif /* defined(__TheGame__Collidable__) */

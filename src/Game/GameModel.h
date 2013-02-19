@@ -9,6 +9,9 @@ class CGameModel: public IGame
 {
     IEngine     *EngineCore;
     IResourceManager *ResourceManager;
+    IPhysics *_Physics;
+    ICollidable *_Collidable;
+    ICamera *_Camera;
     
     int count;
     

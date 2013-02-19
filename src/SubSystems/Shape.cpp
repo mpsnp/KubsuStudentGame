@@ -8,6 +8,20 @@
 
 #include "Shape.h"
 
+HRESULT CShape::GetType(E_RESOURCE_TYPE &Type)
+{
+    Type = RT_SHAPE;
+    
+    return H_OK;
+}
+
+HRESULT CShape::LoadFromFile(char *FileName)
+{
+    FileName = "TODO: Make something";
+    
+    return H_OK;
+}
+
 double CShape::GetRadius()
 {
     return sqrt(_SecondPoint.x*_SecondPoint.x + _SecondPoint.y*_SecondPoint.y);
@@ -44,7 +58,7 @@ TVector3d CShape::GetPoint()
     return _SecondPoint;
 }
 
-HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)
+HRESULT CShape::GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)
 {
     PhysicsObjectType = POT_SHAPE;
     

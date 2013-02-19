@@ -25,6 +25,8 @@ public:
     HRESULT SetShape(std::vector<TVector3d> *);
     HRESULT SetShapeType(E_SHAPE_TYPE ShapeType);
     HRESULT GetShapeType(E_SHAPE_TYPE &ShapeType);
+    HRESULT GetType(E_RESOURCE_TYPE &Type);
+    HRESULT LoadFromFile(char *FileName);
 };
 
 #endif /* defined(__TheGame__Shape__) */

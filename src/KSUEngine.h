@@ -34,6 +34,10 @@ namespace KSU {
 	typedef unsigned char		uint8;
 	typedef uint8				uchar;
     
+    //Physics collision observer function typedef
+    class ICollidable;
+    typedef void (*CollisionObserver)(KSU::ICollidable*,KSU::ICollidable*);
+    
     /*
      * Enums
      */
@@ -468,7 +472,7 @@ namespace KSU {
     class IPhysics: public IEngineSubsystem
     {
     public:
-        virtual HRESULT AddCollisionObserver() = 0;
+        virtual HRESULT AddCollisionObserver(CollisionObserver) = 0;
         virtual HRESULT AddObject(ICollidable *) = 0;
         virtual HRESULT RemoveObject(ICollidable *) = 0;
     };
@@ -541,9 +545,6 @@ namespace KSU {
     extern HRESULT GetEngine(IEngine *&EngineInterface);
     extern HRESULT FreeEngine();
 }
-
-//Physics collision observer function typedef
-typedef void (*CollisionObserver)(KSU::ICollidable*,KSU::ICollidable*);
 
 
 #endif //_KSU_ENGINE_H

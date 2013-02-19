@@ -91,7 +91,7 @@ HRESULT CPhysics::AddCollisionObserver(CollisionObserver observer)
     std::vector<CollisionObserver>::iterator it;
     it = find(_observers.begin(), _observers.end(), observer);
     
-    if (it == _observers.end() && *it != observer)
+    if (_objects.size() == 0 || (it == _observers.end() && *it != observer))
         _observers.push_back(observer);
     
     return H_OK;
@@ -102,7 +102,7 @@ HRESULT CPhysics::AddObject(ICollidable *object)
     std::vector<ICollidable*>::iterator it;
     it = find(_objects.begin(), _objects.end(), object);
     
-    if (it == _objects.end() && *it != object)
+    if (_objects.size() == 0 || (it == _objects.end() && *it != object))
         _objects.push_back(object);
     
     return H_OK;

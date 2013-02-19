@@ -8,6 +8,21 @@
 
 #include "Collidable.h"
 
+HRESULT CCollidable::GetType(E_RESOURCE_TYPE &Type)
+{
+    Type = RT_COLLIDABLE;
+    
+    return H_OK;
+}
+
+HRESULT CCollidable::LoadFromFile(char *FileName)
+{
+    FileName = "TODO: Make something";
+    
+    return H_OK;
+}
+
+
 HRESULT CCollidable::SetPosition(TVector3d pos)
 {
     _Position = pos;

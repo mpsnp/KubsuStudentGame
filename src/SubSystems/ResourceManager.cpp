@@ -2,6 +2,8 @@
 #include "../Model3d.h"
 #include "../Camera.h"
 #include "../Texture.h"
+#include "Collidable.h"
+#include "Shape.h"
 
 CResourceManager::CResourceManager(CEngine *pEngine)
 {
@@ -31,9 +33,11 @@ HRESULT CResourceManager::GenerateResource(const E_RESOURCE_TYPE ResourceType, I
             break;
             
         case KSU::RT_COLLIDABLE:
+            NewResource = new CCollidable(this->_EngineCore);
             break;
             
         case KSU::RT_SHAPE:
+            NewResource = new CShape();
             break;
             
         case KSU::RT_SOUND_SAMPLE:
