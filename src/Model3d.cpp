@@ -150,23 +150,14 @@ bool CMesh::_LoadFrom3ds(string FileName)
 	const int EDIT_OBJECT			=0x4000;
 	const int OBJ_TRIMESH			=0x4100;
 	const int TRI_VERTEXLIST		=0x4110;
-	const int TRI_VERTEXOPTIONS	=0x4111;
 	const int TRI_MAPPINGCOORS		=0x4140;
-	const int TRI_MAPPINGSTANDARD	=0x4170;
 	const int TRI_FACELIST			=0x4120;
-	const int TRI_SMOOTH			=0x4150;
-	const int EDIT_MATERIAL		=0xAFFF;
-	const int CHUNK_MATNAME		=0xA000;
-    const int CHUNK_TEXTURE		=0xA200;
-    const int CHUNK_TEXTURE_FILE	=0xA300;
-	const int TRI_MATERIAL			=0x4130;
-	const int TRI_LOCAL			=0x4160;
-	const int TRI_VISIBLE			=0x4165;
+	const int TRI_LOCAL             =0x4160;
 
-	unsigned short	usChunkID;
-	unsigned int		uiChunkPosition;
-	unsigned int		uiChunkTempPosition;
-	unsigned int		uiChunkLength;
+	unsigned short  usChunkID;
+	unsigned int    uiChunkPosition;
+	unsigned int    uiChunkTempPosition;
+	unsigned int    uiChunkLength;
 
 
 	_LoadedSuccsessfull = false;

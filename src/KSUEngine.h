@@ -18,6 +18,10 @@ namespace KSU {
      * Common typedefs
      */
     
+    class IGraphicalUserInterface;
+    
+    typedef void (*GUIAction)(IGraphicalUserInterface*);
+    
     //signed//
 	typedef short int			int16;
 	typedef long int			int32;
@@ -197,6 +201,15 @@ namespace KSU {
         PT_3D
     };
     
+    enum E_GUI_TYPE
+    {
+        GT_BUTTON = 0,
+        GT_CHECK_BOX,
+        GT_COMBO_BOX,
+        GT_LABEL,
+        GT_PANEL
+    };
+    
     /*
      * Structs
      */
@@ -237,6 +250,13 @@ namespace KSU {
     class IPhysicsObject;
     class ICollidable;
     class IShape;
+    
+    class IGraphicalUserInterface;
+    class IPanel;
+    class IButton;
+    class ICheckBox;
+    class IComboBox;
+    class ILabel;
     
     class IResource: public IEngineBase
     {
@@ -414,7 +434,7 @@ namespace KSU {
     class IRender2d: public IEngineBase
     {
     public:
-        virtual HRESULT DrawRectangle() = 0;
+        virtual HRESULT DrawRectangle(TVector2d UpLeft, TVector2d DownRight, ITexture *pTexture) = 0;
     };
     
     class IRender3d: public IEngineBase
@@ -430,6 +450,8 @@ namespace KSU {
         virtual HRESULT AllowAutomaticSwappingProjectionType(bool Allow = true) = 0;
         virtual HRESULT SetProjectionType(E_PROJECTION_TYPE ProjectionType) = 0;
         virtual HRESULT GetMainUIPanel(IPanel *&Panel) = 0;
+        virtual HRESULT GenerateNewGUIItem(E_GUI_TYPE Type, IGraphicalUserInterface *&Item) = 0;
+        virtual HRESULT DeleteGUIItem(IGraphicalUserInterface *Item) = 0;
         
     };
     
@@ -458,8 +480,8 @@ namespace KSU {
     class IGraphicalUserInterface: public IEngineBase
     {
     public:
-        virtual HRESULT SetCoordinates(TVector2d Coordinates) = 0;
-        virtual HRESULT GetCoordinates(TVector2d &Coordinates) = 0;
+        virtual HRESULT SetPosition(TVector2d Position) = 0;
+        virtual HRESULT GetPosition(TVector2d &Position) = 0;
         virtual HRESULT SetSize(TVector2d Size) = 0;
         virtual HRESULT GetSize(TVector2d &Size) = 0;
         virtual HRESULT SetColor(TColor Color) = 0;
@@ -467,40 +489,40 @@ namespace KSU {
         virtual HRESULT SetTexture(ITexture *pTexture) = 0;
     };
     
-    class IPanel: public IGraphicalUserInterface
+    class IPanel: public virtual IGraphicalUserInterface
     {
     public:
         virtual HRESULT AddItem(IGraphicalUserInterface *pItem) = 0;
         virtual HRESULT RemoveItem(IGraphicalUserInterface *pItem) = 0;
     };
     
-    class IButton: public IGraphicalUserInterface
+    class IButton: public virtual IGraphicalUserInterface
     {
     public:
         // TODO: Разобраться с типом Action!!!
-        virtual HRESULT InitWithCaptionAndAction(char *Caption, void *pAction) = 0;
-        virtual HRESULT SetAction(void *pAction) = 0;
+        virtual HRESULT InitWithCaptionAndAction(char *Caption, GUIAction pAction) = 0;
+        virtual HRESULT SetAction(GUIAction pAction) = 0;
         virtual HRESULT SetCaption(char *Caption) = 0;
         virtual HRESULT GetCaption(char *&Caption)const = 0;
     };
     
-    class ILabel: public IGraphicalUserInterface
+    class ILabel: public virtual IGraphicalUserInterface
     {
     public:
         virtual HRESULT SetCaption(char *Caption) = 0;
         virtual HRESULT GetCaption(char *&Caption)const = 0;
     };
     
-    class ICheckBox: public IGraphicalUserInterface
+    class ICheckBox: public virtual IGraphicalUserInterface
     {
     public:
         virtual HRESULT SetCaption(char *Caption) = 0;
         virtual HRESULT GetCaption(char *&Caption)const = 0;
-        virtual HRESULT GetCheckState(bool isChecked)const = 0;
+        virtual HRESULT GetCheckState(bool &isChecked)const = 0;
         
     };
     
-    class IComboBox: public IGraphicalUserInterface
+    class IComboBox: public virtual IGraphicalUserInterface
     {
     public:
         virtual HRESULT AddItem(char *Caption) = 0;

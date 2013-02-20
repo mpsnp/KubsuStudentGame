@@ -2,6 +2,7 @@
 #include "glfw.h"
 #include <cmath>
 #include "SubSystems/ResourceManager.h"
+#include "SubSystems/Render.h"
 
 CEngine *TheEngine = NULL;
 
@@ -35,7 +36,7 @@ HRESULT CEngine::InitWindowAndSubsystems(const char* WindowTitle, E_ENGINE_INITI
     //_pInput = new CInput();
     _pResourceManager = new CResourceManager(this);
     //_pPhysics = new CPhysics();
-    //_pRender = new CRender();
+    _pRender = new CRender(this);
     //_pSound = new CSound();
     
     AddToLog("Engine initialized!");
