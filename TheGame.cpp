@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
         
         Engine->SetGame((IGame *)Game);
         
-        Engine->InitWindowAndSubsystems("TheGame",EIF_DEFAULT/* | EIF_FULLSCREEN */);
+        Engine->InitWindowAndSubsystems("TheGame",EIF_DEFAULT /*| EIF_FULLSCREEN*/);
         
         FreeEngine();
         

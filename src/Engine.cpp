@@ -193,6 +193,7 @@ void CEngine::_MainLoop()
 	while (_Running)
     {
 		_Draw();
+        _pRender->DrawGUI();
         if ((glfwGetTime() - dTime) > _ProcessInterval)
         {
             _Process();

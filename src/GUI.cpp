@@ -1,5 +1,15 @@
 #include "GUI.h"
 
+CGraphicalUserInterface::CGraphicalUserInterface(IRender *pRender)
+{
+    _pRender = pRender;
+    _pRender->GetRender2d(_pRender2d);
+}
+
+CGraphicalUserInterface::~CGraphicalUserInterface()
+{
+}
+
 HRESULT CGraphicalUserInterface::SetPosition(TVector2d Position)
 {
     _Position = Position;
@@ -42,16 +52,25 @@ HRESULT CGraphicalUserInterface::SetTexture(ITexture *pTexture)
     return H_OK;
 }
 
+CPanel::CPanel(IRender *pRender)
+    :CGraphicalUserInterface(pRender)
+{
+    
+}
+
+CPanel::~CPanel()
+{
+}
 
 HRESULT CPanel::AddItem(IGraphicalUserInterface *pItem)
 {
-    _pChildren.push_back(pItem);
+    _pChildren.push_back((CGraphicalUserInterface *)(void*)pItem);
     return H_OK;
 }
 
 HRESULT CPanel::RemoveItem(IGraphicalUserInterface *pItem)
 {
-    std::vector<IGraphicalUserInterface *>::iterator it;
+    std::vector<CGraphicalUserInterface *>::iterator it;
     it = find(_pChildren.begin(), _pChildren.end(), pItem);
     
     
@@ -65,10 +84,19 @@ HRESULT CPanel::RemoveItem(IGraphicalUserInterface *pItem)
 
 void CPanel::Draw()
 {
-    //TODO: Доделать    
+    _pRender2d->DrawRectangle(_Position, _Position + _Size, _pTexture);
+    for (int i = 0; i < _pChildren.size(); i++) {
+        _pChildren.at(i)->Draw();
+    }
 }
 
 //============LABEL=====================
+
+CLabel::CLabel(IRender *pRender)
+:CGraphicalUserInterface(pRender)
+{
+    
+}
 
 HRESULT CLabel::SetCaption(char *Caption)
 {
@@ -88,6 +116,12 @@ void CLabel::Draw()
 }
 
 //============BUTTON=====================
+
+CButton::CButton(IRender *pRender)
+:CGraphicalUserInterface(pRender)
+{
+    
+}
 
 HRESULT CButton::InitWithCaptionAndAction(char *Caption, GUIAction pAction)
 {
@@ -126,6 +160,11 @@ void CButton::Draw()
 
 //===============CHECK==BOX================
 
+CCheckBox::CCheckBox(IRender *pRender)
+:CGraphicalUserInterface(pRender)
+{
+    
+}
 
 HRESULT CCheckBox::SetCaption(char *Caption)
 {
@@ -157,6 +196,11 @@ void CCheckBox::Draw()
 
 //=============COMBO==BOX================
 
+CComboBox::CComboBox(IRender *pRender)
+:CGraphicalUserInterface(pRender)
+{
+    
+}
 
 HRESULT CComboBox::AddItem(char *Caption)
 {

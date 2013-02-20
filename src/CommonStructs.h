@@ -6,6 +6,23 @@
 const float PI = 3.1415926535;
 
 /*
+ Структура для хранения двумерного вектора/точки
+ */
+struct TVector2d
+{
+	float x,y;
+    
+    TVector2d operator +(TVector2d vector)const
+	{
+		TVector2d res;
+		res.x = x + vector.x;
+		res.y = y + vector.y;
+        
+		return res;
+	}
+};
+
+/*
  Структура для хранения трехмерного вектора/точки
  */
 struct TVector3d
@@ -84,14 +101,6 @@ struct TVector3d
 	{
 		return (x*x + y*y + z*z);
 	}
-};
-
-/*
- Структура для хранения двумерного вектора/точки
- */
-struct TVector2d
-{
-	float x,y;
 };
 
 /*

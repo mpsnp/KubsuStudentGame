@@ -6,12 +6,16 @@
 
 class CGraphicalUserInterface:public virtual IGraphicalUserInterface
 {
-private:
+protected:
+    IRender *_pRender;
+    IRender2d *_pRender2d;
     TVector2d _Position;
     TVector2d _Size;
     TColor _Color;
     ITexture *_pTexture;
 public:
+    CGraphicalUserInterface(IRender *pRender);
+    virtual ~CGraphicalUserInterface();
     HRESULT SetPosition(TVector2d Position);
     HRESULT GetPosition(TVector2d &Position);
     HRESULT SetSize(TVector2d Size);
@@ -25,8 +29,10 @@ public:
 
 class CPanel:public IPanel, public CGraphicalUserInterface
 {
-    vector<IGraphicalUserInterface *> _pChildren;
+    vector<CGraphicalUserInterface *> _pChildren;
 public:
+    CPanel(IRender *pRender);
+    ~CPanel();
     HRESULT AddItem(IGraphicalUserInterface *pItem);
     HRESULT RemoveItem(IGraphicalUserInterface *pItem);
     
@@ -37,6 +43,7 @@ class CLabel: public ILabel, public CGraphicalUserInterface
 {
     char *_Caption;
 public:
+    CLabel(IRender *pRender);
     HRESULT SetCaption(char *Caption);
     HRESULT GetCaption(char *&Caption)const;
     
@@ -48,6 +55,8 @@ class CButton: public IButton,public CGraphicalUserInterface
     GUIAction _pAction;
     char *_Caption;
 public:
+    CButton(IRender *pRender);
+    
     HRESULT InitWithCaptionAndAction(char *Caption, GUIAction pAction);
     HRESULT SetAction(GUIAction pAction);
     HRESULT SetCaption(char *Caption);
@@ -63,6 +72,8 @@ class CCheckBox: public ICheckBox, public CGraphicalUserInterface
     char *_Caption;
     bool _Checked;
 public:
+    CCheckBox(IRender *pRender);
+    
     HRESULT SetCaption(char *Caption);
     HRESULT GetCaption(char *&Caption)const;
     HRESULT GetCheckState(bool &isChecked)const;
@@ -77,6 +88,8 @@ class CComboBox: public IComboBox, public CGraphicalUserInterface
     vector<char *> _Items;
     int _SelectedItem;
 public:
+    CComboBox(IRender *pRender);
+    
     HRESULT AddItem(char *Caption);
     HRESULT SetCaptionAtIndex(char *Caption, uint Index);
     HRESULT RemoveItem(char *Caption);

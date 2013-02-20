@@ -445,8 +445,8 @@ namespace KSU {
     class IRender: public IEngineSubsystem
     {
     public:
-        virtual HRESULT GetRender2d(IRender2d *Render2d) = 0;
-        virtual HRESULT GetRender3d(IRender3d *Render3d) = 0;
+        virtual HRESULT GetRender2d(IRender2d *&Render2d) = 0;
+        virtual HRESULT GetRender3d(IRender3d *&Render3d) = 0;
         virtual HRESULT AllowAutomaticSwappingProjectionType(bool Allow = true) = 0;
         virtual HRESULT SetProjectionType(E_PROJECTION_TYPE ProjectionType) = 0;
         virtual HRESULT GetMainUIPanel(IPanel *&Panel) = 0;

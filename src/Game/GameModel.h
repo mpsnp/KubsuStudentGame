@@ -7,9 +7,12 @@ using namespace KSU;
 
 class CGameModel: public IGame
 {
-    IEngine     *EngineCore;
-    IResourceManager *ResourceManager;
+    IEngine     *_EngineCore;
+    IResourceManager *_ResourceManager;
+    IRender     *_Render;
     
+    IMesh       *_pMesh;
+    ICamera     *_pCamera;
     int count;
     
 public:

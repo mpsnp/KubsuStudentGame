@@ -154,10 +154,10 @@ bool CMesh::_LoadFrom3ds(string FileName)
 	const int TRI_FACELIST			=0x4120;
 	const int TRI_LOCAL             =0x4160;
 
-	unsigned short  usChunkID;
-	unsigned int    uiChunkPosition;
-	unsigned int    uiChunkTempPosition;
-	unsigned int    uiChunkLength;
+	uint16      usChunkID;
+	uint32      uiChunkPosition;
+	uint32      uiChunkTempPosition;
+	uint        uiChunkLength;
 
 
 	_LoadedSuccsessfull = false;
@@ -218,7 +218,7 @@ bool CMesh::_LoadFrom3ds(string FileName)
 		InputStream.ignore(2);
 	}
 	InputStream.seekg(uiChunkTempPosition);
-
+/*
 	//Reading local coordinate system
 	uiChunkPosition = _FindChunk(InputStream,TRI_LOCAL,true);
 	//if (uiChunkPosition == 0) throw new CChunkNotFoundException(TRI_LOCAL, FileName);
@@ -238,13 +238,14 @@ bool CMesh::_LoadFrom3ds(string FileName)
 		_Vertexes[i].y = Local[3]*x0+Local[5]*x1+Local[4]*x2;
 		_Vertexes[i].z = Local[6]*x0+Local[8]*x1+Local[7]*x2;
 	}
+*/
 	_ComputeNormals();
 	_FileName = FileName.c_str();
 	_LoadedSuccsessfull = true;
 	return true;
 }
 
-unsigned int CMesh::_FindChunk(ifstream& InputStream, unsigned short id, bool isParent = true)
+uint32 CMesh::_FindChunk(ifstream& InputStream, unsigned short id, bool isParent = true)
 {
 	const int EDIT_OBJECT =0x4000;
 	unsigned short usChunkID;

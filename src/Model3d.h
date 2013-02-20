@@ -69,7 +69,7 @@ private:
      * param[in] ID чанка.
      * param[in] Является ли текущий чанк родительским.
      */
-	unsigned int _FindChunk(ifstream&, unsigned short, bool);
+	uint32 _FindChunk(ifstream&, unsigned short, bool);
     
     /*
      * Вычисляет нормали модели.
