@@ -8,6 +8,7 @@ using namespace KSU;
 class CGameModel: public IGame
 {
     IEngine     *_EngineCore;
+	IInput		*_Input;
     IResourceManager *_ResourceManager;
     IRender     *_Render;
     

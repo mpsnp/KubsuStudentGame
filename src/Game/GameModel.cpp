@@ -1,4 +1,6 @@
 #include "GameModel.h"
+#include <cstring>
+#include "stdlib.h"
 
 CGameModel::CGameModel(void *pEngineCore)
 {
@@ -13,6 +15,7 @@ CGameModel::~CGameModel()
 void CGameModel::Init()
 {
     _EngineCore->AddToLog("init");
+    _EngineCore->GetSubSystem(ES_INPUT, (IEngineSubsystem *&)_Input);
     _EngineCore->GetSubSystem(ES_RESOURSE_MANAGER, (IEngineSubsystem *&)_ResourceManager);
     _EngineCore->GetSubSystem(ES_RENDER, (IEngineSubsystem *&)_Render);
     
@@ -33,14 +36,12 @@ void CGameModel::Init()
     pMainPanel->SetPosition({0,0});
     pMainPanel->SetSize({100,100});
     pMainPanel->SetTexture(tempTexture);
-    count = 0;
 }
 
 void CGameModel::Process()
 {
-    count++;
-    if (count == 200)
-        _EngineCore->StopEngine();
+	if (_Input->KeyPressed(KEY_ESCAPE) == H_OK)
+		_EngineCore->StopEngine();
     
     _pCamera->AutomaticProcessingInput();
     
