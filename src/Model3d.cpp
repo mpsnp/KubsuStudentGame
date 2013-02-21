@@ -14,7 +14,7 @@ HRESULT CMesh::Draw(TVector3d Position, float ZAngle)
     //TODO: Проверить правильность работы.
     glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
-    glRotatef(ZAngle, 0, 0, 1);
+    glRotatef(ZAngle * 180 / PI, 0, 0, 1);
 	Draw();
     glPopMatrix();
     return H_OK;

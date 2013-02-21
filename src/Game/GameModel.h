@@ -2,6 +2,7 @@
 #define _GAME_MODEL_H
 
 #include "../KSUEngine.h"
+#include "GameClasses.h"
 
 using namespace KSU;
 
@@ -12,7 +13,8 @@ class CGameModel: public IGame
     IResourceManager *_ResourceManager;
     IRender     *_Render;
     
-    IMesh       *_pMesh;
+    CVehicle    *Vec;
+    CVehicle    *Vec2;
     ICamera     *_pCamera;
     int count;
     

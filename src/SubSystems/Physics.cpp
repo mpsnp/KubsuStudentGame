@@ -13,6 +13,14 @@ CPhysics::CPhysics(IEngine *engine)
     _EngineCore = engine;
 }
 
+void CPhysics::Process()
+{
+    for (int i = 0; i < _objects.size(); i++) {
+        _objects[i]->SetPosition(_objects[i]->GetPosition() + _objects[i]->GetVelocity());
+    }
+    ComputeCollisions();
+}
+
 HRESULT CPhysics::ComputeCollisions()
 {
     for (int i = 0; i < _objects.size(); i++)

@@ -12,6 +12,17 @@ struct TVector2d
 {
 	float x,y;
     
+    TVector2d()
+    {
+        x = y = 0;
+    }
+    
+    TVector2d(float X,float Y)
+	{
+		x = X;
+		y = Y;
+	}
+    
     TVector2d operator +(TVector2d vector)const
 	{
 		TVector2d res;
@@ -28,6 +39,18 @@ struct TVector2d
 struct TVector3d
 {
 	float x,y,z;
+    
+    TVector3d()
+    {
+        x = y = z = 0;
+    }
+    
+    TVector3d(float X,float Y,float Z)
+	{
+		x = X;
+		y = Y;
+		z = Z;
+	}
 
 	void InitVector(float X,float Y,float Z)
 	{

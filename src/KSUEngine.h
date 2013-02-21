@@ -411,8 +411,9 @@ namespace KSU {
     class IShape: public IPhysicsObject
     {
     public:
-        virtual double GetRadius() = 0;
-        virtual TVector3d GetPoint() = 0;
+        virtual double GetRadius() = 0;        
+        virtual HRESULT SetRadius(double Radius) = 0;
+        virtual TVector2d GetPoint() = 0;
 		virtual std::vector<TVector3d>* GetShape() = 0;
 		virtual HRESULT SetShape(std::vector<TVector3d>*) = 0;
 		virtual HRESULT SetShapeType(E_SHAPE_TYPE ShapeType) = 0;

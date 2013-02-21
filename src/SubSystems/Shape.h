@@ -13,14 +13,15 @@
 
 class CShape : public IShape
 {
-    TVector3d _SecondPoint;
+    TVector2d _SecondPoint;
     std::vector<TVector3d> *_Shape;
     E_SHAPE_TYPE _shapeType;
     
 public:
     HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
     double GetRadius();
-    TVector3d GetPoint();
+    HRESULT SetRadius(double Radius);
+    TVector2d GetPoint();
     std::vector<TVector3d> * GetShape();
     HRESULT SetShape(std::vector<TVector3d> *);
     HRESULT SetShapeType(E_SHAPE_TYPE ShapeType);

@@ -23,6 +23,7 @@ public:
     HRESULT RemoveObject(ICollidable *);
     HRESULT ComputeCollisions();
     HRESULT GetType(E_ENGINE_SUBSYSTEM_TYPE &EngineSubSystem);
+    void Process();
 };
 
 

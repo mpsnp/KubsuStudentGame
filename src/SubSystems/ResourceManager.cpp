@@ -22,6 +22,8 @@ CResourceManager::~CResourceManager()
 HRESULT CResourceManager::GenerateResource(const E_RESOURCE_TYPE ResourceType, IResource *&pResource)
 {
     IResource *NewResource;
+    IPhysics *Physics;
+    _EngineCore->GetSubSystem(ES_PHYSICS, (IEngineSubsystem *&)Physics);
     //TODO: дописать.
     switch (ResourceType) {
         case KSU::RT_MESH:
@@ -34,6 +36,7 @@ HRESULT CResourceManager::GenerateResource(const E_RESOURCE_TYPE ResourceType, I
             
         case KSU::RT_COLLIDABLE:
             NewResource = new CCollidable(this->_EngineCore);
+            Physics->AddObject((ICollidable *)NewResource);
             break;
             
         case KSU::RT_SHAPE:

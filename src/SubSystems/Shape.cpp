@@ -17,7 +17,7 @@ HRESULT CShape::GetType(E_RESOURCE_TYPE &Type)
 
 HRESULT CShape::LoadFromFile(char *FileName)
 {
-    FileName = "TODO: Make something";
+    //FileName = "TODO: Make something";
     
     return H_OK;
 }
@@ -25,6 +25,12 @@ HRESULT CShape::LoadFromFile(char *FileName)
 double CShape::GetRadius()
 {
     return sqrt(_SecondPoint.x*_SecondPoint.x + _SecondPoint.y*_SecondPoint.y);
+}
+
+HRESULT CShape::SetRadius(double Radius)
+{
+    _SecondPoint = TVector2d(Radius,0);
+    return H_OK;
 }
 
 std::vector<TVector3d>* CShape::GetShape()
@@ -53,7 +59,7 @@ HRESULT CShape::GetShapeType(E_SHAPE_TYPE &ShapeType)
     return H_OK;
 }
 
-TVector3d CShape::GetPoint()
+TVector2d CShape::GetPoint()
 {
     return _SecondPoint;
 }

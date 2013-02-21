@@ -183,6 +183,7 @@ void CEngine::_Draw()
 
 void CEngine::_Process()
 {
+    _pPhysics->Process();
     _pGameInterface->Process();
 }
 
@@ -193,7 +194,7 @@ void CEngine::_MainLoop()
     _pGameInterface->Init();
     
     if (_ProcessInterval == 0) {
-        SetProcessInterval(30);
+        SetProcessInterval(60);
     }
     
     double dTime = glfwGetTime();

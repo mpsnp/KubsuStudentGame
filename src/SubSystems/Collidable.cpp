@@ -17,7 +17,7 @@ HRESULT CCollidable::GetType(E_RESOURCE_TYPE &Type)
 
 HRESULT CCollidable::LoadFromFile(char *FileName)
 {
-    FileName = "TODO: Make something";
+    //FileName = "TODO: Make something";
     
     return H_OK;
 }
@@ -72,21 +72,10 @@ int CCollidable::GetWeight()
 HRESULT CCollidable::Force(float Force)
 {
 	double t = _pEngineCore->GetProcessInterval();
-	// F = ma;
-	float a = Force / _Weight;
-	// V = V0 + at
-	float v0y = _Velocity.y;
-    float v0x = _Velocity.x;
-	float vx = v0x + a * t;
-    float vy = v0y + a * t;
-	// changing speed
-	_Velocity.x = vx;
-	_Velocity.y = vy;
-	// changing direction
-	float x = _Velocity.x;
-	float y = _Velocity.y;
-	_Velocity.x = x * cos(_Angle - _PrevAngle) - y * sin(_Angle - _PrevAngle);
-	_Velocity.y = y * cos(_Angle - _PrevAngle) + x * sin(_Angle - _PrevAngle);
+    
+    TVector3d a = TVector3d(cos(_Angle), sin(_Angle), 0);
+    
+    _Velocity = _Velocity + a * (Force / _Weight) * t;
     
     return H_OK;
 }
