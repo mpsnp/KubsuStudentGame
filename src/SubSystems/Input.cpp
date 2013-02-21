@@ -1,6 +1,12 @@
 #include "Input.h"
 #include "../glfw.h"
 
+
+CInput::CInput()
+{
+
+}
+
 HRESULT CInput::KeyPressed(const E_KEYBOARD_KEY_CODES KeyKode)const
 {
 	if (KeyKode >= KEY_0 && KeyKode <= KEY_9)
@@ -113,6 +119,7 @@ HRESULT CInput::GetMouseState(TMouseState &MouseState)const
 
 HRESULT CInput::BeginTextInput(char *pBuffer, uint BufferSize)
 {
+
     IsTextInputStarted = true;
     return H_OK;
 }
