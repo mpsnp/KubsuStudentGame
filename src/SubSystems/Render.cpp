@@ -47,14 +47,29 @@ HRESULT CRender::AllowAutomaticSwappingProjectionType(bool Allow)
 HRESULT CRender::SetProjectionType(E_PROJECTION_TYPE ProjectionType)
 {
     glfwGetWindowSize(&_Width, &_Height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
     switch (ProjectionType) {
         case KSU::PT_2D:
-            gluOrtho2D(0, _Width, _Height, 0);
+            {
+                glDisable(GL_LIGHTING);
+                glDisable ( GL_DEPTH_TEST );
+                glMatrixMode(GL_PROJECTION);
+                glPushMatrix();
+                glLoadIdentity();
+                gluOrtho2D(0, _Width, _Height, 0);
+                glMatrixMode(GL_MODELVIEW);
+                glPushMatrix();
+                glLoadIdentity();
+            }
             break;
         case KSU::PT_3D:
-            gluPerspective(45, _Width / _Height, 0.0011, 500);
+            {
+                glPopMatrix();
+                glMatrixMode(GL_PROJECTION);
+                glPopMatrix();
+                glMatrixMode(GL_MODELVIEW);
+                glEnable ( GL_DEPTH_TEST );
+                glEnable(GL_LIGHTING);
+            }
             break;
         default:
             break;

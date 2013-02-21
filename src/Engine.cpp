@@ -170,6 +170,7 @@ void CEngine::_Draw()
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	glLoadIdentity();
     _pGameInterface->Render();
+    _pRender->DrawGUI();
 	glfwSwapBuffers();
 }
 
@@ -193,7 +194,6 @@ void CEngine::_MainLoop()
 	while (_Running)
     {
 		_Draw();
-        _pRender->DrawGUI();
         if ((glfwGetTime() - dTime) > _ProcessInterval)
         {
             _Process();

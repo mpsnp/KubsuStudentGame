@@ -7,12 +7,13 @@
 class CGraphicalUserInterface:public virtual IGraphicalUserInterface
 {
 protected:
-    IRender *_pRender;
-    IRender2d *_pRender2d;
-    TVector2d _Position;
-    TVector2d _Size;
-    TColor _Color;
-    ITexture *_pTexture;
+    IRender     *_pRender;
+    IRender2d   *_pRender2d;
+    ITexture    *_pTexture;
+    IPanel      *_pParantPanel;
+    TVector2d   _Position;
+    TVector2d   _Size;
+    TColor      _Color;
 public:
     CGraphicalUserInterface(IRender *pRender);
     virtual ~CGraphicalUserInterface();
@@ -24,6 +25,7 @@ public:
     HRESULT GetColor(TColor &Color);
     HRESULT SetTexture(ITexture *pTexture);
     
+    void SetParentPanel(IPanel *pPanel);
     virtual void Draw() = 0;
 };
 

@@ -4,6 +4,7 @@ CGraphicalUserInterface::CGraphicalUserInterface(IRender *pRender)
 {
     _pRender = pRender;
     _pRender->GetRender2d(_pRender2d);
+    _pParantPanel = NULL;
 }
 
 CGraphicalUserInterface::~CGraphicalUserInterface()
@@ -52,6 +53,11 @@ HRESULT CGraphicalUserInterface::SetTexture(ITexture *pTexture)
     return H_OK;
 }
 
+void CGraphicalUserInterface::SetParentPanel(IPanel *pPanel)
+{
+    _pParantPanel = pPanel;
+}
+
 CPanel::CPanel(IRender *pRender)
     :CGraphicalUserInterface(pRender)
 {
@@ -65,6 +71,7 @@ CPanel::~CPanel()
 HRESULT CPanel::AddItem(IGraphicalUserInterface *pItem)
 {
     _pChildren.push_back((CGraphicalUserInterface *)(void*)pItem);
+    _pChildren.back()->SetParentPanel(this);
     return H_OK;
 }
 
@@ -86,7 +93,7 @@ void CPanel::Draw()
 {
     _pRender2d->DrawRectangle(_Position, _Position + _Size, _pTexture);
     for (int i = 0; i < _pChildren.size(); i++) {
-        _pChildren.at(i)->Draw();
+        _pChildren[i]->Draw();
     }
 }
 
@@ -155,7 +162,7 @@ void CButton::InvokeAction()
 
 void CButton::Draw()
 {
-    //TODO: Доделать    
+    _pRender2d->DrawRectangle(_Position, _Position + _Size, _pTexture);
 }
 
 //===============CHECK==BOX================
