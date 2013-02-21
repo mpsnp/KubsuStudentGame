@@ -24,6 +24,9 @@
 		5E7C1CA316D28855003CE2D4 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C1CA116D28855003CE2D4 /* Render.cpp */; };
 		5E7C1CA616D28A11003CE2D4 /* GUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C1CA416D28A11003CE2D4 /* GUI.cpp */; };
 		5EF7391116C3E1C000FFD39D /* GameModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EF7390F16C3E1C000FFD39D /* GameModel.cpp */; };
+		5EFBA5E216D66E060027D575 /* Collidable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBA5DC16D66E060027D575 /* Collidable.cpp */; };
+		5EFBA5E316D66E060027D575 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBA5DE16D66E060027D575 /* Physics.cpp */; };
+		5EFBA5E416D66E060027D575 /* Shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EFBA5E016D66E060027D575 /* Shape.cpp */; };
 		5EFCD22316C2D76E004A8813 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCD22116C2D76E004A8813 /* Input.cpp */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +69,12 @@
 		5ED0896A16C137F500DD4A01 /* CommonIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonIncludes.h; sourceTree = "<group>"; };
 		5EF7390F16C3E1C000FFD39D /* GameModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameModel.cpp; path = Game/GameModel.cpp; sourceTree = "<group>"; };
 		5EF7391016C3E1C000FFD39D /* GameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameModel.h; path = Game/GameModel.h; sourceTree = "<group>"; };
+		5EFBA5DC16D66E060027D575 /* Collidable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collidable.cpp; path = SubSystems/Collidable.cpp; sourceTree = "<group>"; };
+		5EFBA5DD16D66E060027D575 /* Collidable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Collidable.h; path = SubSystems/Collidable.h; sourceTree = "<group>"; };
+		5EFBA5DE16D66E060027D575 /* Physics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Physics.cpp; path = SubSystems/Physics.cpp; sourceTree = "<group>"; };
+		5EFBA5DF16D66E060027D575 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Physics.h; path = SubSystems/Physics.h; sourceTree = "<group>"; };
+		5EFBA5E016D66E060027D575 /* Shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shape.cpp; path = SubSystems/Shape.cpp; sourceTree = "<group>"; };
+		5EFBA5E116D66E060027D575 /* Shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shape.h; path = SubSystems/Shape.h; sourceTree = "<group>"; };
 		5EFCD22116C2D76E004A8813 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Input.cpp; path = SubSystems/Input.cpp; sourceTree = "<group>"; };
 		5EFCD22216C2D76E004A8813 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Input.h; path = SubSystems/Input.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +199,12 @@
 		5EFCD22416C2D775004A8813 /* SubSystems */ = {
 			isa = PBXGroup;
 			children = (
+				5EFBA5DC16D66E060027D575 /* Collidable.cpp */,
+				5EFBA5DD16D66E060027D575 /* Collidable.h */,
+				5EFBA5DE16D66E060027D575 /* Physics.cpp */,
+				5EFBA5DF16D66E060027D575 /* Physics.h */,
+				5EFBA5E016D66E060027D575 /* Shape.cpp */,
+				5EFBA5E116D66E060027D575 /* Shape.h */,
 				5E7C1CA116D28855003CE2D4 /* Render.cpp */,
 				5E7C1CA216D28855003CE2D4 /* Render.h */,
 				5E310A5A16D3CA250048CF3D /* Render2d.cpp */,
@@ -280,6 +295,9 @@
 				5E7C1CA316D28855003CE2D4 /* Render.cpp in Sources */,
 				5E7C1CA616D28A11003CE2D4 /* GUI.cpp in Sources */,
 				5E310A5C16D3CA250048CF3D /* Render2d.cpp in Sources */,
+				5EFBA5E216D66E060027D575 /* Collidable.cpp in Sources */,
+				5EFBA5E316D66E060027D575 /* Physics.cpp in Sources */,
+				5EFBA5E416D66E060027D575 /* Shape.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
