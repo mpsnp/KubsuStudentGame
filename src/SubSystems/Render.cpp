@@ -95,8 +95,9 @@ HRESULT CRender::GenerateNewGUIItem(E_GUI_TYPE Type, IGraphicalUserInterface *&I
             return H_FALSE;
             break;
     }
+	//TODO: Найти решение
     _GuiItems.push_back(NewItem);
-    Item = NewItem;
+    Item = (IGraphicalUserInterface *)NewItem;
     return H_OK;
 }
 

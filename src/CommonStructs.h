@@ -11,7 +11,13 @@ const float PI = 3.1415926535;
 struct TVector2d
 {
 	float x,y;
-    
+
+    void InitVector(float X,float Y)
+	{
+		x = X;
+		y = Y;
+	}
+
     TVector2d operator +(TVector2d vector)const
 	{
 		TVector2d res;
@@ -21,6 +27,7 @@ struct TVector2d
 		return res;
 	}
 };
+
 
 /*
  Структура для хранения трехмерного вектора/точки
@@ -118,5 +125,4 @@ struct TColor
 {
 	float r,g,b,a;
 };
-
 #endif //_COMMON_STRUCTS_H
