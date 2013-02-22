@@ -74,6 +74,17 @@ HRESULT CPhysics::ComputeCollisions()
                 TVector3d v2 = _objects[j]->GetVelocity();
                 int		  m2 = _objects[j]->GetWeight();
                 
+                /*if (type_i == ST_CIRCLE)
+                {
+                    distance = _objects[i]->GetPosition() - _objects[j]->GetPosition();
+                    _objects[i]->SetPosition(_objects[i]->GetPosition() + distance - distance * min_distance / distance.Length());
+                }
+                if (type_j == ST_CIRCLE)
+                {
+                    distance = _objects[j]->GetPosition() - _objects[i]->GetPosition();
+                    _objects[j]->SetPosition(_objects[j]->GetPosition() + distance - distance * min_distance / distance.Length());
+                }*/
+                
                 _objects[i]->SetVelocity((v1 * (m1 - m2) + v2 * m2 * 2) * (1./(m1 + m2)));
                 _objects[j]->SetVelocity((v2 * (m2 - m1) + v1 * m1 * 2) * (1./(m1 + m2)));
                 

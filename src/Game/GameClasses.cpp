@@ -13,6 +13,7 @@ CVehicle::CVehicle(IResourceManager *pRManager, IMesh *pMesh)
     pTempShape->SetShapeType(ST_CIRCLE);
     pTempShape->SetRadius(RADIUS);
     _pCollidable->SetShape(pTempShape);
+    _pCollidable->SetMaxVelocity(0.2);
     _pCollidable->SetWeight(WEIGHT);
     _pCollidable->SetVelocity(TVector3d(0, 0, 0));
     _pMesh = pMesh;
@@ -66,12 +67,13 @@ CWall::CWall(IResourceManager *pRManager)
     pTempShape->SetShapeType(ST_LINE);
     pTempShape->SetPoint(TVector3d(10,10,0));
     _pCollidable->SetShape(pTempShape);
-    _pCollidable->SetWeight(100000);
+    _pCollidable->SetWeight(10000000);
     _pCollidable->SetVelocity(TVector3d(0,0,0));
 }
 
 void CWall::Draw()
 {
+    glColor3f(1, 0, 0);
     glBegin(GL_QUADS);
     IShape *shape = _pCollidable->GetShape();
     TVector3d p = shape->GetPoint();

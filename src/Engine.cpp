@@ -148,7 +148,7 @@ void CEngine::_OpenGLInit()
     glLoadIdentity();
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
-    gluPerspective( 65.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 100.0f );
+    gluPerspective( 45.0f, (GLfloat)_Width/(GLfloat)_Height, 1.0f, 1000.0f );
     glMatrixMode( GL_MODELVIEW );
 
 	GLfloat AmbientLight[4] = {0.5, 0.5, 0.5, 1.0};

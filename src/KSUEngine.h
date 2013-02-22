@@ -407,6 +407,7 @@ namespace KSU {
         virtual HRESULT Force(float) = 0;
         virtual HRESULT SetAngle(double) = 0;
         virtual double GetAngle() = 0;
+        virtual HRESULT SetMaxVelocity(float) = 0;
     };
     
     class IShape: public IPhysicsObject

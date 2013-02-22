@@ -48,7 +48,8 @@ TVector3d CCollidable::GetVelocity()
 HRESULT CCollidable::SetVelocity(TVector3d vel)
 {
     _Velocity = vel;
-    
+    if (_Velocity.LengthSquared() > _MaxVelocity * _MaxVelocity)
+        _Velocity = _Velocity * (_MaxVelocity / _Velocity.Length());
     return H_OK;
 }
 
@@ -90,6 +91,13 @@ HRESULT CCollidable::SetWeight(int newWeight)
 HRESULT CCollidable::GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)
 {
     PhysicsObjectType = POT_COLLIDABLE;
+    
+    return H_OK;
+}
+
+HRESULT CCollidable::SetMaxVelocity(float vel)
+{
+    _MaxVelocity = vel;
     
     return H_OK;
 }

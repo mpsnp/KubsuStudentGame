@@ -20,6 +20,7 @@ class CCollidable : public ICollidable
     IEngine *_pEngineCore;
     double _Angle;
     double _PrevAngle;
+    float _MaxVelocity;
     
 public:
     HRESULT GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType);
@@ -37,6 +38,7 @@ public:
     HRESULT SetAngle(double);
     HRESULT GetType(E_RESOURCE_TYPE &Type);
     HRESULT LoadFromFile(char *FileName);
+    HRESULT SetMaxVelocity(float);
 };
 
 #endif /* defined(__TheGame__Collidable__) */

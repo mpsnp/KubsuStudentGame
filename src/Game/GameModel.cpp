@@ -61,9 +61,9 @@ void CGameModel::Process()
     if (_Input->KeyPressed(KEY_D) == H_OK)
         Vec->Rotate(-0.1);
     if (_Input->KeyPressed(KEY_W) == H_OK)
-        Vec->Force(-1);
+        Vec->Force(-5);
     if (_Input->KeyPressed(KEY_S) == H_OK)
-        Vec->Force(1);
+        Vec->Force(5);
     
     _pCamera->SetPosition(Vec->GetPosition() + Vec->GetVelocity() * -4. + TVector3d(cos(Vec->GetAngle()), sin(Vec->GetAngle()), 0) * 3 + TVector3d(0,0,4));
     _pCamera->SetHorizontalAngle(PI + Vec->GetAngle());
@@ -76,6 +76,7 @@ void CGameModel::Render()
 {
     _pCamera->Draw();
     
+    glColor3f(1, 1, 1);
     glBegin(GL_QUADS);
     glVertex3f(10, 10, 0);
     glVertex3f(-10, 10, 0);
