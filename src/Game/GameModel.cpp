@@ -54,13 +54,13 @@ void CGameModel::Process()
 		_EngineCore->StopEngine();
     
     if (_Input->KeyPressed(KEY_A) == H_OK)
-        Vec->Rotate(0.2);
+        Vec->Rotate(0.1);
     if (_Input->KeyPressed(KEY_D) == H_OK)
-        Vec->Rotate(-0.2);
+        Vec->Rotate(-0.1);
     if (_Input->KeyPressed(KEY_W) == H_OK)
-        Vec->Force(1);
-    if (_Input->KeyPressed(KEY_S) == H_OK)
         Vec->Force(-1);
+    if (_Input->KeyPressed(KEY_S) == H_OK)
+        Vec->Force(1);
     
     _pCamera->SetPosition(Vec->GetPosition() + TVector3d(0,4,4));
     _pCamera->AutomaticProcessingInput();
