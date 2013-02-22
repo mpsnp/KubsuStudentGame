@@ -29,7 +29,7 @@ double CShape::GetRadius()
 
 HRESULT CShape::SetRadius(double Radius)
 {
-    _SecondPoint = TVector2d(Radius,0);
+    _SecondPoint = TVector3d(Radius,0,0);
     return H_OK;
 }
 
@@ -59,9 +59,16 @@ HRESULT CShape::GetShapeType(E_SHAPE_TYPE &ShapeType)
     return H_OK;
 }
 
-TVector2d CShape::GetPoint()
+TVector3d CShape::GetPoint()
 {
     return _SecondPoint;
+}
+
+HRESULT CShape::SetPoint(TVector3d point)
+{
+    _SecondPoint = point;
+    
+    return H_OK;
 }
 
 HRESULT CShape::GetPhysicsObjectType(E_PHYSICS_OBJECT_TYPE &PhysicsObjectType)

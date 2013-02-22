@@ -31,6 +31,8 @@ public:
      * Инициализирует начальное положение камеры.
      */
     CCamera();
+    
+    void SetHorizontalAngle(double Angle);
     HRESULT GetType(E_RESOURCE_TYPE &Type);
     HRESULT LoadFromFile(char *FileName);
     

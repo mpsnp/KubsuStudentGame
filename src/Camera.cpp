@@ -17,6 +17,11 @@ CCamera::CCamera()
     SetControlKeys(GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 }
 
+void CCamera::SetHorizontalAngle(double Angle)
+{
+    _AngleHorizontal = Angle;
+}
+
 HRESULT CCamera::LoadFromFile(char *FileName)
 {
     ifstream InputStream;

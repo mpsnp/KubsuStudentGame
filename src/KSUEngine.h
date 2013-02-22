@@ -282,6 +282,7 @@ namespace KSU {
     class ICamera: public IResource
     {
     public:
+        virtual void SetHorizontalAngle(double Angle) = 0;
 		/*
 		 * Устанавливает позицию камеры
 		 * param[in] Позиция камеры
@@ -413,11 +414,12 @@ namespace KSU {
     public:
         virtual double GetRadius() = 0;        
         virtual HRESULT SetRadius(double Radius) = 0;
-        virtual TVector2d GetPoint() = 0;
+        virtual TVector3d GetPoint() = 0;
 		virtual std::vector<TVector3d>* GetShape() = 0;
 		virtual HRESULT SetShape(std::vector<TVector3d>*) = 0;
 		virtual HRESULT SetShapeType(E_SHAPE_TYPE ShapeType) = 0;
 		virtual HRESULT GetShapeType(E_SHAPE_TYPE &ShapeType) = 0;
+        virtual HRESULT SetPoint(TVector3d) = 0;
     };
     
     /*

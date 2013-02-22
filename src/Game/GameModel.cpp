@@ -33,8 +33,11 @@ void CGameModel::Init()
     Vec->SetAngle(0);
     
     Vec2 = new CVehicle(_ResourceManager, pMesh);
-    Vec2->SetPosition(TVector3d(10,0,0));
+    Vec2->SetPosition(TVector3d(7,0,0));
     Vec2->SetAngle(0);
+    
+    Wall = new CWall(_ResourceManager);
+    Wall->SetPoints(TVector3d(10,10,0), TVector3d(10,-10,0));
     
     _ResourceManager->GenerateResource(RT_CAMERA, (IResource *&)_pCamera);
     _pCamera->SetPosition({2,0,0});
@@ -62,7 +65,8 @@ void CGameModel::Process()
     if (_Input->KeyPressed(KEY_S) == H_OK)
         Vec->Force(1);
     
-    _pCamera->SetPosition(Vec->GetPosition() + TVector3d(0,4,4));
+    _pCamera->SetPosition(Vec->GetPosition() + Vec->GetVelocity() * -4. + TVector3d(cos(Vec->GetAngle()), sin(Vec->GetAngle()), 0) * 3 + TVector3d(0,0,4));
+    _pCamera->SetHorizontalAngle(PI + Vec->GetAngle());
     _pCamera->AutomaticProcessingInput();
     
     _EngineCore->AddToLog("process");
@@ -81,6 +85,7 @@ void CGameModel::Render()
     
     Vec->Draw();
     Vec2->Draw();
+    Wall->Draw();
     
     _EngineCore->AddToLog("render");
 }

@@ -15,6 +15,8 @@ class CGameModel: public IGame
     
     CVehicle    *Vec;
     CVehicle    *Vec2;
+    CWall       *Wall;
+    
     ICamera     *_pCamera;
     int count;
     
