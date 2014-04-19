@@ -28,13 +28,13 @@ void CGameModel::Init()
     _pMesh->SetTexture(tempTexture);
     
     _ResourceManager->GenerateResource(RT_CAMERA, (IResource *&)_pCamera);
-    _pCamera->SetPosition({2,0,0});
+    _pCamera->SetPosition(TVector3d(2,0,0));
     
     IPanel *pMainPanel;
     _Render->GetMainUIPanel(pMainPanel);
     
-    pMainPanel->SetPosition({0,0});
-    pMainPanel->SetSize({100,100});
+    pMainPanel->SetPosition(TVector2d(0,0));
+    pMainPanel->SetSize(TVector2d(100,100));
     pMainPanel->SetTexture(tempTexture);
 }
 
@@ -53,10 +53,10 @@ void CGameModel::Render()
     _pCamera->Draw();
     
     _pMesh->Draw();
-    _pMesh->Draw({10,10,0});
-    _pMesh->Draw({-10,10,0});
-    _pMesh->Draw({-10,-10,0});
-    _pMesh->Draw({10,-10,0});
+    _pMesh->Draw(TVector3d(10,10,0));
+    _pMesh->Draw(TVector3d(-10,10,0));
+    _pMesh->Draw(TVector3d(-10,-10,0));
+    _pMesh->Draw(TVector3d(10,-10,0));
     
     _EngineCore->AddToLog("render");
 }
